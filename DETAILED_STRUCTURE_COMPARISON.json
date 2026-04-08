@@ -1,0 +1,50 @@
+{
+  "current": {
+    "file": "d:\\NVCapacity\\207001104 (002).xlsx",
+    "sheetName": "liste-investissement-v15",
+    "headerRow": 7,
+    "headers": [
+      "Code Eq.",
+      "Opérations/Operation",
+      "Code",
+      "Equipement  de référence préconisé\r\nRecommended reference equipment",
+      "Fournisseur/ Technologie de référence\r\nSupplier / Reference Technology",
+      "Type\r\nType",
+      "Méthode de calcul du besoin en équipement  (Quantité)\r\nMethod of calculating the equipment requirement (Quantity)",
+      "Capacité  par jour (j)\r\nCapacity per day (j)",
+      "Durée de vie équipement \r\nLifetime equipment",
+      "Coût estimatif avec frais approche (Euro) \r\nEstimated cost with approach cost (Euro)",
+      "Coût estimatif avec frais approche (brésil Real)\r\nEstimated cost with approach fees (Brazil Real)",
+      "Coût estimatif avec frais approche (Peso Mexicain) \r\nEstimated cost with additional fees (Mexican Peso)",
+      "Dimensions poste de travail\r\nWorkstation Dimensions",
+      "Référence CDC\r\nCDC Reference",
+      "Référence  PR\r\nReference PR"
+    ],
+    "totalColumns": 256,
+    "totalRows": 446
+  },
+  "new": {
+    "file": "d:\\NVCapacity\\FinalStandardEquipment_new.xlsx",
+    "sheetName": "liste-investissement-v15",
+    "headerRow": 1,
+    "headers": [
+      "Code Eq.",
+      "Opérations",
+      "Equipement  de référence préconisé",
+      "Fournisseur/ Technologie de référence",
+      "Type",
+      "Méthode de calcul du besoin en équipement  (Quantité)",
+      "Capacité  par jour (j)",
+      "Durée de vie équipement",
+      "Dimensions poste de travail",
+      "Référence CDC",
+      "Référence  PR",
+      "Coût estimatif avec frais approche (Mexique)",
+      "Coût estimatif avec frais approche (Euro)",
+      "Coût estimatif avec frais approche (Brésil)"
+    ],
+    "totalColumns": 249,
+    "totalRows": 364
+  },
+  "timestamp": "2026-04-02T09:14:49.964Z"
+}

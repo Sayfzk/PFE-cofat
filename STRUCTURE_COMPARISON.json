@@ -1,0 +1,87 @@
+{
+  "current": {
+    "file": "d:\\NVCapacity\\207001104 (002).xlsx",
+    "sheets": [
+      "liste-investissement-v15",
+      "page 15- Méthode",
+      "Page 16 Historique modif"
+    ],
+    "headers": [
+      "Référence",
+      ":  20.70.011.04"
+    ],
+    "rowCount": 312,
+    "sampleData": [
+      {
+        "Référence": "Date émission",
+        ":  20.70.011.04": ":  01.10.2002"
+      },
+      {
+        "Référence": "Date maj",
+        ":  20.70.011.04": ":  22.02.2024/19"
+      },
+      {
+        "Référence": "Page ",
+        ":  20.70.011.04": ":  2 / 17"
+      }
+    ]
+  },
+  "new": {
+    "file": "d:\\NVCapacity\\FinalStandardEquipment_new.xlsx",
+    "sheets": [
+      "liste-investissement-v15",
+      "page 15- Méthode",
+      "Page 16 Historique modif"
+    ],
+    "headers": [
+      "Code Eq.",
+      "Opérations"
+    ],
+    "rowCount": 235,
+    "sampleData": [
+      {
+        "Code Eq.": 1,
+        "Opérations": "COUPE"
+      },
+      {
+        "Code Eq.": "1.1\r\n",
+        "Opérations": "Coupe / sertissage simple   (0,13 -6)mm² (*)",
+        "Equipement  de référence préconisé": "Machine de coupe simple sans applicateur de seal avec  2 presses de sertissage et contrôleur de sertissage +Intégration CAO",
+        "Fournisseur/ Technologie de référence": "- Machine de coupe :Komax Alpha 550  -Presses : C1370\r\n- Contrôleur de sertissage :CFA 326\r\n- Contrôle d'incision des brins ACD\r\n",
+        "Type": "C",
+        "Méthode de calcul du besoin en équipement  (Quantité)": " Besoin en  fils simple / capacité machine",
+        "Capacité  par jour (j)": 41400,
+        "__EMPTY": "Pièces",
+        "Durée de vie équipement ": "10 ans",
+        "Dimensions poste de travail": "2,5 m* 8 m",
+        "Référence CDC": "20.602.05",
+        "Référence  PR": "20.30.030.352",
+        "Coût estimatif avec frais approche (Euro) ": 110000
+      },
+      {
+        "Opérations": "Coupe / sertissage simple   (0,13 -6)mm² (*)",
+        "Equipement  de référence préconisé": "Machine de coupe simple sans applicateur de seal avec  2 presses de sertissage et contrôleur de sertissage +Intégration CAO",
+        "Fournisseur/ Technologie de référence": "- Machine de coupe :Komax Alpha 550  -Presses : C1370\r\n- Contrôleur de sertissage :CFA 326\r\n- Contrôle d'incision des brins ACD\r\n",
+        "Type": "C",
+        "Méthode de calcul du besoin en équipement  (Quantité)": " Besoin en  fils simple / capacité machine",
+        "Capacité  par jour (j)": "37200 Pièces \r\n ( 1 applicateur seal)",
+        "Durée de vie équipement ": "10 ans",
+        "Dimensions poste de travail": "2,5 m* 8 m",
+        "Référence CDC": "20.602.05",
+        "Référence  PR": "20.30.030.352",
+        "Coût estimatif avec frais approche (Euro) ": 110000
+      }
+    ]
+  },
+  "changes": {
+    "removed": [
+      "Référence",
+      ":  20.70.011.04"
+    ],
+    "added": [
+      "Code Eq.",
+      "Opérations"
+    ],
+    "common": []
+  }
+}
