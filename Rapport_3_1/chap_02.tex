@@ -1,0 +1,161 @@
+\chapter{Analyse et spécification des besoins}
+
+\section*{Introduction}
+
+Dans ce chapitre, je présente l'analyse et la spécification des besoins fonctionnels et non fonctionnels de la plateforme "NVCapacity". Je décrirai d'abord les différents acteurs réels qui interagissent avec le système et leurs privilèges. Ensuite, j'introduirai le diagramme de cas d'utilisation global ainsi que le diagramme de classes global. Enfin, je détaillerai la planification agile du projet avec la description de l'équipe Scrum, du planning de réalisation et du backlog général structuré en quatre sprints.
+
+\section{Spécification des besoins} 
+
+Dans cette partie, je présente les objectifs de la plateforme NVCapacity, ce qui m'amène à identifier les acteurs du système et leurs besoins fonctionnels précis.
+
+\subsection{Identification des acteurs}
+
+L'analyse de la base de code et des processus industriels de COFAT permet d'identifier trois acteurs principaux :
+
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Administrateur (Admin)} : C'est le gestionnaire global du système. Il possède un contrôle total sur l'ensemble des modules. Il gère les utilisateurs, crée et configure les filiales (sites), accède aux vues de consolidation de tout le groupe et administre le référentiel des investissements standards.
+    \item \textbf{Utilisateur (Site Manager)} : C'est le responsable d'une usine locale (par exemple, le responsable méthodes ou logistique du site de Mghira, Nogales ou Ponta Grossa). Son rôle est centré sur la saisie et l'importation de ses plannings capacitaires locaux (équipements, surfaces au sol, effectifs RH) et sur l'expression des besoins de budgets non-industriels pour son site.
+    \item \textbf{Achat} : C'est le département d'achats du groupe. Il intervient pour surveiller les écarts de charge machine nécessitant des commandes d'équipements, gère les coûts et caractéristiques techniques du référentiel des standards d'investissements, et assure la valorisation financière ainsi que la validation finale des demandes de budgets non-industriels.
+\end{itemize}
+
+\subsection{Besoins fonctionnels des acteurs}
+
+Les besoins fonctionnels détaillés pour chaque profil d'acteur sont définis comme suit :
+
+\begin{itemize}
+    \item [$-$] \textbf{Administrateur (Admin) :} 
+    \begin{itemize}[label=\textbullet,font=\normalsize]
+        \item S'authentifier de manière sécurisée.
+        \item Créer, modifier et supprimer des comptes utilisateurs et attribuer les rôles associés.
+        \item Ajouter et paramétrer les sites de production du Groupe (code, pays, localisation).
+        \item Consulter l'historique et les logs d'activité du système.
+        \item Visualiser toutes les consolidations de capacités machines, d'espaces et de RH à l'échelle du groupe.
+        \item Mettre à jour le référentiel global des investissements standards.
+    \end{itemize}
+    
+    \item [$-$] \textbf{Utilisateur (Site Manager) :}
+    \begin{itemize}[label=\textbullet,font=\normalsize]
+        \item S'authentifier de manière sécurisée pour accéder à son tableau de bord local.
+        \item Saisir et éditer la planification capacitaire de ses équipements par période (mois en 2025, trimestres en 2026/2027).
+        \item Saisir et éditer la planification spatiale (surfaces au sol occupées en m²) par zone et projet.
+        \item Saisir et éditer la planification des effectifs (Ressources Humaines : Directs, Indirects, Assemblage Direct).
+        \item Importer les plannings en masse à partir de modèles de fichiers Excel standardisés.
+        \item Soumettre des demandes d'achats et de dépenses pour le budget non-industriel de son site.
+        \item Recevoir des alertes et des notifications de suivi sur l'état de ses demandes.
+    \end{itemize}
+    
+    \item [$-$] \textbf{Achat :}
+    \begin{itemize}[label=\textbullet,font=\normalsize]
+        \item S'authentifier et consulter le tableau de bord de consolidation groupe.
+        \item Visualiser les écarts de charge machine (machines à commander) pour planifier les approvisionnements.
+        \item Gérer et modifier les coûts prévisionnels des équipements standards dans les devises configurées (EUR, MXN, BRL).
+        \item Recevoir les demandes budgétaires non-industrielles des différents sites.
+        \item Valoriser financièrement les demandes (saisie des prix unitaires réels, devises) et valider ou rejeter les demandes de budget.
+        \item Exporter les états financiers et budgets consolidés au format Excel ou PDF.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Besoins non fonctionnels}
+
+Les exigences techniques et contraintes de fonctionnement de la plateforme NVCapacity comprennent :
+
+\begin{itemize}[label=\textbullet,font=\normalsize]
+    \item \textbf{Extensibilité} : L'architecture doit permettre d'ajouter de nouveaux types d'analyses de capacité ou d'intégrer d'autres modules industriels (par exemple, la maintenance préventive) sans perturber le code existant.
+    \item \textbf{Performance et Réactivité} : L'agrégation et la consolidation en temps réel de milliers d'enregistrements multi-sites doivent s'exécuter rapidement (en moins de 3 secondes).
+    \item \textbf{Sécurité et Confidentialité} : Les données d'un site doivent être protégées contre toute modification par le manager d'un autre site. Les jetons JWT stockés en HttpOnly garantissent la protection des sessions contre les failles de type XSS.
+    \item \textbf{Ergonomie et Robustesse} : L'application doit posséder des formulaires d'importation Excel robustes, capables de détecter et d'ignorer les lignes vides, et de renvoyer des messages d'erreur clairs en cas de mauvais format.
+    \item \textbf{Portabilité} : L'interface responsive basée sur Tailwind CSS doit s'adapter parfaitement aux écrans des ordinateurs de bureau ainsi qu'aux tablettes d'usine.
+\end{itemize}
+
+\section{Diagramme de cas d’utilisation global}
+
+Le diagramme de cas d'utilisation global, illustré par la figure 2.1, synthétise l'ensemble des interactions entre les acteurs (Administrateur, Site Manager, Achat) et la plateforme NVCapacity. Il met en évidence la séparation claire des tâches d'administration, de saisie locale et de gestion de consolidation/budget.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/utilisationGlobal.png}
+    \caption{Diagramme de Cas d'Utilisation Global}
+    \label{fig:uc_global}
+\end{figure}
+
+\section{Diagramme de Classe}
+
+Le diagramme de classes global, illustré par la figure 2.2, décrit la structure de données persistante de l'application. On y observe la centralisation autour de l'entité \textbf{Site}, qui structure géographiquement les données de planification (\textbf{EquipmentPlanning}, \textbf{Spaces}, \textbf{HR}) et les demandes de budget (\textbf{NonIndustrialBudget}). L'entité \textbf{User} gère la sécurité et les profils d'accès, tandis que le catalogue \textbf{StandardInvestment} permet le calcul automatique des coûts de nouvelles machines.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/ClassGlobal.png}
+    \caption{Diagramme de Classe Global}
+    \label{fig:class_global}
+\end{figure}
+
+\section{Planification Scrum}    
+
+Le développement de la plateforme NVCapacity s'appuie sur la méthodologie agile Scrum pour garantir flexibilité et adéquation aux besoins du métier. L'équipe Scrum est composée comme suit :
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Product Owner} : M. Mohamed Said BOUCHOUICHA.
+    \item \textbf{Scrum Master} : M. Mohamed ALOUANI.
+    \item \textbf{Équipe de développement} : Sayf Eddine ZAKRAOUI (Moi-même).
+\end{itemize}
+
+\subsection{Découpage en Sprints}
+
+Le projet s'organise en quatre sprints itératifs majeurs d'une durée moyenne de 1,5 mois chacun, s'étalant du 1er mars au 1er septembre 2026. La planification générale de ces sprints est illustrée par la figure 2.3.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/sprint.png}
+    \caption{Chronogramme de planification des Sprints}
+    \label{fig:planning_sprints}
+\end{figure}
+
+\section{Backlog Général du Produit}
+
+Le tableau 2.1 présente le backlog général de la plateforme NVCapacity, détaillant les \textit{User Stories} (US) réelles affectées à chaque sprint fonctionnel ainsi que leur niveau de priorité.
+
+\begin{longtable}{|m{1cm}|m{2.5cm}|m{1cm}|m{8.5cm}|m{2cm}|}
+    \hline 
+    \textbf{Id} & \textbf{Sprint} & \textbf{Id US} & \textbf{User Stories} & \textbf{Priorité}\\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    \endlastfoot
+    \hline
+    \multirow{3}{*}{1} & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}Sprint 1 : \\ Authentification \\ \& Sites\end{tabular}} & 1.1 & En tant qu'utilisateur, je veux m'authentifier de façon sécurisée (JWT) pour accéder à l'application. & Élevée \\
+    \cline{3-5}
+     & & 1.2 & En tant qu'administrateur, je veux gérer les profils et les permissions des utilisateurs du système. & Moyenne \\
+    \cline{3-5}
+     & & 1.3 & En tant qu'administrateur, je veux configurer et lister les filiales de production (sites) mondiales. & Moyenne \\
+    \hline
+    \multirow{3}{*}{2} & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}Sprint 2 : \\ Planification \\ Locale\end{tabular}} & 2.1 & En tant que Site Manager, je veux importer (via Excel) et planifier la capacité des équipements locaux. & Élevée \\
+    \cline{3-5}
+     & & 2.2 & En tant que Site Manager, je veux saisir et ajuster l'affectation des surfaces au sol (espaces) de mon site. & Élevée \\
+    \cline{3-5}
+     & & 2.3 & En tant que Site Manager, je veux planifier et importer la répartition des effectifs RH locaux. & Élevée \\
+    \hline
+    \multirow{4}{*}{3} & \multirow{4}{*}{\begin{tabular}[c]{@{}c@{}}Sprint 3 : \\ Consolidation \\ Groupe\end{tabular}} & 3.1 & En tant qu'administrateur ou acheteur, je veux voir la consolidation globale en temps réel des charges machines. & Élevée \\
+    \cline{3-5}
+     & & 3.2 & En tant qu'administrateur ou acheteur, je veux voir la consolidation groupe des surfaces au sol et des effectifs RH. & Élevée \\
+    \cline{3-5}
+     & & 3.3 & En tant qu'acheteur, je veux gérer le catalogue des standards d'investissements V2 (coûts en EUR, MXN, BRL). & Élevée \\
+    \cline{3-5}
+     & & 3.4 & En tant qu'acheteur, je veux calculer automatiquement les budgets nécessaires pour combler les manques machines. & Élevée \\
+    \hline
+    \multirow{4}{*}{4} & \multirow{4}{*}{\begin{tabular}[c]{@{}c@{}}Sprint 4 : \\ Budget Non- \\ Industriel\end{tabular}} & 4.1 & En tant que Site Manager, je veux saisir et suivre les demandes budgétaires non-industrielles de mon site. & Élevée \\
+    \cline{3-5}
+     & & 4.2 & En tant qu'acheteur, je veux valoriser financièrement les demandes de budget et les valider/rejeter. & Élevée \\
+    \cline{3-5}
+     & & 4.3 & En tant qu'utilisateur, je veux recevoir des notifications internes en temps réel lors du suivi de mes budgets. & Moyenne \\
+    \cline{3-5}
+     & & 4.4 & En tant qu'acheteur ou demandeur, je veux exporter le tableau des budgets en formats Excel et PDF. & Élevée \\
+    \hline
+    \captionsetup{justification=centering,margin=1.5cm}
+    \caption{Backlog Général du Produit NVCapacity}
+\end{longtable}
+
+\section{Conclusion}
+
+Dans ce chapitre, j'ai spécifié les besoins fonctionnels et non fonctionnels de l'application Web NVCapacity, identifié les acteurs et introduit les diagrammes de cas d'utilisation global et de classes global. J'ai également présenté la planification de projet en quatre sprints et le backlog général associé. 
+
+Dans le chapitre suivant, j'aborderai la conception architecturale de la solution et la réalisation du premier sprint (Sprint 1 : Authentification et Référentiel des Sites).

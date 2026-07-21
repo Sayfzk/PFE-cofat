@@ -22,3 +22,5 @@ web.config
 build/
 dist/
 /Uploads/
+*.zip
+*.rar

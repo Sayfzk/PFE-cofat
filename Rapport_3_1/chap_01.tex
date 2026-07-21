@@ -1,0 +1,151 @@
+\chapter{Cadre général du projet}
+
+\section*{Introduction}
+
+Le premier chapitre présente le cadre général et l'étude préliminaire du projet. Je commencerai par présenter l'organisme d'accueil, le groupe industriel COFAT, en mettant en évidence ses activités de fabrication de faisceaux de câbles pour l'industrie automobile et son organisation multi-sites. Ensuite, j'examinerai l'étude de l'existant, en décrivant les limites des méthodes manuelles actuelles de suivi de capacité par fichiers Excel dispersés. J'exposerai la problématique de cette dispersion géographique et de la consolidation des capacités, ainsi que la solution logicielle "NVCapacity" proposée. Enfin, je décrirai la méthodologie de travail Scrum, la constitution de l'équipe et le calendrier prévisionnel découpé en quatre sprints.
+
+\section{Présentation de l’organisme d’accueil}
+
+Dans cette section, je présente l'historique de COFAT, ses activités principales dans le secteur automobile, ainsi que son envergure intercontinentale.
+
+\subsection{Présentation de COFAT}
+
+COFAT est une entreprise industrielle tunisienne de premier plan, filiale du Groupe Elloumi. Fondée en 1983, elle s'est imposée comme un partenaire stratégique mondial dans la conception et la production de systèmes de distribution électrique et électronique (faisceaux de câbles) pour diverses industries, en particulier les constructeurs automobiles de renom (tels que PSA, Renault, Volkswagen, Scania, Daimler, etc.).
+
+Pour répondre à la demande mondiale et optimiser ses coûts de fabrication, COFAT a développé un réseau de production multi-sites réparti sur trois continents :
+\begin{itemize}
+    \item \textbf{Tunisie} : Avec plusieurs usines situées dans les zones industrielles de la Mghira (Ben Arous) et de Bouargoub (Nabeul), qui constituent le pôle historique et technique.
+    \item \textbf{Mexique} : Le site de Nogales, orienté vers la fourniture des constructeurs du marché nord-américain.
+    \item \textbf{Brésil} : Le site de Ponta Grossa, desservant le marché d'Amérique du Sud.
+\end{itemize}
+
+Le tableau 1.1 présente la fiche technique résumant les informations clés de COFAT.
+
+\begin{longtable}{|m{4cm}|m{8cm}|}
+    \hline 
+    \textbf{Raison sociale} & \textbf{COFAT (Groupe Elloumi)}\\
+    \hline
+    Date de création & 1983 \\
+    \hline
+    Forme juridique & Société Anonyme (SA) \\
+    \hline
+    Siège social & Zone Industrielle Mghira, Ben Arous, Tunisie \\
+    \hline
+    Tél & +216 71 940 300 \\
+    \hline
+    Fax & +216 71 940 001 \\
+    \hline
+    Site web & www.cofat.com \\
+    \hline
+    Secteur d'activité & Câblage et systèmes électriques automobiles \\
+    \hline
+    Effectif mondial & Plus de 5000 collaborateurs \\
+    \hline
+    Principaux clients & Stellantis, Volkswagen, Renault, Scania, Volvo \\
+    \hline
+    Certifications & IATF 16949, ISO 9001, ISO 14001, ISO 45001 \\
+    \hline
+    \captionsetup{justification=centering,margin=2cm}
+    \caption{Fiche technique de l'entreprise COFAT}
+\end{longtable}
+
+\subsection{Activités de fabrication et produits}
+
+COFAT conçoit et produit des systèmes complexes de faisceaux de câbles pour divers segments :
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Faisceaux habitacles et planches de bord} : Assurant le câblage principal reliant les consoles de commande, les systèmes multimédia et les capteurs internes.
+    \item \textbf{Faisceaux moteur} : Câbles soumis à de fortes contraintes thermiques et chimiques, connectés au moteur, aux alternateurs et aux calculateurs.
+    \item \textbf{Câbles de puissance et haute tension} : Destinés aux nouveaux modèles de véhicules électriques et hybrides.
+\end{itemize}
+
+\section{Étude de l’existant}
+
+La gestion et le suivi des capacités de production (capacités machines, espaces industriels et ressources humaines nécessaires) représentent des enjeux logistiques critiques. Actuellement, chaque site gère ses données de planification de manière autonome en s'appuyant sur des fichiers Excel locaux très volumineux, complétés par des communications par e-mail ou sur des serveurs partagés pour tenter de consolider les données.
+
+Ces fichiers Excel suivent trois volets de planification capacitaire sur trois années (2025, 2026, 2027) :
+\begin{enumerate}
+    \item \textbf{Équipements} : Comparaison entre la charge machine requise par les programmes clients (machineNeed) et les machines physiquement disponibles dans l'usine (availableMachine) pour calculer un taux de charge (load) et dégager les besoins d'investissements machines (toOrder).
+    \item \textbf{Espaces} : Calcul des surfaces au sol occupées (m²) par zone de production (coupe, préparation, projets d'assemblage comme SCANIA, VW) par rapport à la superficie totale disponible dans l'usine.
+    \item \textbf{Ressources Humaines} : Planification prévisionnelle des effectifs nécessaires en production par shift et par département (Directs, Indirects, Assemblage Direct).
+\end{enumerate}
+
+\subsection{Limites et vulnérabilités de l'existant}
+
+Cette gestion basée sur Excel présente de nombreuses limitations opérationnelles :
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Risque majeur d'erreurs de saisie} : La manipulation de feuilles de calcul contenant des milliers de lignes et des formules de calcul manuel complexes engendre fréquemment des incohérences.
+    \item \textbf{Perte de traçabilité} : Il est impossible de suivre l'historique des modifications, ce qui pose problème lorsqu'une modification incorrecte fausse les prévisions d'achat de machines.
+    \item \textbf{Temps de consolidation excessif} : Pour obtenir une vision globale au niveau groupe, les ingénieurs méthodes doivent collecter manuellement les fichiers de chaque filiale (Tunisie, Mexique, Brésil), aligner manuellement les formats et agréger les chiffres dans une feuille globale. Ce processus prend plusieurs jours et retarde les prises de décision d'investissement.
+    \item \textbf{Manque de sécurité et de rôles} : Les fichiers n'offrent aucune restriction fine d'accès. N'importe quel utilisateur peut écraser accidentellement des formules critiques.
+\end{itemize}
+
+La figure 1.1 montre une capture d'écran d'un fichier Excel type utilisé par les équipes locales pour le suivi de planification, illustrant la densité d'information et le risque inhérent d'erreur de formules.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/affectation.PNG}
+    \caption{Exemple de fichier Excel utilisé pour la saisie capacitaire locale}
+    \label{fig:excel_existant}
+\end{figure}
+
+\section{Problématique et solution proposée}
+
+\subsection{Problématique}
+
+Le problème central réside dans **l'absence d'un outil unique et consolidé** pour centraliser et valider les études de capacités industrielles globales du Groupe COFAT. 
+
+Face à l'augmentation des programmes constructeurs, le management du groupe doit répondre à des questions stratégiques complexes : \textit{Avons-nous assez de machines de coupe en Tunisie pour absorber le nouveau projet VW ? Le site de Nogales au Mexique a-t-il la surface au sol nécessaire pour accueillir les planches d'assemblage en 2026 ? Quel est le besoin d'investissement matériel global à valider avec les départements d'Achat ?}
+
+Avec l'organisation actuelle, l'absence de consolidation automatique instantanée et la rupture de communication numérique entre les départements de planification (méthodes) et d'achats (valorisation des investissements) nuisent gravement à l'agilité industrielle du groupe.
+
+\subsection{Solution proposée : La plateforme NVCapacity}
+
+Pour pallier ces faiblesses, j'ai conçu et développé **NVCapacity**, un système d'information Web centralisé et sécurisé de planification et de consolidation des capacités. 
+
+L'architecture fonctionnelle repose sur :
+\begin{enumerate}
+    \item \textbf{Un portail multi-utilisateurs} avec des droits d'accès stricts basés sur les rôles (Admin, Site Manager local, Achat).
+    \item \textbf{Un module de saisie et d'importation Excel standardisé} : Les Site Managers importent leurs planifications d'équipements, d'espaces et de RH. L'application valide immédiatement la structure des données et stocke les planifications temporelles (saisie mensuelle pour 2025, trimestrielle pour 2026 et 2027) dans une base SQL Server.
+    \item \textbf{Un moteur de consolidation en temps réel} : Les administrateurs et acheteurs disposent de tableaux de bord globaux agrégeant instantanément les données de toutes les usines mondiales.
+    \item \textbf{Un référentiel des investissements standards (V2)} : Centralisation des coûts théoriques de machines dans différentes devises pour calculer instantanément les budgets d'acquisition prévisionnels.
+    \item \textbf{Un workflow de budget non-industriel collaboratif} : Permettant aux chefs de départements locaux de soumettre leurs demandes d'équipements annexes et au rôle Achat de les valoriser financièrement, le tout rythmé par des notifications automatiques de suivi.
+\end{enumerate}
+
+\section{Méthodologie de gestion de projet : Scrum}
+
+Afin d'assurer une livraison progressive, de réagir rapidement aux changements et de collaborer étroitement avec les parties prenantes de COFAT, j'ai adopté la méthodologie agile **Scrum**.
+
+\subsection{L'équipe Scrum}
+
+L'équipe projet mise en place chez COFAT pour ce développement se compose de :
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Product Owner} : Monsieur Mohamed Said BOUCHOUICHA, responsable des exigences fonctionnelles et de la validation des incréments produits.
+    \item \textbf{Scrum Master} : Monsieur Mohamed ALOUANI, facilitateur garant de la bonne application du cadre Scrum.
+    \item \textbf{Équipe de développement} : Moi-même (Sayf Eddine ZAKRAOUI), en charge de toute la phase d'analyse, d'architecture, d'implémentation frontend/backend et de déploiement.
+\end{itemize}
+
+\subsection{Planification des Sprints}
+
+La période de développement s'étale sur 6 mois (du 1er mars au 1er septembre 2026). J'ai planifié ce projet en quatre sprints de durée équivalente (~1,5 mois par sprint) pour livrer régulièrement des fonctionnalités testées :
+
+\begin{enumerate}
+    \item \textbf{Sprint 1 : Authentification et Référentiel des Sites (1 Mars - 10 Avril 2026)} : Création du socle technique (Express, Sequelize, React), mise en place de la sécurité JWT par cookie et gestion des sites mondiaux.
+    \item \textbf{Sprint 2 : Planification Capacitaire Locale (11 Avril - 30 Mai 2026)} : Développement des interfaces de saisie locales (`SiteTable`, `SpaceTable`, `HrTable`) et des moteurs d'importation/parsing de fichiers Excel.
+    \item \textbf{Sprint 3 : Consolidation Groupe et Standards (01 Juin - 15 Juillet 2026)} : Algorithme d'agrégation multi-sites temps réel (`CofatGroup`) et gestion unifiée du catalogue d'investissements machines.
+    \item \textbf{Sprint 4 : Budget Non-Industriel et Notifications (16 Juillet - 31 Août 2026)} : Implémentation du module de demandes budgétaires, workflow d'approbation et système de notifications.
+\end{enumerate}
+
+La figure 1.2 représente le cycle de vie de la méthodologie Scrum appliqué à notre projet.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{img/Scrum-process.png}
+    \caption{Processus de développement agile appliqué au projet}
+    \label{fig:scrum_process}
+\end{figure}
+
+\section{Conclusion}
+
+Dans ce premier chapitre, j'ai présenté le cadre général du projet en introduisant l'entreprise COFAT, son envergure multi-sites et son domaine d'activité. L'étude de l'existant a mis en évidence le besoin de migrer d'une gestion dispersée sur Excel vers un système Web consolidé. La solution "NVCapacity" répond à cette problématique. Enfin, la méthodologie Scrum découpée en quatre sprints garantit un développement rigoureux.
+
+Le chapitre suivant sera consacré à la spécification des besoins et à la modélisation UML globale du système.

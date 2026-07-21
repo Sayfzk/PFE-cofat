@@ -1,0 +1,586 @@
+﻿\chapter{Release 3: Gestion de réception des Commandes }
+
+
+% Une section
+
+% Exemple d'une section qui porte une référence à une bibliographie
+% NB: il faut bien suivre le syntaxe pour ne pas tomber dans le cas où il y a une référence dans la table des matières.
+
+\section*{Introduction}
+
+Le présent chapitre se concentre sur l'analyse et la réalisation du dernier sprint. Nous commencerons par mettre en évidence les besoins à satisfaire, puis présenterons ces besoins à travers un backlog. Ensuite, nous étudierons la conception du système et, enfin, nous clôturerons ce chapitre en incluant des captures d'écran de la réalisation.
+\section{Sprint 4}
+\subsection{Objectifs du sprint }
+
+Les objectifs de ce sprint sont les suivants : la gestion des commandes, suivi de la gestion des fournisseurs et également la gestion de tous les employés. Nous allons nous concentrer sur ces fonctionnalités pendant ce sprint.
+
+\subsection{Processus métier de réception des commandes}
+
+La gestion des commandes complète la gestion du parc informatique, car elle permet de suivre l'origine des équipements et de relier les matériels reçus aux fournisseurs. Dans le processus existant, ces informations étaient souvent dispersées entre bons d'achat, documents de réception et fichiers Excel. Le module développé vise donc à centraliser ces données et à faciliter leur consultation.
+
+Le processus cible se déroule en plusieurs étapes :
+
+\begin{itemize}[label=\textbullet,font=\normalsize]
+    \item création ou sélection du fournisseur concerné ;
+    \item saisie du bon d'achat avec les informations principales de commande ;
+    \item réception du matériel et mise à jour de l'état de la commande ;
+    \item association des équipements reçus au stock informatique ;
+    \item conservation de l'historique pour les besoins d'audit, de garantie et de suivi financier.
+\end{itemize}
+
+Ce processus permet d'établir un lien entre la décision d'achat, le fournisseur, la réception et l'équipement effectivement disponible dans le parc.
+
+\subsection{Données de référence du sprint}
+
+Le sprint 4 manipule trois familles de données : fournisseurs, bons d'achat et employés. Ces données servent de référentiel aux autres modules et doivent donc être fiables.
+
+\begin{longtable}{|m{3.5cm}|m{5.5cm}|m{5cm}|}
+\hline
+\textbf{Entité} & \textbf{Données principales} & \textbf{Utilisation dans l'application} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+\hline
+Fournisseur & Nom, adresse, téléphone, e-mail, contact & Identifier l'origine des équipements, faciliter les échanges et retrouver les garanties \\
+\hline
+Bon d'achat & Référence, fournisseur, date, montant, statut & Suivre les commandes et les réceptions de matériel \\
+\hline
+Employé & Matricule, nom, prénom, département, e-mail & Affecter les équipements et identifier les bénéficiaires \\
+\hline
+Historique & Date, utilisateur, action, entité concernée & Assurer la traçabilité des opérations liées aux achats et aux employés \\
+\hline
+\captionsetup{justification=centering,margin=1cm}
+\caption{Données de référence du sprint 4}
+\end{longtable}
+    
+\subsection{Sprint Backlog}
+    
+Le tableau 5.1 illustre le Backlog du sprint 4
+
+        \begin{longtable}{|m{9cm}|m{4cm}|}
+                
+                \hline 
+                    \textbf{Tâches} & \textbf{Périorité}\\
+                \hline
+                \endhead
+                 \endfoot
+                  \endlastfoot
+                \hline  
+                    Génération de la table Ordre au sein de base de données 
+                    & Moyenne\\
+            
+                \hline
+                    Création des interfaces : nouvelle demande d’Ordre, Liste des Ordres, Détails Ordres, Modifier Ordres, Supprimer Ordres
+                    & Elevée\\
+            
+                \hline
+                    Génération de la table Fournisseur au sein de base de données
+                    & Moyenne\\
+                    
+                    
+                \hline
+                    Création d’une interface pour ajouter nouveau fournisseur, Modifier données d’un fournisseur, Détails d’un fournisseur, Supprimer d’un fournisseur, 
+                    & Elevée\\
+                
+                \hline  
+                    Génération de la table employés au sein de base de données 
+                    & Moyenne\\
+            
+                \hline
+                    Création d’une interface pour la mise à jour de la liste des employés, Modifier les données des employés 
+                    & Elevée\\
+                    
+                \hline
+                    La création des implémentations, contrôleurs, Model et services
+                    & Elevée\\
+
+                \hline
+                    Tester le module
+                    & Moyenne\\
+
+                \hline
+                    Validation
+                    & Moyenne\\
+                    
+
+                \hline
+            
+                 
+              \captionsetup{justification=centering,margin=2cm}
+              \caption{Backlog du Sprint 4}
+
+            \end{longtable}
+    
+            
+    
+    \subsection{Spécification et analyse du sprint }
+    
+Dans cette partie, nous présenterons les diagrammes de cas d'utilisation pour la gestion des bons d'achat, la gestion des fournisseurs et la gestion des employés. Ces diagrammes permettront de visualiser les interactions entre les acteurs et les fonctionnalités associées à chaque module.
+       
+ \begin{itemize}
+
+  
+    \item \textbf{Diagramme de cas d’utilisation de gestion des Bons d'Achat (Ordres) }
+Dans le cas d'utilisation "Gestion de bons d'achat", l'utilisateur peut effectuer les actions suivantes :
+
+        \begin{itemize}
+            \item Ajouter un nouveau Bon d'Achat
+
+            \item Modifier un Bon d'Achat
+
+            \item Afficher les Détails d’un Bon d'Achat
+
+            \item Supprimer un Bon d'Achat
+        \end{itemize} 
+
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\columnwidth]{GestionBA.png}
+        \caption{Diagramme de cas d’utilisation de gestion des Ordres}
+        
+        \end{figure}
+       
+ \item \textbf{Diagramme de cas d’utilisation de gestion des Fournisseurs}
+ 
+Nous indiquons le cas d'utilisation "Gestion des fournisseurs". L'utilisateur peut effectuer les actions suivantes :
+        
+        
+        \begin{itemize}
+            \item Ajouter un nouveau Fournisseur
+
+            \item Modifier un Fournisseur
+
+            \item Afficher les Détails d’un Fournisseur
+
+            \item Supprimer un Fournisseur
+        \end{itemize}       
+        
+        \begin{figure}[H]
+        \centering
+        \frame{\includegraphics[width=0.9\columnwidth]{GestionFournisseur.png}}
+        \caption{Diagramme de cas d'utilisation de gestion des Fournisseurs}
+        
+        \end{figure}   
+        
+     \item \textbf{Diagramme de cas d’utilisation gérer la liste des employés}
+    
+ 
+Nous illustrons le cas d'utilisation "Gérer la liste des employés". Après s'être connecté avec un profil d'administrateur ou de membre du groupe IT, l'utilisateur peut effectuer les actions suivantes :
+
+        \begin{itemize}
+            \item Mettre à jour de la liste des employés (Actualiser la liste)
+
+            \item Modifier les données d’un employé
+
+            \item Afficher les détails d’un employé
+
+        \end{itemize}
+
+        \begin{figure}[H]
+        \centering
+        \frame{\includegraphics[width=0.9\columnwidth]{GererEmpl.png}}
+        \caption{Diagramme de cas d’utilisation de gérer la liste des employés}
+        
+        \end{figure}  
+     \end{itemize} 
+    \subsubsection{Diagramme de classes}
+            
+            Dans cette partie on va présenter le modèle statique à travers un diagramme de classe. Les classes qui concernent ce sprint sont Fournisseurs, ContrôleurFournisseurs, Commande, ContrôleurCommande,
+            
+            
+        
+            \begin{figure}[H]
+            \centering
+            \frame{\includegraphics[width=0.9\columnwidth]{DiagClasseSprint4.png}}
+            \caption{Diagramme de class Sprint 4}
+            \end{figure} 
+
+    \subsection{Diagramme de Séquences}
+            
+            Ce diagramme de séquence représentera les vues dynamiques du scenario selon un point de vue temporel en mettant l’accent sur la chronologie des envois de messages.
+
+            \textbf{Diagramme de séquence d’Ajout Bon d'achat:} 
+            
+            La figure 5.5 présente le diagramme de séquence de l'ajout des Bons d'achat
+                       
+            
+        
+            \begin{figure}[H]
+            \centering
+            \frame{\includegraphics[width=0.9\columnwidth]{AjoutOrdre.png}}
+            \caption{diagramme de séquence Ajout Bon d'achat}
+            \end{figure} 
+
+            \textbf{Diagramme de séquence d’ajout Fournisseur:} 
+La figure 5.6  illustre le diagramme de séquence de l'ajout Fournisseur
+                       
+            
+        
+            \begin{figure}[H]
+            \centering
+            \frame{\includegraphics[width=0.9\columnwidth]{AjoutFournisseur.png}}
+            \caption{diagramme de séquence d'ajout Fournisseur}
+            \end{figure} 
+    
+\subsection{Réalisation}
+    
+Afin de montrer les résultats de ce sprint, nous allons présenter quelques captures d’écran sur les interfaces réalisées.
+        
+\begin{itemize}
+    \item \textbf{Gestion des Fournisseurs }
+    
+Les figures 5.7, 5.8, 5.9, 5.10 et 5.11 illustrent respectivement le formulaire de création, de modification, de consultation, de détails et de suppression d'un fournisseur.
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture30.png}}
+                \caption{Ajouter un nouveau fournisseur}
+            \end{figure}
+
+        
+
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture31.png}}
+                \caption{Modifier les données d’un fournisseur}
+            \end{figure}
+
+
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture32.png}}
+                \caption{Consulter la Liste des Fournisseurs}
+            \end{figure}
+
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture33.png}}
+                \caption{Détails d’un fournisseur}
+            \end{figure}
+
+
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture34.png}}
+                \caption{Supprimer un fournisseur}
+            \end{figure}
+
+      \item \textbf{Gestion des Bon D’achat (Ordre) des matériels:}
+
+L’utilisateur peut ajouter, modifier, consulter, afficher les détails et supprimer des bon d’achats des matériels comme indiquer dans les figures 5.12, 5.13, 5.14, 5.15 et 5.16.
+
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture35.png}}
+                \caption{Ajouter un Bon D’achat (Ordre)}
+            \end{figure}
+
+
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture36.png}}
+                \caption{Modification des données D’un Bon D’achats (Ordre)}
+            \end{figure}
+
+      
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture37.png}}
+                \caption{Liste des Bon D’achats}
+            \end{figure}
+
+       
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture38.png}}
+                \caption{Détails d’un Bon D’achat (Ordre)}
+            \end{figure}
+
+        
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture39.png}}
+                \caption{Supprission d'un Bon D’achat}
+            \end{figure}
+
+    \item \textbf{Gestion des Employés}
+
+L'utilisateur peut consulter, afficher les détails et modifier les données d'un employé. Les figures 5.17, 5.18 et 5.19 présentent les interfaces graphiques correspondantes à cette tâche.
+
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture40.png}}
+                \caption{la liste des employés}
+            \end{figure}
+        
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture41.png}}
+                \caption{Détails d'un employé}
+            \end{figure}
+
+       
+            \begin{figure}[H]
+                \centering
+                \frame{\includegraphics[width=0.9\columnwidth]{Capture42.png}}
+                \caption{Modifier les données d'un employé}
+            \end{figure}
+    \end{itemize}
+
+\subsection{Contrôles de cohérence des données}
+
+Les modules fournisseurs, commandes et employés nécessitent des contrôles de cohérence pour éviter les erreurs de saisie. Ces contrôles améliorent la qualité des données et limitent les corrections manuelles après validation.
+
+\begin{longtable}{|m{4cm}|m{5cm}|m{5cm}|}
+\hline
+\textbf{Module} & \textbf{Contrôle appliqué} & \textbf{Objectif} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+\hline
+Fournisseurs & Champs obligatoires et format de l'adresse e-mail & Garantir que le fournisseur peut être contacté rapidement \\
+\hline
+Bons d'achat & Association obligatoire à un fournisseur existant & Éviter les commandes sans origine clairement identifiée \\
+\hline
+Bons d'achat & Contrôle du statut et des dates & Distinguer les commandes créées, reçues ou annulées \\
+\hline
+Employés & Identification par matricule ou information unique & Éviter les doublons dans les affectations \\
+\hline
+Historique & Enregistrement automatique de l'utilisateur et de la date & Conserver une trace fiable des opérations \\
+\hline
+\captionsetup{justification=centering,margin=1cm}
+\caption{Contrôles de cohérence du sprint 4}
+\end{longtable}
+
+\subsection{Apport fonctionnel de la release 3}
+
+La release 3 apporte une continuité entre la gestion opérationnelle du parc et le processus d'approvisionnement. Grâce à la gestion des fournisseurs et des bons d'achat, l'équipe IT peut remonter depuis un équipement jusqu'à son fournisseur et sa commande d'origine. Cette information devient utile pour les demandes de garantie, les renouvellements, les comparaisons de fournisseurs et la préparation du budget informatique.
+
+La gestion des employés permet quant à elle de fiabiliser les affectations. Un équipement n'est plus uniquement lié à un nom saisi manuellement, mais à une donnée employé structurée, consultable et modifiable. Cette approche réduit les incohérences et prépare une intégration future avec le référentiel RH.
+
+\section{Tests et Validation}
+
+La phase de tests et de validation est une étape cruciale dans le cycle de développement logiciel. Elle permet de vérifier que l'application répond aux exigences fonctionnelles et non fonctionnelles définies dans le cahier des charges, et de détecter les éventuels dysfonctionnements avant la mise en production.
+
+\subsection{Stratégie de tests}
+
+Pour garantir la qualité de notre application, nous avons mis en place une stratégie de tests à plusieurs niveaux :
+
+\begin{itemize}[label=\textbullet,font=\normalsize]
+    \item \textbf{Tests unitaires :} Ces tests vérifient le bon fonctionnement individuel de chaque composant (contrôleurs, services, modèles). Ils permettent de s'assurer que chaque unité de code produit les résultats attendus pour des entrées données. Les tests unitaires ont été réalisés tout au long du développement, à la fin de chaque sprint.
+    
+    \item \textbf{Tests d'intégration :} Ces tests vérifient que les différents modules de l'application fonctionnent correctement ensemble. Ils couvrent notamment l'interaction entre les contrôleurs et la base de données via Entity Framework Core, la communication avec le serveur Active Directory pour l'authentification, et l'envoi d'e-mails via le service SMTP.
+    
+    \item \textbf{Tests fonctionnels :} Ces tests vérifient que l'application répond aux besoins fonctionnels exprimés dans le backlog produit. Chaque user story a été testée selon des scénarios de test prédéfinis, en vérifiant les cas nominaux (scénarios de succès) et les cas alternatifs (scénarios d'erreur).
+    
+    \item \textbf{Tests de validation (recette) :} La validation finale a été effectuée par le Product Owner (M. Wael KAOUCH) qui a vérifié que l'application correspond bien aux attentes métier d'ASTEELFLASH. Cette validation a eu lieu à la fin de chaque sprint lors de la réunion de Sprint Review.
+\end{itemize}
+
+\subsection{Résultats des tests fonctionnels}
+
+Le tableau 5.2 présente les résultats des principaux scénarios de tests fonctionnels réalisés pour l'ensemble des sprints.
+
+\begin{longtable}{|m{1cm}|m{3cm}|m{5.5cm}|m{1.5cm}|m{1.5cm}|}
+\hline
+\textbf{N°} & \textbf{Module} & \textbf{Scénario de test} & \textbf{Résultat} & \textbf{Sprint} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+\hline
+T01 & Authentification & Connexion avec identifiants LDAP valides & Succès & S1 \\
+\hline
+T02 & Authentification & Connexion avec identifiants incorrects (message d'erreur) & Succès & S1 \\
+\hline
+T03 & Authentification & Blocage après 10 tentatives échouées & Succès & S1 \\
+\hline
+T04 & Gestion Utilisateurs & Affichage de la liste des utilisateurs AD & Succès & S1 \\
+\hline
+T05 & Équipements & Ajout d'un nouvel équipement avec tous les champs & Succès & S2 \\
+\hline
+T06 & Équipements & Modification des données d'un équipement & Succès & S2 \\
+\hline
+T07 & Équipements & Suppression d'un équipement & Succès & S2 \\
+\hline
+T08 & Équipements & Recherche et filtrage dans la liste des équipements & Succès & S2 \\
+\hline
+T09 & Tableau de bord & Affichage correct des statistiques (types, états) & Succès & S2 \\
+\hline
+T10 & Inventaire & Affichage du stock par catégorie (laptops, serveurs, switchs, imprimantes) & Succès & S2 \\
+\hline
+T11 & Affectations & Ajout d'une nouvelle affectation d'un équipement à un employé & Succès & S3 \\
+\hline
+T12 & Affectations & Modification et suppression d'une affectation & Succès & S3 \\
+\hline
+T13 & Missions & Création d'une mission temporaire avec dates de début et fin & Succès & S3 \\
+\hline
+T14 & Missions & Envoi automatique de l'e-mail de rappel à la fin de mission & Succès & S3 \\
+\hline
+T15 & Alertes & Envoi de l'e-mail d'alerte lorsque le stock minimum est atteint & Succès & S3 \\
+\hline
+T16 & Historique & Consultation de l'historique des équipements, missions et fournisseurs & Succès & S3 \\
+\hline
+T17 & Commandes & Ajout, modification et suppression d'un bon d'achat & Succès & S4 \\
+\hline
+T18 & Fournisseurs & Gestion complète des fournisseurs (CRUD) & Succès & S4 \\
+\hline
+T19 & Employés & Mise à jour et modification des données des employés & Succès & S4 \\
+\hline
+T20 & Portabilité & Vérification de l'affichage responsive sur différents navigateurs & Succès & S4 \\
+\hline
+\captionsetup{justification=centering,margin=1cm}
+\caption{Résultats des tests fonctionnels}
+\end{longtable}
+
+L'ensemble des 20 scénarios de tests fonctionnels ont été validés avec succès, confirmant que l'application répond aux exigences définies dans le backlog produit.
+
+\subsection{Recette utilisateur}
+
+La recette utilisateur (User Acceptance Testing -- UAT) a été réalisée en collaboration avec le Product Owner, M. Wael KAOUCH, Directeur IT d'ASTEELFLASH. Cette phase de validation a permis de :
+
+\begin{itemize}[label=\textbullet,font=\normalsize]
+    \item Vérifier que les fonctionnalités développées correspondent aux besoins métier exprimés lors de la phase de spécification.
+    \item Tester l'application dans un environnement proche de la production, avec des données réelles du parc informatique d'ASTEELFLASH.
+    \item Identifier et corriger les anomalies mineures détectées lors de l'utilisation réelle de l'application.
+    \item Valider l'ergonomie et l'intuitivité de l'interface utilisateur auprès des futurs utilisateurs (équipe IT).
+\end{itemize}
+
+À l'issue de la recette, le Product Owner a validé l'ensemble des fonctionnalités développées et a confirmé la conformité de l'application aux objectifs initiaux du projet. Quelques suggestions d'amélioration ont été formulées pour les versions futures, notamment l'ajout d'un module de gestion des licences logicielles et l'intégration d'un système de ticketing.
+
+\subsection{Tests de performance}
+
+Des tests de performance ont été réalisés pour vérifier que l'application respecte les exigences non fonctionnelles en termes de temps de réponse. Les résultats obtenus sont les suivants :
+
+\begin{longtable}{|m{6cm}|m{3cm}|m{3cm}|}
+\hline
+\textbf{Opération} & \textbf{Temps mesuré} & \textbf{Seuil requis} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+\hline
+Chargement de la page d'accueil (tableau de bord) & 1.2 secondes & < 3 secondes \\
+\hline
+Recherche dans la liste des équipements (500+ entrées) & 0.8 secondes & < 2 secondes \\
+\hline
+Ajout d'un nouvel équipement & 0.5 secondes & < 2 secondes \\
+\hline
+Authentification LDAP & 1.5 secondes & < 3 secondes \\
+\hline
+Génération du tableau de bord statistique & 1.8 secondes & < 3 secondes \\
+\hline
+\captionsetup{justification=centering,margin=1cm}
+\caption{Résultats des tests de performance}
+\end{longtable}
+
+Les résultats montrent que toutes les opérations s'exécutent dans les délais requis, confirmant la bonne performance de l'application même avec un volume de données significatif.
+
+\subsection{Tests de sécurité}
+
+Les tests de sécurité ont pour objectif de vérifier que l'application protège correctement les accès et les opérations sensibles. Ils complètent les tests fonctionnels, car une fonctionnalité peut produire le bon résultat tout en exposant un risque si les droits ne sont pas correctement contrôlés.
+
+\begin{longtable}{|m{1.5cm}|m{5cm}|m{4cm}|m{3cm}|}
+\hline
+\textbf{Réf.} & \textbf{Scénario} & \textbf{Résultat attendu} & \textbf{Statut} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+\hline
+S01 & Accès avec un utilisateur non membre du groupe IT & Refus d'accès à l'application & Validé \\
+\hline
+S02 & Accès direct à une URL d'administration par un utilisateur standard & Redirection ou message d'accès interdit & Validé \\
+\hline
+S03 & Saisie de données incomplètes dans un formulaire & Affichage d'un message de validation & Validé \\
+\hline
+S04 & Tentatives répétées de connexion avec mot de passe erroné & Application de la politique de verrouillage Active Directory & Validé \\
+\hline
+S05 & Modification d'un équipement puis consultation de l'historique & L'action est enregistrée avec la date et l'utilisateur & Validé \\
+\hline
+\captionsetup{justification=centering,margin=1cm}
+\caption{Tests de sécurité}
+\end{longtable}
+
+\subsection{Tests de compatibilité et d'ergonomie}
+
+L'application étant destinée à être utilisée depuis différents postes de travail, des vérifications ont été réalisées sur les navigateurs les plus courants. L'objectif était de confirmer que les menus, tableaux, formulaires et boutons restent lisibles et accessibles.
+
+\begin{longtable}{|m{4cm}|m{5cm}|m{4cm}|}
+\hline
+\textbf{Élément vérifié} & \textbf{Critère} & \textbf{Résultat} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+\hline
+Navigation principale & Les menus restent visibles et compréhensibles & Conforme \\
+\hline
+Tableaux de données & Pagination, recherche et alignement corrects & Conforme \\
+\hline
+Formulaires & Champs obligatoires clairement indiqués & Conforme \\
+\hline
+Messages d'erreur & Messages lisibles et proches du champ concerné & Conforme \\
+\hline
+Affichage responsive & Interface exploitable sur écran de bureau et ordinateur portable & Conforme \\
+\hline
+\captionsetup{justification=centering,margin=1cm}
+\caption{Tests de compatibilité et d'ergonomie}
+\end{longtable}
+
+\subsection{Gestion des anomalies}
+
+Pendant les tests, certaines anomalies mineures ont été identifiées puis corrigées. La gestion des anomalies a suivi une logique simple : identification, reproduction, correction, retest et validation. Cette démarche permet d'éviter qu'une correction introduise un nouveau dysfonctionnement.
+
+\begin{longtable}{|m{4cm}|m{5.5cm}|m{4cm}|}
+\hline
+\textbf{Anomalie détectée} & \textbf{Cause probable} & \textbf{Correction apportée} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+\hline
+Message de validation manquant sur certains champs & Contrôle incomplet dans le modèle ou la vue & Ajout des validations nécessaires \\
+\hline
+Affichage incomplet de longues listes & Pagination insuffisante ou filtre non appliqué & Ajustement de la pagination et de la recherche \\
+\hline
+Incohérence après modification d'un équipement & Rafraîchissement tardif des données affichées & Rechargement des données après sauvegarde \\
+\hline
+Erreur lors d'un envoi e-mail de test & Paramètre SMTP incorrect ou indisponibilité temporaire & Vérification de la configuration et ajout d'un message d'erreur \\
+\hline
+\captionsetup{justification=centering,margin=1cm}
+\caption{Exemples d'anomalies corrigées}
+\end{longtable}
+
+\subsection{Préparation au déploiement}
+
+Avant la mise en production, plusieurs actions doivent être réalisées afin de garantir une installation stable. Ces actions concernent l'environnement serveur, la base de données, les accès utilisateurs et les sauvegardes.
+
+\begin{itemize}[label=\textbullet,font=\normalsize]
+    \item préparer le serveur IIS et vérifier la version du runtime .NET nécessaire ;
+    \item créer la base SQL Server et exécuter les scripts de migration ;
+    \item configurer la chaîne de connexion dans le fichier de configuration ;
+    \item paramétrer le serveur SMTP utilisé pour les notifications ;
+    \item vérifier les groupes Active Directory autorisés ;
+    \item tester l'authentification avec un compte administrateur et un compte utilisateur ;
+    \item effectuer une sauvegarde initiale de la base avant l'utilisation réelle ;
+    \item prévoir une procédure de restauration en cas d'incident.
+\end{itemize}
+
+Cette préparation réduit les risques liés au passage de l'environnement de développement à l'environnement de production.
+
+\subsection{Bilan de validation}
+
+À l'issue des tests, les fonctionnalités prévues dans le backlog produit ont été validées. Les résultats obtenus montrent que l'application répond aux exigences fonctionnelles principales : authentification, gestion des équipements, affectations, missions, alertes, historiques, fournisseurs, commandes et employés. Les exigences non fonctionnelles les plus importantes, notamment la performance, l'ergonomie, la traçabilité et la sécurité d'accès, ont également été prises en compte.
+
+La validation ne signifie pas que le produit ne pourra plus évoluer. Au contraire, elle confirme que la version actuelle constitue une base stable sur laquelle de nouveaux modules pourront être ajoutés, notamment la gestion des licences, le ticketing ou l'inventaire automatique.
+
+\section*{Conclusion}
+Ce chapitre a mis en lumière le dernier sprint consacré à la gestion de la réception des commandes, des fournisseurs et des employés. Nous avons commencé par présenter la spécification fonctionnelle à travers les diagrammes de cas d'utilisation pour chaque module, puis nous avons détaillé la conception via les diagrammes de classes et de séquences.
+
+La partie réalisation a permis de présenter les interfaces développées pour la gestion des fournisseurs, des bons d'achat et des employés, illustrant ainsi l'ensemble des fonctionnalités CRUD implémentées.
+
+La section Tests et Validation a démontré la fiabilité de l'application à travers une stratégie de tests à plusieurs niveaux (unitaires, intégration, fonctionnels et recette). L'ensemble des 20 scénarios de tests fonctionnels ont été validés avec succès, et les tests de performance ont confirmé le respect des exigences non fonctionnelles.
+
+La recette utilisateur, réalisée en collaboration avec le Product Owner, a permis de valider la conformité de l'application aux objectifs métier d'ASTEELFLASH et d'identifier des pistes d'amélioration pour les versions futures.
+

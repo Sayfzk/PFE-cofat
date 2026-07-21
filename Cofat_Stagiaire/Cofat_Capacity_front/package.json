@@ -1,0 +1,80 @@
+{
+  "name": "assocciation",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@devexpress/dx-react-core": "^4.0.9",
+    "@devexpress/dx-react-grid": "^4.0.9",
+    "@devexpress/dx-react-grid-material-ui": "^4.0.9",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@fortawesome/fontawesome-free": "^6.3.0",
+    "@mui/icons-material": "^7.3.1",
+    "@mui/material": "^7.3.1",
+    "@tanstack/react-table": "^8.21.2",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.3.1",
+    "@testing-library/user-event": "^13.5.0",
+    "ajv": "^6.12.6",
+    "ajv-keywords": "^3.5.2",
+    "antd": "^5.24.9",
+    "axios": "^1.7.8",
+    "bootstrap": "^5.2.3",
+    "chart.js": "^4.5.0",
+    "datatables.net": "^2.1.8",
+    "file-saver": "^2.0.5",
+    "flowbite": "^2.5.2",
+    "flowbite-react": "^0.10.2",
+    "framer-motion": "^11.15.0",
+    "i18next": "^25.5.3",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
+    "lucide-react": "^0.468.0",
+    "mdbreact": "^5.2.0",
+    "prop-types": "^15.8.1",
+    "react": "^19.1.0",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "^19.1.0",
+    "react-i18next": "^16.0.0",
+    "react-icons": "^4.8.0",
+    "react-router-dom": "^6.9.0",
+    "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "react-table": "^7.8.0",
+    "recharts": "^3.2.1",
+    "sweetalert2": "^11.23.0",
+    "sweetalert2-react-content": "^5.1.0",
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
+  },
+  "scripts": {
+    "start": "set PORT=4000 && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
+  }
+}

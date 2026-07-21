@@ -1,0 +1,98 @@
+/* Conteneur principal */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: 'Roboto', sans-serif;
+  padding: 1.5rem;
+}
+
+/* Titre */
+.register-container h2 {
+  font-size: 2rem;
+  color: #0078d4;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Formulaire */
+.register-container form {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Champs du formulaire */
+.register-container input,
+.register-container select {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.register-container input:focus,
+.register-container select:focus {
+  border-color: #0078d4;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 120, 212, 0.2);
+}
+
+/* Bouton */
+.register-container button {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #0078d4;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 0.8rem;
+}
+
+.register-container button:hover {
+  background-color: #005bb5;
+  transform: translateY(-2px);
+}
+
+/* Lien vers la connexion */
+.link-to-login {
+  display: block;
+  text-align: center;
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  color: #0078d4;
+  text-decoration: none;
+}
+
+.link-to-login:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .register-container form {
+    padding: 1rem;
+  }
+
+  .register-container h2 {
+    font-size: 1.8rem;
+  }
+
+  .register-container input,
+  .register-container select {
+    font-size: 0.85rem;
+  }
+}

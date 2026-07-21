@@ -1,0 +1,109 @@
+\chapter{Architecture logicielle et Sprint 1 : Authentification et Référentiel des Sites}
+
+\section*{Introduction}
+
+Dans ce chapitre, je vais présenter l'architecture globale de la plateforme "NVCapacity", les choix technologiques adoptés pour sa réalisation, ainsi que le diagramme de déploiement. Ensuite, j'aborderai la phase d'initialisation du projet (Sprint 0) et je détaillerai le déroulement du Sprint 1, consacré à la mise en place de la sécurité (Authentification) et du référentiel des sites de production.
+
+\section{Choix technologiques}
+
+La réalisation d'une plateforme d'entreprise robuste nécessite le choix de technologies modernes, évolutives et performantes.
+
+\subsection{Outils de modélisation et de développement}
+
+\begin{itemize}[label=\textbullet]
+    \item \textbf{PlantUML} : Utilisé pour la modélisation UML (diagrammes de cas d'utilisation, classes, séquences, déploiement). Cet outil basé sur du texte offre une grande flexibilité d'intégration et un rendu de haute qualité.
+    \item \textbf{Visual Studio Code} : L'environnement de développement intégré (IDE) principal, choisi pour sa légèreté, ses extensions performantes pour JavaScript/React, et son terminal intégré.
+    \item \textbf{Git \& GitHub} : Outils de contrôle de version essentiels pour tracer l'évolution du code, gérer les branches par fonctionnalité (Git Flow) et sécuriser le travail de développement.
+\end{itemize}
+
+\subsection{Technologies et Frameworks Backend}
+
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Node.js et Express.js} : Node.js est un environnement d'exécution asynchrone permettant d'utiliser JavaScript côté serveur. Associé au framework minimaliste Express.js, il offre des performances exceptionnelles pour le développement d'API RESTful grâce à son architecture orientée événements non bloquante.
+    \item \textbf{Microsoft SQL Server} : Le système de gestion de base de données relationnelle (SGBDR) adopté. Ce choix s'aligne sur les infrastructures industrielles standard de COFAT, garantissant la sécurité, la fiabilité et la haute disponibilité des données capacitaires du groupe.
+    \item \textbf{Sequelize} : Un Object-Relational Mapper (ORM) pour Node.js. Sequelize permet d'interagir avec la base de données SQL Server via des objets JavaScript (Modèles), facilitant l'abstraction des requêtes SQL et la gestion des relations complexes entre les tables.
+\end{itemize}
+
+\subsection{Technologies et Frameworks Frontend}
+
+\begin{itemize}[label=\textbullet]
+    \item \textbf{React.js} : Une bibliothèque JavaScript développée par Meta (Facebook) pour créer des interfaces utilisateurs interactives sous forme d'applications monopages (SPA - Single Page Application). Elle utilise un DOM virtuel pour optimiser les performances de rendu dynamique des tableaux de bord.
+    \item \textbf{Tailwind CSS} : Un framework CSS "utility-first" permettant de créer des designs sur mesure directement depuis le code HTML/JSX. Il garantit une cohérence graphique et des interfaces parfaitement adaptatives (responsive).
+    \item \textbf{Material UI (MUI) \& Ant Design} : Bibliothèques de composants React prêts à l'emploi (tableaux de données, formulaires, modales) utilisées pour accélérer le développement tout en assurant une ergonomie professionnelle.
+\end{itemize}
+
+\section{Architecture de l’application}
+
+Pour garantir la séparation des préoccupations et la maintenabilité du système, NVCapacity a été conçu selon une architecture \textbf{3-tiers (ou architecture à trois niveaux)}.
+
+\begin{enumerate}
+    \item \textbf{Couche de Présentation (Client)} : Constituée de l'application frontend React.js exécutée sur le navigateur de l'utilisateur. Elle gère l'interface graphique (formulaires de saisie, tableaux de consolidation, affichage des alertes) et l'expérience utilisateur.
+    \item \textbf{Couche Métier (Serveur d'application)} : Représentée par le serveur Node.js/Express.js. C'est le cœur du système. Elle expose les points d'accès (Endpoints REST API), gère la logique de consolidation multi-sites en temps réel, valide les données métier, assure la sécurité (Authentification JWT, autorisation par rôles) et manipule l'importation de fichiers (Excel).
+    \item \textbf{Couche de Données (Serveur de base de données)} : Assurée par le serveur Microsoft SQL Server, elle centralise le stockage pérenne, la gestion des transactions, et l'intégrité relationnelle (Clés primaires et étrangères) de toutes les entités (Users, Sites, Hardwares, Budgets).
+\end{enumerate}
+
+\section{Diagramme de déploiement}
+
+Le diagramme de déploiement modélise l'infrastructure physique du système et la répartition des composants logiciels sur les serveurs. La figure 3.1 illustre le diagramme de déploiement de NVCapacity. Le navigateur web du client communique via le protocole HTTP avec le serveur Node.js, qui lui-même communique via TCP/IP (port 1433) avec le serveur de base de données SQL Server hébergé dans le réseau local (LAN) de l'entreprise.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{img/Diagramme de déploiement.png}
+    \caption{Diagramme de déploiement de l'architecture 3-tiers}
+    \label{fig:deploiement}
+\end{figure}
+
+\section{Sprint 0 : Mise en place du socle technique}
+
+Le Sprint 0 constitue la phase préparatoire (initialisation) du projet. L'objectif était de mettre en place les fondations techniques avant d'entamer le développement des fonctionnalités métier.
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Initialisation Backend} : Création du projet Node.js (`npm init`), installation des dépendances clés (`express`, `sequelize`, `mssql`, `cors`, `dotenv`), et configuration du fichier `.env` pour sécuriser les variables d'environnement (identifiants de la base de données, clé secrète JWT).
+    \item \textbf{Configuration Sequelize} : Définition de la connexion à l'instance SQL Server locale et implémentation du mécanisme de synchronisation (`sequelize.sync()`) permettant de générer automatiquement les tables SQL depuis le code.
+    \item \textbf{Initialisation Frontend} : Génération du projet React, configuration du routeur (`react-router-dom`) et intégration de Tailwind CSS.
+\end{itemize}
+
+\section{Sprint 1 : Authentification et Référentiel des Sites} 
+
+Le premier sprint opérationnel se concentre sur l'accès sécurisé à l'application et la structuration du référentiel géographique de COFAT.
+
+\subsection{Objectifs du Sprint 1}
+
+L'objectif principal est de mettre en place une authentification robuste basée sur des jetons Web JSON (JWT), garantissant que seuls les collaborateurs autorisés peuvent accéder au système. De plus, les administrateurs doivent pouvoir gérer les utilisateurs (création, assignation de rôles) et configurer les sites industriels (Tunisie, Mexique, Brésil) qui serviront de base à toute la consolidation future.
+
+\subsection{Spécification et conception du Sprint 1}
+
+Le diagramme de séquence (Figure 3.2) détaille le processus d'authentification JWT (JSON Web Token) mis en place.
+Lorsqu'un utilisateur soumet ses identifiants, le frontend envoie une requête POST `/api/auth/login`. Le contrôleur backend interroge la base de données via Sequelize. Si le mot de passe est valide (vérification par bcrypt), le backend génère un token JWT signé contenant l'ID et le rôle de l'utilisateur.
+Pour maximiser la sécurité contre les attaques XSS, ce token n'est pas envoyé dans le corps de la réponse, mais encapsulé dans un \textbf{cookie sécurisé HTTP-Only}. Le navigateur stocke ce cookie et l'attache automatiquement à toutes les requêtes suivantes, permettant au middleware d'autorisation de valider l'accès aux routes protégées.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/DiagrammeSeqAuthentification.png}
+    \caption{Diagramme de séquence de l'Authentification JWT avec Cookie HttpOnly}
+    \label{fig:seq_auth}
+\end{figure}
+
+Le diagramme de classe spécifique à ce sprint (Figure 3.3) illustre la relation centrale entre l'utilisateur (`User`), son rôle (`Role`) et le site de production (`Site`) auquel il est rattaché.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/ClasseSprint1.png}
+    \caption{Diagramme de classes du Sprint 1 (Gestion des accès et sites)}
+    \label{fig:class_sprint1}
+\end{figure}
+
+\subsection{Réalisation du Sprint 1}
+
+La figure 3.4 illustre le résultat du travail réalisé sur ce sprint avec le tableau de bord de l'administrateur (`Admin Dashboard`). Cet écran s'affiche suite à une connexion réussie et permet à l'administrateur de visualiser l'état global du système, d'accéder au panneau de configuration des sites et de gérer les droits d'accès des différents Site Managers.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/dashboard admin.png}
+    \caption{Interface du Tableau de bord Administrateur post-authentification}
+    \label{fig:realisation_sprint1}
+\end{figure}
+
+\section{Conclusion}
+
+Ce troisième chapitre a présenté en détail les choix technologiques et l'architecture logicielle 3-tiers adoptée pour la plateforme NVCapacity. J'ai ensuite décrit les réalisations du Sprint 0 (Socle technique) et du Sprint 1. La mise en place de l'authentification JWT par cookie HttpOnly offre une base hautement sécurisée, et le module de gestion des sites permet désormais de structurer les futures données capacitaires.
+Dans le chapitre suivant, j'aborderai la Release 2, qui englobe le cœur métier du projet : la planification capacitaire locale (Sprint 2) et la consolidation temps réel au niveau groupe (Sprint 3).

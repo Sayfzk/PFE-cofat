@@ -1,0 +1,271 @@
+/* ========================================
+   Standard Equipment Table - Bigger Column Widths
+   ======================================== */
+
+/* Remove sticky positioning from headers for free scrolling */
+.standard-equipment-container .budget-table thead th {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+}
+
+/* Remove sticky positioning from first 3 columns and fix header colors */
+.standard-equipment-container .budget-table th:nth-child(1),
+.standard-equipment-container .budget-table td:nth-child(1) {
+    width: 80px !important;
+    max-width: 80px !important;
+    position: static !important;
+    left: auto !important;
+    z-index: auto !important;
+    border-right: 1px solid #e2e8f0 !important;
+}
+
+.standard-equipment-container .budget-table th:nth-child(1) {
+    background: transparent !important;
+}
+
+.standard-equipment-container .budget-table th:nth-child(2),
+.standard-equipment-container .budget-table td:nth-child(2) {
+    width: 150px !important;
+    max-width: 150px !important;
+    position: static !important;
+    left: auto !important;
+    z-index: auto !important;
+    border-right: 1px solid #e2e8f0 !important;
+}
+
+.standard-equipment-container .budget-table th:nth-child(2) {
+    background: transparent !important;
+}
+
+.standard-equipment-container .budget-table th:nth-child(3),
+.standard-equipment-container .budget-table td:nth-child(3) {
+    width: 250px !important;
+    max-width: 250px !important;
+    position: static !important;
+    left: auto !important;
+    z-index: auto !important;
+    border-right: 1px solid #e2e8f0 !important;
+}
+
+.standard-equipment-container .budget-table th:nth-child(3) {
+    background: transparent !important;
+}
+
+/* Dark Mode fixes for first 3 columns */
+.standard-equipment-container[data-theme="dark"] .budget-table th:nth-child(1),
+.standard-equipment-container[data-theme="dark"] .budget-table td:nth-child(1),
+.standard-equipment-container[data-theme="dark"] .budget-table th:nth-child(2),
+.standard-equipment-container[data-theme="dark"] .budget-table td:nth-child(2),
+.standard-equipment-container[data-theme="dark"] .budget-table th:nth-child(3),
+.standard-equipment-container[data-theme="dark"] .budget-table td:nth-child(3) {
+    background: #1a1a1a !important;
+    color: #f0f0f0 !important;
+    border-right: 1px solid #374151 !important;
+}
+
+.standard-equipment-container[data-theme="dark"] .budget-table th:nth-child(1),
+.standard-equipment-container[data-theme="dark"] .budget-table th:nth-child(2),
+.standard-equipment-container[data-theme="dark"] .budget-table th:nth-child(3) {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%) !important;
+    color: #e5e7eb !important;
+    font-weight: 600 !important;
+}
+
+/* Make header columns bigger for better text preview */
+.standard-equipment-container .budget-table th,
+.standard-equipment-container .budget-table td {
+    white-space: normal !important; /* Allow header text to wrap */
+    word-break: break-word !important;
+}
+
+/* 1. Checkbox */
+.standard-equipment-container .budget-table th:nth-child(1),
+.standard-equipment-container .budget-table td:nth-child(1) {
+    min-width: 60px !important;
+    width: 60px !important;
+}
+
+/* 2. Code Eq. */
+.standard-equipment-container .budget-table th:nth-child(2),
+.standard-equipment-container .budget-table td:nth-child(2) {
+    min-width: 120px !important;
+    width: 120px !important;
+}
+
+/* 3. Opérations */
+.standard-equipment-container .budget-table th:nth-child(3),
+.standard-equipment-container .budget-table td:nth-child(3) {
+    min-width: 250px !important;
+    width: 250px !important;
+}
+
+/* 4. Equipement de référence préconisé */
+.standard-equipment-container .budget-table th:nth-child(4),
+.standard-equipment-container .budget-table td:nth-child(4) {
+    min-width: 300px !important;
+    width: 300px !important;
+}
+
+/* 5. Fournisseur/ Technologie de référence */
+.standard-equipment-container .budget-table th:nth-child(5),
+.standard-equipment-container .budget-table td:nth-child(5) {
+    min-width: 280px !important;
+    width: 280px !important;
+}
+
+/* 6. Type */
+.standard-equipment-container .budget-table th:nth-child(6),
+.standard-equipment-container .budget-table td:nth-child(6) {
+    min-width: 120px !important;
+    width: 120px !important;
+}
+
+/* 7. Méthode de calcul du besoin en équipement (Quantité) */
+.standard-equipment-container .budget-table th:nth-child(7),
+.standard-equipment-container .budget-table td:nth-child(7) {
+    min-width: 300px !important;
+    width: 300px !important;
+}
+
+/* 8. Capacité par jour (j) */
+.standard-equipment-container .budget-table th:nth-child(8),
+.standard-equipment-container .budget-table td:nth-child(8) {
+    min-width: 160px !important;
+    width: 160px !important;
+    text-align: center !important;
+}
+
+/* 9. Durée de vie équipement */
+.standard-equipment-container .budget-table th:nth-child(9),
+.standard-equipment-container .budget-table td:nth-child(9) {
+    min-width: 140px !important;
+    width: 140px !important;
+    text-align: center !important;
+}
+
+/* 10. Quantité estimée (Editable) */
+.standard-equipment-container .budget-table th:nth-child(10),
+.standard-equipment-container .budget-table td:nth-child(10) {
+    min-width: 160px !important;
+    width: 160px !important;
+    text-align: center !important;
+}
+
+/* 11. Coût estimatif avec frais approche (Euro) */
+.standard-equipment-container .budget-table th:nth-child(11),
+.standard-equipment-container .budget-table td:nth-child(11) {
+    min-width: 180px !important;
+    width: 180px !important;
+    text-align: right !important;
+}
+
+/* 12. Coût estimatif avec frais approche (Mexique) */
+.standard-equipment-container .budget-table th:nth-child(12),
+.standard-equipment-container .budget-table td:nth-child(12) {
+    min-width: 180px !important;
+    width: 180px !important;
+    text-align: right !important;
+}
+
+/* 13. Coût estimatif avec frais approche (Brésil) */
+.standard-equipment-container .budget-table th:nth-child(13),
+.standard-equipment-container .budget-table td:nth-child(13) {
+    min-width: 180px !important;
+    width: 180px !important;
+    text-align: right !important;
+}
+
+/* 14. Dimensions poste de travail */
+.standard-equipment-container .budget-table th:nth-child(14),
+.standard-equipment-container .budget-table td:nth-child(14) {
+    min-width: 250px !important;
+    width: 250px !important;
+}
+
+/* 15. Référence CDC */
+.standard-equipment-container .budget-table th:nth-child(15),
+.standard-equipment-container .budget-table td:nth-child(15) {
+    min-width: 200px !important;
+    width: 200px !important;
+}
+
+/* 16. Référence PR */
+.standard-equipment-container .budget-table th:nth-child(16),
+.standard-equipment-container .budget-table td:nth-child(16) {
+    min-width: 200px !important;
+    width: 200px !important;
+}
+
+/* Total row styling - reduced size and corrected colors */
+.standard-equipment-container .total-row {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e0e7ff 100%) !important;
+    font-weight: 600 !important;
+    border-top: 2px solid #3b82f6 !important;
+    position: sticky !important;
+    bottom: 0 !important;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06) !important;
+    z-index: 10 !important;
+    margin-top: 0.5rem !important;
+    display: table-row !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.standard-equipment-container .total-row td {
+    padding: 0.5rem 0.6rem !important;
+    font-size: 0.85rem !important;
+    border-right: 1px solid rgba(59, 130, 246, 0.1) !important;
+    color: #1e293b !important;
+    background: transparent !important;
+    text-align: center !important;
+}
+
+/* Last 4 columns values in green instead of black */
+.standard-equipment-container .total-row td:nth-child(14),
+.standard-equipment-container .total-row td:nth-child(15),
+.standard-equipment-container .total-row td:nth-child(16),
+.standard-equipment-container .total-row td:nth-child(17) {
+    color: #10b981 !important;
+    font-weight: 700 !important;
+}
+
+/* Keep the last column value green with emphasis */
+.standard-equipment-container .total-row td:last-child {
+    border-right: none !important;
+    color: #059669 !important;
+    font-weight: 800 !important;
+    text-shadow: 0 1px 2px rgba(5, 150, 105, 0.2) !important;
+}
+
+/* Dark mode for total row - last 4 columns in black */
+.standard-equipment-container[data-theme="dark"] .total-row td:nth-child(14),
+.standard-equipment-container[data-theme="dark"] .total-row td:nth-child(15),
+.standard-equipment-container[data-theme="dark"] .total-row td:nth-child(16),
+.standard-equipment-container[data-theme="dark"] .total-row td:nth-child(17) {
+    color: #000000 !important;
+    font-weight: 700 !important;
+}
+
+/* Dark mode for total row last value - black instead of white */
+.standard-equipment-container[data-theme="dark"] .total-row td:last-child {
+    color: #000000 !important;
+    font-weight: 800 !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Ensure table container allows free scrolling with visible total */
+.standard-equipment-container .budget-table-container {
+    position: relative !important;
+    overflow: auto !important;
+    max-height: calc(100vh - 150px) !important;
+    padding-bottom: 0 !important;
+    width: 100% !important;
+}
+
+.standard-equipment-container .budget-table {
+    position: relative !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    table-layout: auto !important;
+}

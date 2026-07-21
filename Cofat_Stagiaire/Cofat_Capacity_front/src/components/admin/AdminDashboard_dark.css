@@ -1,0 +1,237 @@
+/* ========================================
+   Admin Dashboard - Professional Dark Mode
+   ======================================== */
+
+/* ========== CSS CUSTOM PROPERTIES ========== */
+
+/* Dark Mode Overrides */
+.admin-dashboard[data-theme="dark"] {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #0f0f0f;
+    --bg-accent: #2a2a2a;
+    --bg-card: #1f1f1f;
+
+    --text-primary: #f0f0f0;
+    --text-secondary: #b0b0b0;
+    --text-tertiary: #909090;
+
+    --border-light: #333333;
+    --border-medium: #404040;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.7);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.8);
+
+    --primary-blue: #4a9eff;
+    --success-green: #22c55e;
+    --warning-orange: #fbbf24;
+    --error-red: #f87171;
+}
+
+/* ========== SMOOTH TRANSITIONS ========== */
+.admin-dashboard[data-theme="dark"] * {
+    transition: background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .admin-dashboard[data-theme="dark"] * {
+        transition: none;
+    }
+}
+
+/* ========== MAIN CONTAINER ========== */
+.admin-dashboard[data-theme="dark"] {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+}
+
+/* ========== HEADER ========== */
+.admin-dashboard[data-theme="dark"] .dashboard-title {
+    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.admin-dashboard[data-theme="dark"] .dashboard-subtitle {
+    color: var(--text-secondary);
+}
+
+.admin-dashboard[data-theme="dark"] .theme-toggle-btn {
+    background: var(--bg-card);
+    border-color: var(--border-medium);
+    color: var(--text-primary);
+}
+
+.admin-dashboard[data-theme="dark"] .theme-toggle-btn:hover {
+    background: var(--bg-accent);
+    border-color: var(--primary-blue);
+}
+
+/* ========== METRIC CARDS ========== */
+.admin-dashboard[data-theme="dark"] .metric-card {
+    background: var(--bg-card);
+    border-color: var(--border-light);
+    box-shadow: var(--shadow-lg);
+}
+
+.admin-dashboard[data-theme="dark"] .metric-card:hover {
+    box-shadow: var(--shadow-xl);
+}
+
+.admin-dashboard[data-theme="dark"] .metric-title {
+    color: var(--text-secondary);
+}
+
+.admin-dashboard[data-theme="dark"] .metric-value {
+    color: var(--text-primary);
+}
+
+.admin-dashboard[data-theme="dark"] .metric-subtitle {
+    color: var(--text-secondary);
+}
+
+/* ========== CHARTS ========== */
+.admin-dashboard[data-theme="dark"] .chart-card {
+    background: var(--bg-card);
+    border-color: var(--border-light);
+    box-shadow: var(--shadow-lg);
+}
+
+.admin-dashboard[data-theme="dark"] .chart-title {
+    color: var(--text-primary);
+}
+
+/* Custom Tooltip */
+.admin-dashboard[data-theme="dark"] .custom-tooltip {
+    background: var(--bg-card);
+    border-color: var(--border-medium);
+    box-shadow: var(--shadow-md);
+}
+
+.admin-dashboard[data-theme="dark"] .tooltip-label {
+    color: var(--text-primary);
+}
+
+.admin-dashboard[data-theme="dark"] .tooltip-item {
+    color: var(--text-secondary);
+}
+
+/* Recharts Dark Mode Overrides */
+.admin-dashboard[data-theme="dark"] .recharts-cartesian-grid-horizontal line,
+.admin-dashboard[data-theme="dark"] .recharts-cartesian-grid-vertical line {
+    stroke: var(--border-light);
+}
+
+.admin-dashboard[data-theme="dark"] .recharts-text {
+    fill: var(--text-secondary);
+}
+
+.admin-dashboard[data-theme="dark"] .recharts-legend-item-text {
+    color: var(--text-secondary) !important;
+}
+
+/* ========== DETAILS SECTION ========== */
+.admin-dashboard[data-theme="dark"] .section-title {
+    color: var(--text-primary);
+}
+
+.admin-dashboard[data-theme="dark"] .site-detail-card {
+    background: var(--bg-card);
+    border-color: var(--border-light);
+    box-shadow: var(--shadow-md);
+}
+
+.admin-dashboard[data-theme="dark"] .site-detail-card:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.admin-dashboard[data-theme="dark"] .site-header {
+    border-bottom-color: var(--border-light);
+}
+
+.admin-dashboard[data-theme="dark"] .site-header h3 {
+    color: var(--text-primary);
+}
+
+.admin-dashboard[data-theme="dark"] .site-header svg {
+    color: var(--primary-blue);
+}
+
+.admin-dashboard[data-theme="dark"] .metric-label {
+    color: var(--text-secondary);
+}
+
+.admin-dashboard[data-theme="dark"] .metric-value {
+    color: var(--text-primary);
+}
+
+/* ========== FOOTER ========== */
+.admin-dashboard[data-theme="dark"] .dashboard-footer {
+    background: var(--bg-card);
+    border-color: var(--border-light);
+    box-shadow: var(--shadow-md);
+}
+
+.admin-dashboard[data-theme="dark"] .metadata p {
+    color: var(--text-secondary);
+}
+
+/* ========== LOADING & ERROR STATES ========== */
+.admin-dashboard[data-theme="dark"] .dashboard-loading,
+.admin-dashboard[data-theme="dark"] .dashboard-error {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-lg);
+}
+
+.admin-dashboard[data-theme="dark"] .loading-spinner {
+    border-color: var(--border-light);
+    border-top-color: var(--primary-blue);
+}
+
+.admin-dashboard[data-theme="dark"] .dashboard-loading p,
+.admin-dashboard[data-theme="dark"] .dashboard-error p {
+    color: var(--text-secondary);
+}
+
+.admin-dashboard[data-theme="dark"] .dashboard-error h2 {
+    color: var(--error-red);
+}
+
+.admin-dashboard[data-theme="dark"] .dashboard-error svg {
+    color: var(--error-red);
+}
+
+/* ========== METRIC CARD ICONS ========== */
+.admin-dashboard[data-theme="dark"] .metric-icon {
+    opacity: 0.8;
+}
+
+.admin-dashboard[data-theme="dark"] .metric-card.blue .metric-icon {
+    color: var(--primary-blue);
+}
+
+.admin-dashboard[data-theme="dark"] .metric-card.green .metric-icon {
+    color: var(--success-green);
+}
+
+.admin-dashboard[data-theme="dark"] .metric-card.orange .metric-icon {
+    color: var(--warning-orange);
+}
+
+.admin-dashboard[data-theme="dark"] .metric-card.red .metric-icon {
+    color: var(--error-red);
+}
+
+/* ========== METRIC TRENDS ========== */
+.admin-dashboard[data-theme="dark"] .metric-trend.positive {
+    color: var(--success-green);
+}
+
+.admin-dashboard[data-theme="dark"] .metric-trend.negative {
+    color: var(--error-red);
+}

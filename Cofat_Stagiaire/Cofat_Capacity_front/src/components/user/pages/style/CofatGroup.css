@@ -1,0 +1,227 @@
+/* src/components/user/pages/style/CofatGroup.css */
+
+.cofat-group-container {
+  padding: 24px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.cofat-group-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.cofat-group-header h4 {
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.equipment-accordion {
+  margin-bottom: 8px;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+.equipment-accordion:before {
+  display: none;
+}
+
+.equipment-summary {
+  background-color: #fafafa;
+}
+
+.equipment-summary:hover {
+  background-color: #f0f0f0;
+}
+
+.equipment-details-table {
+  min-width: 1400px;
+}
+
+.equipment-details-table th {
+  background-color: #e3f2fd;
+  font-weight: 600;
+  border-right: 1px solid #ddd;
+}
+
+.equipment-details-table td {
+  border-right: 1px solid #eee;
+  text-align: center;
+}
+
+.equipment-details-table .metric-cell {
+  background-color: #f9f9f9;
+  font-weight: 500;
+  text-align: left !important;
+  padding-left: 16px;
+}
+
+.year-header-2025 {
+  background-color: #1976d2 !important;
+  color: white !important;
+}
+
+.year-header-2026 {
+  background-color: #7b1fa2 !important;
+  color: white !important;
+}
+
+.year-header-2027 {
+  background-color: #512da8 !important;
+  color: white !important;
+}
+
+.period-header {
+  background-color: #f5f5f5 !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+}
+
+.load-cell-normal {
+  background-color: transparent;
+  color: inherit;
+}
+
+.load-cell-full {
+  background-color: #e8f5e8 !important;
+  color: #2e7d32 !important;
+  font-weight: 600;
+}
+
+.load-cell-over {
+  background-color: #ffebee !important;
+  color: #c62828 !important;
+  font-weight: 600;
+}
+
+.summary-cards {
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  text-align: center;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+  transition: transform 0.2s ease !important;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+}
+
+.summary-card-primary {
+  border-left: 4px solid #1976d2 !important;
+}
+
+.summary-card-secondary {
+  border-left: 4px solid #dc004e !important;
+}
+
+.summary-card-success {
+  border-left: 4px solid #2e7d32 !important;
+}
+
+.summary-card-warning {
+  border-left: 4px solid #ed6c02 !important;
+}
+
+.chart-container {
+  height: 320px;
+  padding: 16px;
+}
+
+.chart-paper {
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+.no-data-container {
+  text-align: center;
+  padding: 64px 32px;
+  border-radius: 12px !important;
+  background-color: #fafafa;
+}
+
+.no-data-icon {
+  font-size: 64px;
+  color: #bdbdbd;
+  margin-bottom: 16px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.refresh-button {
+  border-radius: 8px !important;
+  text-transform: none !important;
+  padding: 8px 24px !important;
+}
+
+.analyze-button {
+  border-radius: 8px !important;
+  text-transform: none !important;
+  padding: 8px 24px !important;
+}
+
+.equipment-chip-sites {
+  background-color: #e3f2fd !important;
+  color: #1976d2 !important;
+  font-weight: 600 !important;
+}
+
+.equipment-chip-periods {
+  background-color: #f3e5f5 !important;
+  color: #7b1fa2 !important;
+  font-weight: 600 !important;
+}
+
+.sites-list {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #1976d2;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .cofat-group-container {
+    padding: 16px;
+  }
+  
+  .equipment-details-table {
+    min-width: 800px;
+    font-size: 0.8rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .summary-cards .MuiGrid-item {
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .equipment-details-table {
+    min-width: 600px;
+    font-size: 0.7rem;
+  }
+  
+  .equipment-details-table th,
+  .equipment-details-table td {
+    padding: 4px 8px;
+  }
+  
+  .period-header {
+    font-size: 0.7rem !important;
+  }
+}

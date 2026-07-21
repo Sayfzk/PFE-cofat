@@ -1,0 +1,106 @@
+\chapter{Release 3 : Workflow du Budget Non-Industriel et Notifications (Sprint 4)}
+
+\section*{Introduction}
+
+Ce cinquième et dernier chapitre technique se concentre sur l'analyse et la réalisation du quatrième sprint (Release 3). Alors que les sprints précédents traitaient de la capacité industrielle directe (machines, usines), ce sprint clôture le projet en numérisant la gestion des dépenses indirectes. Je commencerai par mettre en évidence les objectifs du workflow du budget non-industriel (fournitures, matériel informatique, mobilier), présenterai le backlog associé, étudierai les diagrammes d'analyse, et terminerai par les interfaces graphiques réalisées.
+
+\section{Objectifs du Sprint 4}
+
+L'objectif de ce sprint est de remplacer un processus jusqu'alors lourd et manuel d'approbation de budgets indirects par un flux de travail (workflow) collaboratif centralisé et sécurisé.
+Les besoins métiers spécifiques sont :
+\begin{itemize}[label=\textbullet]
+    \item Permettre à chaque département local (via le Site Manager) de soumettre ses besoins budgétaires annuels (ex: licences logicielles, mobilier, outillages divers).
+    \item Permettre au département Achat de recevoir ces demandes, de les valoriser financièrement (en fixant le prix unitaire réel et la devise), et d'émettre une décision (Approuvé, Rejeté, ou En attente).
+    \item Mettre en place un système de notifications internes (système de cloche dans l'application) pour informer immédiatement les demandeurs lorsque l'état de leur budget change.
+    \item Assurer l'exportation des données validées sous des formats standards (Excel, PDF) pour le reporting financier.
+\end{itemize}
+
+\section{Backlog du Sprint 4}
+
+Le tableau 5.1 présente la liste des \textit{User Stories} identifiées pour ce dernier sprint.
+
+\begin{longtable}{|m{1.5cm}|m{10cm}|m{2cm}|}
+    \hline 
+    \textbf{Id US} & \textbf{Description de la tâche} & \textbf{Priorité}\\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    \endlastfoot
+    \hline  
+    4.1 & Générer les modèles de base de données `NonIndustrialBudget` et `Notification`. & Élevée \\
+    \hline
+    4.2 & Créer les interfaces permettant au Site Manager de saisir, soumettre et suivre ses demandes de budget. & Élevée \\
+    \hline
+    4.3 & Créer les interfaces pour le rôle Achat permettant de valoriser les coûts unitaires et de changer le statut des demandes. & Élevée \\
+    \hline  
+    4.4 & Développer le système de notifications pour alerter le Site Manager lors d'un changement de statut (via polling ou un composant dédié). & Moyenne \\
+    \hline
+    4.5 & Implémenter les algorithmes d'exportation de données (Excel et PDF) pour les budgets consolidés. & Élevée \\
+    \hline
+    4.6 & Valider la sécurité des routes API (un Site Manager ne peut pas auto-valider son budget). & Élevée \\
+    \hline
+    \captionsetup{justification=centering,margin=1.5cm}
+    \caption{Backlog du Sprint 4 : Budget Non-Industriel}
+\end{longtable}
+
+\section{Spécification et analyse du Sprint 4}
+
+\subsection{Diagramme de cas d'utilisation}
+
+Le module du budget non-industriel est caractérisé par l'interaction croisée de deux acteurs. Le demandeur (Site Manager) se charge de l'insertion et de la soumission de la demande. L'Acheteur se charge de la valorisation monétaire et de la clôture (validation/refus).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{img/Diagramme de Cas Sprint2.png} % Note : Il s'agit d'une référence générique aux cas d'utilisations créés.
+    \caption{Interaction collaborative entre le Site Manager et les Achats}
+\end{figure}
+\textit{Note: Le diagramme global présenté au chapitre 2 englobe déjà la séparation fonctionnelle de ces cas d'utilisation.}
+
+\subsection{Diagramme de Séquence du Workflow Budgétaire}
+
+Le succès de ce sprint repose sur le bon déroulement du workflow d'approbation. Le diagramme de séquence (Figure 5.2) met en évidence la chronologie des opérations entre le Client React, l'API Express et la base SQL Server.
+
+\textbf{Scénario principal :}
+\begin{enumerate}
+    \item Le Site Manager crée une ligne de budget. Celle-ci est enregistrée en base avec le statut initial \textit{"Draft"} (Brouillon).
+    \item Lorsqu'il a terminé, il soumet son budget. Le statut passe en \textit{"Submitted"} (Soumis).
+    \item L'Acheteur se connecte, ouvre la liste des demandes soumises, et insère les coûts exacts.
+    \item L'Acheteur change le statut en \textit{"Validated"}.
+    \item Le serveur Express déclenche alors la création d'un enregistrement dans la table `Notification` ciblant l'ID du Site Manager.
+    \item L'interface du Site Manager affiche une alerte dynamique signalant l'approbation de sa demande.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/DiagSeqAjoutHard.png}
+    \caption{Chronologie d'approbation et notification du workflow budgétaire}
+\end{figure}
+
+\section{Réalisation du Sprint 4}
+
+Afin d'illustrer l'aboutissement de ce dernier sprint, les figures suivantes présentent les interfaces graphiques développées. Ces interfaces sont construites pour offrir une lecture rapide des données financières complexes.
+
+\begin{itemize}
+    \item \textbf{Tableau de suivi des Budgets Non-Industriels} : La figure 5.3 montre l'interface listant l'ensemble des besoins indirects (catégories, montants, devises locales). On peut y voir les statuts d'approbation qui permettent au demandeur de suivre l'avancement de son dossier en temps réel.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.95\textwidth]{img/non industrial budget.png}
+        \caption{Interface de gestion et de suivi des budgets non-industriels}
+        \label{fig:budget_table}
+    \end{figure}
+
+    \item \textbf{Analyse Financière et Graphique} : Pour faciliter la prise de décision de la direction financière du groupe, les budgets sont synthétisés graphiquement. La figure 5.4 illustre la répartition visuelle des dépenses (par exemple, par catégorie : IT, Mobilier, Imprévus).
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.95\textwidth]{img/non industrial budget analyse.png}
+        \caption{Tableau de bord d'analyse graphique des budgets non-industriels}
+        \label{fig:budget_analyse}
+    \end{figure}
+\end{itemize}
+
+\section*{Conclusion}
+
+Ce dernier chapitre a détaillé la réalisation de la troisième et dernière release du projet NVCapacity. Le Sprint 4 a permis de dématérialiser intégralement le processus de demande et de validation des budgets non-industriels. Grâce à un workflow collaboratif transparent et un système de notifications intégrées, le département des achats et les directeurs d'usines partagent désormais une vision financière claire et auditable. 
+
+La clôture de ce sprint marque la finalisation technique de la plateforme "NVCapacity", qui remplit désormais l'intégralité du cahier des charges défini par le Groupe COFAT, englobant la planification capacitaire directe (usines) et indirecte (budgets).

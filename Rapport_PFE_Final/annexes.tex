@@ -1,0 +1,244 @@
+﻿\appendix
+\chapter*{Annexes}
+\addcontentsline{toc}{chapter}{Annexes}
+\markboth{\textbf{Annexes}}{}
+
+Les annexes regroupent des éléments complémentaires qui facilitent la compréhension, l'exploitation et la maintenance de l'application développée. Elles complètent les chapitres principaux sans interrompre leur progression logique.
+
+\section*{Annexe A : Guide utilisateur synthétique}
+\addcontentsline{toc}{section}{Annexe A : Guide utilisateur synthétique}
+
+Cette annexe présente les principales étapes d'utilisation de l'application de gestion du parc informatique. Le guide est destiné aux membres du département IT qui utiliseront l'application au quotidien.
+
+\subsection*{Connexion à l'application}
+
+L'utilisateur accède à l'application depuis un navigateur web interne. La page de connexion demande les identifiants Active Directory. Après validation, le système vérifie l'appartenance de l'utilisateur au groupe autorisé et lui attribue les droits correspondant à son profil.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\columnwidth]{LOGIN.png}
+\caption{Interface de connexion à l'application}
+\end{figure}
+
+Les bonnes pratiques suivantes doivent être respectées :
+
+\begin{itemize}[label=\textbullet,font=\normalsize]
+    \item utiliser uniquement le compte professionnel fourni par l'entreprise ;
+    \item ne jamais partager son mot de passe avec un autre utilisateur ;
+    \item se déconnecter après utilisation sur un poste partagé ;
+    \item signaler toute anomalie d'accès au responsable IT.
+\end{itemize}
+
+\subsection*{Consultation du tableau de bord}
+
+Après authentification, l'utilisateur accède à la page d'accueil qui présente une synthèse du parc informatique. Le tableau de bord permet de connaître rapidement la répartition des équipements et d'identifier les catégories qui nécessitent une attention particulière.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\columnwidth]{HOME PAGE.png}
+\caption{Page d'accueil de l'application}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\columnwidth]{dashboard admin.png}
+\caption{Tableau de bord administrateur}
+\end{figure}
+
+\subsection*{Ajout d'un équipement}
+
+Pour ajouter un équipement, l'utilisateur ouvre le module de gestion des équipements puis renseigne les informations obligatoires : type, marque, modèle, numéro de série, état et date d'acquisition. Une fois le formulaire validé, l'équipement devient disponible dans l'inventaire.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\columnwidth]{equipement standard (ajout d'un equipement)1.png}
+\caption{Formulaire d'ajout d'un équipement}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\columnwidth]{equipement standard (ajout d'un equipement)2.png}
+\caption{Suite du formulaire d'ajout d'un équipement}
+\end{figure}
+
+Les informations saisies doivent être vérifiées avant validation, car elles alimentent le stock, les statistiques et l'historique. Le numéro de série doit être unique afin d'éviter la création de doublons.
+
+\subsection*{Gestion des affectations et missions}
+
+L'affectation permet d'associer un équipement à un employé. Cette opération doit être réalisée lorsqu'un matériel est remis à un utilisateur pour un usage régulier. La mission, quant à elle, correspond à un prêt temporaire avec une date de fin prévue. Le système envoie un rappel automatique lorsque la mission arrive à échéance.
+
+Pour garantir un suivi correct, l'utilisateur doit :
+
+\begin{itemize}[label=\textbullet,font=\normalsize]
+    \item vérifier que l'équipement est disponible avant de l'affecter ;
+    \item sélectionner l'employé concerné dans la liste ;
+    \item renseigner les dates avec précision ;
+    \item clôturer la mission ou l'affectation lorsque le matériel est restitué ;
+    \item consulter l'historique en cas de doute sur le dernier utilisateur.
+\end{itemize}
+
+\subsection*{Gestion des fournisseurs et bons d'achat}
+
+Le module fournisseurs permet de conserver les coordonnées des partenaires utilisés pour l'achat du matériel informatique. Le module bons d'achat permet de relier les commandes aux fournisseurs et de suivre la réception des équipements.
+
+Lors de la création d'un bon d'achat, il est recommandé de vérifier :
+
+\begin{itemize}[label=\textbullet,font=\normalsize]
+    \item la référence de la commande ;
+    \item le fournisseur associé ;
+    \item la date de commande et la date de réception ;
+    \item le montant ou la quantité si ces informations sont disponibles ;
+    \item l'état de la réception.
+\end{itemize}
+
+\section*{Annexe B : Procédure de déploiement}
+\addcontentsline{toc}{section}{Annexe B : Procédure de déploiement}
+
+Cette procédure décrit les étapes recommandées pour installer l'application dans un environnement interne. Elle doit être adaptée selon les règles d'infrastructure de l'entreprise.
+
+\subsection*{Préparation de l'environnement}
+
+Avant le déploiement, les prérequis suivants doivent être vérifiés :
+
+\begin{longtable}{|m{4cm}|m{8cm}|}
+\hline
+\textbf{Prérequis} & \textbf{Description} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+\hline
+Serveur Windows & Machine destinée à héberger l'application web via IIS \\
+\hline
+Runtime .NET & Version compatible avec l'application ASP.NET Core développée \\
+\hline
+SQL Server & Instance SQL Server disponible pour héberger la base de données \\
+\hline
+Active Directory & Domaine accessible pour l'authentification LDAP \\
+\hline
+Serveur SMTP & Service de messagerie autorisant l'envoi des notifications internes \\
+\hline
+Certificat HTTPS & Certificat recommandé pour sécuriser les échanges entre client et serveur \\
+\hline
+\captionsetup{justification=centering,margin=1cm}
+\caption{Prérequis de déploiement}
+\end{longtable}
+
+\subsection*{Étapes d'installation}
+
+\begin{enumerate}
+    \item Créer la base de données SQL Server et appliquer les scripts de création ou de migration.
+    \item Déployer les fichiers publiés de l'application dans le répertoire IIS prévu.
+    \item Configurer le pool applicatif avec la version .NET appropriée.
+    \item Renseigner la chaîne de connexion dans le fichier de configuration.
+    \item Configurer les paramètres LDAP : domaine, groupe autorisé et rôles.
+    \item Configurer les paramètres SMTP : serveur, port, compte d'envoi et destinataires des alertes.
+    \item Vérifier les droits d'accès du compte applicatif à la base de données.
+    \item Tester la connexion avec un compte administrateur puis avec un compte utilisateur standard.
+    \item Vérifier l'envoi d'un e-mail de test.
+    \item Planifier les sauvegardes de la base de données.
+\end{enumerate}
+
+\subsection*{Plan de sauvegarde}
+
+La base de données représente un élément critique, car elle contient l'inventaire, les mouvements, les fournisseurs, les commandes et les historiques. Un plan de sauvegarde doit être mis en place dès la mise en production.
+
+\begin{longtable}{|m{4cm}|m{4cm}|m{5cm}|}
+\hline
+\textbf{Type de sauvegarde} & \textbf{Fréquence recommandée} & \textbf{Objectif} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+\hline
+Sauvegarde complète & Quotidienne & Permettre une restauration complète en cas d'incident majeur \\
+\hline
+Sauvegarde différentielle & Plusieurs fois par jour si nécessaire & Réduire la perte de données entre deux sauvegardes complètes \\
+\hline
+Export d'historique & Hebdomadaire ou mensuel & Conserver une trace exploitable pour les audits \\
+\hline
+Test de restauration & Mensuel & Vérifier que les sauvegardes sont réellement exploitables \\
+\hline
+\captionsetup{justification=centering,margin=1cm}
+\caption{Plan de sauvegarde recommandé}
+\end{longtable}
+
+\section*{Annexe C : Dictionnaire de données simplifié}
+\addcontentsline{toc}{section}{Annexe C : Dictionnaire de données simplifié}
+
+Le dictionnaire de données présente les principales entités manipulées par l'application. Il facilite la maintenance future et la compréhension de la base.
+
+\begin{longtable}{|m{3cm}|m{4.5cm}|m{6cm}|}
+\hline
+\textbf{Entité} & \textbf{Champ} & \textbf{Description} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+\hline
+Hardware & Id & Identifiant technique de l'équipement \\
+\hline
+Hardware & Type & Catégorie de matériel : laptop, desktop, serveur, switch, imprimante \\
+\hline
+Hardware & NumeroSerie & Numéro unique permettant l'identification physique \\
+\hline
+Hardware & Etat & État courant : disponible, affecté, en mission, en maintenance, hors service \\
+\hline
+Affectation & EmployeeId & Employé bénéficiaire de l'équipement \\
+\hline
+Affectation & DateAffectation & Date de remise du matériel \\
+\hline
+Mission & DateDebut & Date de début du prêt temporaire \\
+\hline
+Mission & DateFin & Date prévue de restitution \\
+\hline
+Fournisseur & Email & Adresse utilisée pour contacter le fournisseur \\
+\hline
+Ordre & Statut & État du bon d'achat : créé, reçu, annulé \\
+\hline
+Historique & TypeAction & Nature de l'opération enregistrée \\
+\hline
+User & Role & Niveau d'autorisation dans l'application \\
+\hline
+\captionsetup{justification=centering,margin=1cm}
+\caption{Dictionnaire de données simplifié}
+\end{longtable}
+
+\section*{Annexe D : Fiche de recette}
+\addcontentsline{toc}{section}{Annexe D : Fiche de recette}
+
+La fiche de recette permet de formaliser la validation finale des modules. Elle peut être utilisée lors d'une démonstration avec le Product Owner.
+
+\begin{longtable}{|m{1.5cm}|m{4.5cm}|m{5cm}|m{2cm}|}
+\hline
+\textbf{Réf.} & \textbf{Module} & \textbf{Action à vérifier} & \textbf{Résultat} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+\hline
+R01 & Authentification & Connexion avec compte autorisé & Conforme \\
+\hline
+R02 & Équipements & Ajout d'un équipement complet & Conforme \\
+\hline
+R03 & Équipements & Recherche d'un équipement dans la liste & Conforme \\
+\hline
+R04 & Stock & Consultation des équipements disponibles par catégorie & Conforme \\
+\hline
+R05 & Affectations & Affectation d'un équipement à un employé & Conforme \\
+\hline
+R06 & Missions & Création d'une mission avec date de fin & Conforme \\
+\hline
+R07 & Alertes & Envoi d'un e-mail de rappel ou de stock minimum & Conforme \\
+\hline
+R08 & Fournisseurs & Ajout et modification d'un fournisseur & Conforme \\
+\hline
+R09 & Bons d'achat & Création et consultation d'une commande & Conforme \\
+\hline
+R10 & Historique & Consultation des opérations enregistrées & Conforme \\
+\hline
+\captionsetup{justification=centering,margin=1cm}
+\caption{Fiche de recette synthétique}
+\end{longtable}
+
+Ces annexes constituent une base de documentation exploitable pour la maintenance et l'évolution de l'application après la fin du projet.

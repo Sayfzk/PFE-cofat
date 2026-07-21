@@ -1,0 +1,198 @@
+\chapter{Release 2 : Planification Locale et Consolidation Groupe (Sprints 2 et 3)}
+
+\section*{Introduction}
+
+Dans ce chapitre, je vais détailler le cycle de développement de la deuxième release de NVCapacity, qui constitue le cœur opérationnel du système. Cette release est structurée en deux sprints majeurs. Le Sprint 2 se focalise sur la planification capacitaire locale, offrant aux Site Managers les outils pour importer et suivre les capacités en Équipements, Espaces et Ressources Humaines. Le Sprint 3 est quant à lui dédié à l'agrégation de ces données pour générer des tableaux de bord de consolidation à l'échelle mondiale (Cofat Group), tout en introduisant le référentiel unifié des standards d'investissements V2 pour les achats.
+
+\section{Sprint 2 : Planification Capacitaire Locale} 
+
+\subsection{Objectifs du Sprint 2}
+
+L'objectif principal de ce sprint est de numériser les processus locaux de planification. Plutôt que de conserver des fichiers Excel dispersés, chaque Site Manager doit pouvoir importer ses prévisions ou les saisir manuellement. Le système doit valider automatiquement la cohérence des données : calculer le taux de charge machine (Machine Load), identifier les zones de l'usine manquant d'espace au sol (Espaces), et calculer l'écart entre le besoin en effectif direct et les ressources réelles disponibles (RH).
+
+\subsection{Backlog du Sprint 2}
+
+Le tableau 4.1 détaille les \textit{User Stories} spécifiques à ce sprint.
+
+\begin{longtable}{|m{1.5cm}|m{10cm}|m{2cm}|}
+    \hline 
+    \textbf{Id US} & \textbf{Description de la tâche} & \textbf{Priorité}\\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    \endlastfoot
+    \hline  
+    2.1 & Implémenter le modèle de base de données pour la planification des Équipements par site (Machine Need, Available, Load, To Order). & Élevée \\
+    \hline
+    2.2 & Créer le composant d'importation Excel dynamique pour lire les fichiers locaux et les convertir au format JSON. & Élevée \\
+    \hline
+    2.3 & Implémenter les interfaces de gestion des Espaces (Surfaces par projet et par mois/trimestre). & Élevée \\
+    \hline  
+    2.4 & Créer le module de saisie des Ressources Humaines (Directs, Indirects, Assemblage Direct) et le calcul des effectifs prévisionnels. & Élevée \\
+    \hline
+    2.5 & Générer des graphiques d'analyse locale (Charts.js) pour visualiser les goulots d'étranglement par site. & Moyenne \\
+    \hline
+    2.6 & Tester les endpoints API et corriger les bugs liés à la manipulation des dates. & Moyenne \\
+    \hline
+    \captionsetup{justification=centering,margin=1.5cm}
+    \caption{Backlog du Sprint 2 : Planification Locale}
+\end{longtable}
+
+\subsection{Spécification et analyse du Sprint 2}
+
+La modélisation de ce sprint met en lumière l'action d'importation et de suivi des données par le responsable local.
+
+\subsubsection{Diagramme de cas d'utilisation (Sprint 2)}
+
+Le diagramme de la figure 4.1 illustre les actions du Site Manager. Il est autorisé à accéder à trois modules distincts (Équipements, Espaces, RH). Pour chaque module, l'importation massive via Excel inclut un cas d'utilisation obligatoirement inclus (`<<include>>`) : le parsing des données brutes pour garantir l'absence d'erreurs avant la sauvegarde en base.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{img/Diagramme de Cas Sprint2.png}
+    \caption{Diagramme de cas d'utilisation pour la Planification Locale (Sprint 2)}
+    \label{fig:usecase_sprint2}
+\end{figure}
+
+\subsubsection{Diagramme de Classes (Sprint 2)}
+
+Le diagramme de classes (Figure 4.2) montre la relation fondamentale \textit{One-to-Many} (Un à Plusieurs) entre le modèle `Site` et les trois entités de planification temporelle : `EquipmentPlanning`, `Spaces`, et `HR`. Chaque enregistrement est lié à un mois et une année précis.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/ClasseSprint2.png}
+    \caption{Diagramme de classes du Sprint 2}
+    \label{fig:class_sprint2}
+\end{figure}
+
+\subsection{Réalisation du Sprint 2}
+
+Les interfaces suivantes ont été développées à l'aide de React et Tailwind CSS pour offrir une expérience utilisateur claire et moderne aux Site Managers.
+
+\begin{itemize}
+    \item \textbf{Planification des Équipements} : La figure 4.3 montre le tableau interactif permettant à l'utilisateur de vérifier l'état des machines de son usine (ex: machines de coupe standard).
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/planification equipement standard.png}
+        \caption{Interface de planification locale des Équipements Standards}
+    \end{figure} 
+
+    \item \textbf{Analyse d'occupation des Espaces} : La figure 4.4 illustre la vue analytique locale permettant de vérifier si la surface disponible de l'usine est suffisante pour accueillir les nouveaux projets.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/analyse d'occupation et espace disponible.png}
+        \caption{Tableau de suivi d'occupation et espace disponible (Site)}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/analyse des espaces.png}
+        \caption{Analyse graphique de l'occupation des espaces industriels}
+    \end{figure}
+
+    \item \textbf{Gestion des Ressources Humaines} : La figure 4.6 présente le tableau de suivi des effectifs, différenciant les ressources directes (opérateurs de chaîne) et indirectes (logistique, méthodes).
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/gestion des resources humaines.png}
+        \caption{Tableau de suivi et de gestion des ressources humaines locales}
+    \end{figure}
+\end{itemize}
+
+\section{Sprint 3 : Consolidation Groupe et Standards V2}
+
+\subsection{Objectifs du Sprint 3}
+
+Une fois les données locales correctement structurées dans le système (Sprint 2), l'objectif du Sprint 3 est d'exploiter cette donnée à l'échelle macroscopique. J'ai développé des algorithmes de consolidation qui agrègent dynamiquement les capacités de toutes les usines mondiales. Parallèlement, ce sprint intègre le référentiel d'achat `StandardInvestmentV2`, permettant au département Achats de gérer un catalogue central de machines avec leurs coûts de cycle de vie et prix d'achat dans différentes devises.
+
+\subsection{Backlog du Sprint 3}
+
+Le tableau 4.2 illustre les tâches assignées à ce troisième sprint.
+
+\begin{longtable}{|m{1.5cm}|m{10cm}|m{2cm}|}
+    \hline 
+    \textbf{Id US} & \textbf{Description de la tâche} & \textbf{Priorité}\\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    \endlastfoot
+    \hline  
+    3.1 & Développer l'algorithme d'agrégation multi-sites pour les Équipements. & Élevée \\
+    \hline
+    3.2 & Développer l'agrégation globale pour les Espaces industriels et les RH. & Élevée \\
+    \hline
+    3.3 & Créer le modèle SQL pour le catalogue StandardInvestmentV2 (Devise, Prix, Durée de vie). & Élevée \\
+    \hline
+    3.4 & Implémenter le CRUD (Create, Read, Update, Delete) du catalogue des investissements pour l'Acheteur. & Élevée \\
+    \hline
+    3.5 & Générer des tableaux de bord analytiques "Cofat Group" de haut niveau. & Élevée \\
+    \hline
+    \captionsetup{justification=centering,margin=1.5cm}
+    \caption{Backlog du Sprint 3 : Consolidation et Standards V2}
+\end{longtable}
+
+\subsection{Spécification et analyse du Sprint 3}
+
+Le diagramme de classes de ce sprint (Figure 4.7) met en exergue l'intégration du modèle `StandardInvestmentV2`. Ce modèle centralise les caractéristiques techniques et financières d'une machine (ex: "Machine de coupe Komax") et lie ces données aux équipements réels présents dans les sites pour valoriser le besoin d'investissement du Groupe.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{img/ClasseSprint3.png}
+    \caption{Diagramme de classes du Sprint 3 (Intégration de StandardInvestmentV2)}
+    \label{fig:class_sprint3}
+\end{figure}
+
+\subsection{Réalisation du Sprint 3}
+
+\begin{itemize}
+    \item \textbf{Consolidation des Équipements et Espaces (Cofat Group)} : La figure 4.8 montre la vue d'ensemble où toutes les données des sites sont agrégées. Les écarts globaux sautent directement aux yeux des administrateurs.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/consolidatinon cofatgroup Equipment.png}
+        \caption{Vue de consolidation globale des équipements (Cofat Group)}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/cofat group space consolidation.png}
+        \caption{Vue de consolidation globale des espaces industriels (Cofat Group)}
+    \end{figure}
+
+    \item \textbf{Consolidation et Analyse RH} : La figure 4.10 illustre l'agrégation des ressources humaines, suivie par son analyse graphique (Figure 4.11) permettant d'anticiper les besoins en recrutement du groupe.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/cofat group HR consolidation.png}
+        \caption{Consolidation des Ressources Humaines Groupe}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/analyse cofat group HR consolidation.png}
+        \caption{Analyse graphique de la consolidation RH Groupe}
+    \end{figure}
+
+    \item \textbf{Catalogue des Investissements Standards} : Le département des Achats peut configurer les machines via l'interface du catalogue. Les figures 4.12, 4.13 et 4.14 montrent les différentes étapes d'ajout et de gestion de ce référentiel unifié.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/equipement standard.png}
+        \caption{Catalogue central des investissements standards}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/equipement standard (ajout d'un equipement)1.png}
+        \caption{Formulaire de paramétrage d'un équipement standard (Partie 1)}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/analyse equipement standard.png}
+        \caption{Tableau de bord et analyse financière des investissements standards}
+    \end{figure}
+
+\end{itemize}
+
+\section*{Conclusion}
+
+Ce quatrième chapitre a décrit l'implémentation de la Release 2. Grâce au Sprint 2, NVCapacity élimine l'utilisation dispersive des fichiers Excel en permettant une collecte structurée et standardisée des données locales des sites de production. Le Sprint 3 a valorisé ces données en offrant des vues consolidées en temps réel à l'échelle du groupe et en connectant ces résultats au nouveau référentiel des investissements standards (V2).
+Dans le prochain et dernier chapitre, j'aborderai le Sprint 4 dédié à l'automatisation du flux collaboratif (Workflow) du budget non-industriel et la mise en place d'un système de notifications.

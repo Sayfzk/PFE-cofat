@@ -1,0 +1,280 @@
+/* ============================================
+   EXPORT DROPDOWN BUTTON - MODERN DESIGN
+   ============================================ */
+
+/* Container for export actions */
+.export-actions-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.5rem;
+    background: transparent;
+    border-radius: 12px;
+}
+
+/* Dropdown wrapper */
+.export-dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Main dropdown button - COMPACT VERSION */
+.export-dropdown-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+    position: relative;
+    overflow: hidden;
+    min-width: 140px;
+}
+
+.export-dropdown-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.export-dropdown-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.export-dropdown-button:hover::before {
+    left: 100%;
+}
+
+.export-dropdown-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.export-dropdown-button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.export-button-icon {
+    font-size: 18px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.export-button-text {
+    font-size: 14px;
+    letter-spacing: 0.3px;
+}
+
+.export-chevron {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+.export-chevron.open {
+    transform: rotate(180deg);
+}
+
+/* Dropdown menu - FIXED POSITIONING */
+.export-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 280px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 6px;
+    z-index: 9999;
+    animation: slideDown 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dropdown items - COMPACT */
+.export-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: left;
+    margin-bottom: 3px;
+}
+
+.export-dropdown-item:last-child {
+    margin-bottom: 0;
+}
+
+.export-dropdown-item:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(37, 99, 235, 0.08) 100%);
+    transform: translateX(3px);
+}
+
+.export-dropdown-item.excel:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%);
+}
+
+.export-dropdown-item.excel:hover .export-item-icon {
+    color: #10b981;
+}
+
+.export-dropdown-item.pdf:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%);
+}
+
+.export-dropdown-item.pdf:hover .export-item-icon {
+    color: #ef4444;
+}
+
+.export-dropdown-item.analyse:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%);
+}
+
+.export-dropdown-item.analyse:hover .export-item-icon {
+    color: #8b5cf6;
+}
+
+.export-item-icon {
+    font-size: 20px;
+    color: #64748b;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+.export-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+.export-item-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+    letter-spacing: 0.2px;
+}
+
+.export-item-subtitle {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .export-actions-container {
+    background: transparent;
+}
+
+[data-theme="dark"] .export-dropdown-menu {
+    background: rgba(30, 41, 59, 0.98);
+    border-color: rgba(71, 85, 105, 0.3);
+}
+
+[data-theme="dark"] .export-item-title {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .export-item-subtitle {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .export-dropdown-item:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.15) 100%);
+}
+
+[data-theme="dark"] .export-dropdown-item.excel:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%);
+}
+
+[data-theme="dark"] .export-dropdown-item.pdf:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.15) 100%);
+}
+
+[data-theme="dark"] .export-dropdown-item.analyse:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .export-dropdown-menu {
+        min-width: 260px;
+    }
+
+    .export-dropdown-button {
+        padding: 7px 14px;
+        font-size: 13px;
+        min-width: 130px;
+    }
+
+    .export-button-icon {
+        font-size: 16px;
+    }
+
+    .export-button-text {
+        font-size: 13px;
+    }
+
+    .export-dropdown-item {
+        padding: 9px 10px;
+    }
+
+    .export-item-title {
+        font-size: 13px;
+    }
+
+    .export-item-subtitle {
+        font-size: 10px;
+    }
+}
+
+/* Smooth transitions */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

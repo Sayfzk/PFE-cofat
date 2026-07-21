@@ -1,0 +1,238 @@
+﻿\chapter{Architecture et RÃ©alisation du Sprint 1}
+\label{chap:architecture_sprint1}
+
+\section{Introduction}
+AprÃ¨s avoir rigoureusement dÃ©fini le pÃ©rimÃ¨tre fonctionnel et les exigences du projet dans le chapitre prÃ©cÃ©dent, nous entrons Ã  prÃ©sent dans la phase de conception technique et de rÃ©alisation. La transition d'un processus manuel dispersÃ© vers une plateforme web centralisÃ©e exige des fondations logicielles solides, capables de soutenir la montÃ©e en charge, d'assurer la sÃ©curitÃ© des donnÃ©es industrielles, et de faciliter les Ã©volutions futures. Ce troisiÃ¨me chapitre est dÃ©diÃ© Ã  la mise en place de ces fondations. Dans un premier temps, nous justifierons en dÃ©tail l'ensemble des choix technologiques adoptÃ©s, en confrontant les besoins du Groupe COFAT aux standards actuels de l'industrie logicielle. Nous dÃ©crirons ensuite l'architecture 3-tiers mise en Å“uvre ainsi que le diagramme de dÃ©ploiement physique. Enfin, nous aborderons la phase de rÃ©alisation concrÃ¨te en prÃ©sentant les travaux du Sprint 0 (mise en place du socle technique) et du Sprint 1, qui a donnÃ© naissance au module d'authentification sÃ©curisÃ© et au tableau de bord d'administration central, pierres angulaires de l'application \textit{Cofat Capacity Study}.
+
+\section{Choix technologiques}
+La sÃ©lection de la \textit{stack} technique (l'empilement des technologies) est une dÃ©cision critique. Elle doit rÃ©pondre aux exigences non fonctionnelles de sÃ©curitÃ©, de performance lors de l'agrÃ©gation de milliers de donnÃ©es, et de maintenabilitÃ© par les futures Ã©quipes IT de COFAT. Nous avons optÃ© pour une approche \textit{Full-Stack JavaScript} accompagnÃ©e d'une base de donnÃ©es relationnelle robuste.
+
+\subsection{Environnement Backend : Node.js et Express.js}
+\textbf{DÃ©finition :} Node.js est un environnement d'exÃ©cution (runtime) open-source multiplateforme qui permet d'exÃ©cuter du code JavaScript cÃ´tÃ© serveur. Il repose sur le moteur V8 de Google Chrome et utilise une architecture asynchrone non bloquante orientÃ©e Ã©vÃ©nements (Event Loop). Express.js est le framework web minimaliste et flexible le plus populaire pour Node.js.
+\newline
+\textbf{Raison du choix :} Le besoin principal du backend de \textit{Cofat Capacity Study} est de traiter des requÃªtes entrantes (imports de gros fichiers Excel) et de servir des donnÃ©es consolidÃ©es simultanÃ©ment Ã  plusieurs usines mondiales. L'asynchronisme natif de Node.js est particuliÃ¨rement adaptÃ© aux opÃ©rations d'entrÃ©es/sorties (I/O) intensives sans bloquer le thread principal. L'utilisation du JavaScript de bout en bout (frontend et backend) homogÃ©nÃ©ise le code et facilite la maintenance.
+\newline
+\textbf{Utilisation dans le projet :} Le serveur Node.js/Express hÃ©berge notre API RESTful. Il Ã©coute sur le port \textbf{9001}. L'architecture est modulaire, avec un routage organisÃ© par domaine mÃ©tier (authentification, Ã©quipements, espaces, RH, budget). Express gÃ¨re les middlewares globaux (sÃ©curitÃ© CORS, parsing JSON, gestion des erreurs) et les requÃªtes HTTP.
+
+\subsection{SystÃ¨me de Gestion de Base de DonnÃ©es : Microsoft SQL Server}
+\textbf{DÃ©finition :} Microsoft SQL Server (MSSQL) est un systÃ¨me de gestion de base de donnÃ©es relationnelle (SGBDR) d'entreprise, reconnu pour sa fiabilitÃ©, ses capacitÃ©s transactionnelles (ACID) et ses performances sur de gros volumes de donnÃ©es.
+\newline
+\textbf{Raison du choix :} Le modÃ¨le de donnÃ©es de COFAT est intrinsÃ¨quement relationnel : une usine possÃ¨de plusieurs Ã©quipements, qui sont liÃ©s Ã  des pÃ©riodes de planification, tandis qu'un budget est rattachÃ© Ã  un historique de notifications. Une base NoSQL n'aurait pas Ã©tÃ© adaptÃ©e pour garantir l'intÃ©gritÃ© de ces liens via des clÃ©s Ã©trangÃ¨res. Par ailleurs, MS SQL Server est le standard SGBDR historique et validÃ© par le dÃ©partement IT d'ABM Informatique (la branche IT du groupe), ce qui facilite l'intÃ©gration dans leur infrastructure existante.
+\newline
+\textbf{Utilisation dans le projet :} La base de donnÃ©es, nommÃ©e \texttt{GALIA\_V1}, est hÃ©bergÃ©e sur l'instance SQL Server de l'entreprise et communique sur le port standard \textbf{1433}. Elle stocke de maniÃ¨re sÃ©curisÃ©e l'ensemble des 10 entitÃ©s de l'application.
+
+\subsection{Object-Relational Mapping (ORM) : Sequelize}
+\textbf{DÃ©finition :} Sequelize est un ORM (Object-Relational Mapper) basÃ© sur des promesses pour Node.js, supportant de nombreux dialectes SQL dont MSSQL.
+\newline
+\textbf{Raison du choix :} RÃ©diger des requÃªtes SQL "brutes" dans le code backend expose aux risques d'injection SQL et rend la maintenance fastidieuse. Sequelize permet de manipuler les tables de la base de donnÃ©es comme des objets JavaScript classiques. Il gÃ¨re automatiquement l'assainissement des donnÃ©es et facilite les migrations de schÃ©mas.
+\newline
+\textbf{Utilisation dans le projet :} Chaque table SQL est reprÃ©sentÃ©e par un modÃ¨le JavaScript dans le dossier \texttt{models/}. Sequelize est utilisÃ© pour dÃ©finir les champs (avec leurs validations de type strictes) et les relations (\textit{hasMany}, \textit{belongsTo}). Ses mÃ©thodes (\textit{findAll}, \textit{bulkCreate}) sont massivement utilisÃ©es pour la consolidation et l'import Excel.
+
+\subsection{Environnement Frontend : React.js}
+\textbf{DÃ©finition :} React.js est une bibliothÃ¨que JavaScript open-source dÃ©veloppÃ©e par Facebook (Meta) pour la crÃ©ation d'interfaces utilisateur interactives sous forme de Single Page Application (SPA).
+\newline
+\textbf{Raison du choix :} React permet de crÃ©er des interfaces rÃ©actives et modulaires basÃ©es sur des composants rÃ©utilisables. Son concept de DOM virtuel (Virtual DOM) offre des performances d'affichage exceptionnelles, idÃ©ales pour manipuler les vastes tableaux de bord de consolidation de COFAT sans avoir Ã  recharger la page.
+\newline
+\textbf{Utilisation dans le projet :} Le frontend est entiÃ¨rement dÃ©veloppÃ© en React avec des composants fonctionnels (Functional Components) et les Hooks (\textit{useState}, \textit{useEffect}). L'API Context de React est utilisÃ©e pour maintenir l'Ã©tat d'authentification global de l'utilisateur Ã  travers toutes les pages.
+
+\subsection{BibliothÃ¨ques d'interface (UI) : Tailwind CSS, MUI, Ant Design}
+\textbf{DÃ©finitions et Raisons du choix :} L'ergonomie est une prioritÃ©. 
+\begin{itemize}
+    \item \textbf{Tailwind CSS} est un framework CSS \textit{utility-first}. Contrairement aux frameworks basÃ©s sur des composants (comme Bootstrap), Tailwind permet d'appliquer des styles directement dans le code JSX via des classes utilitaires. Cela permet de crÃ©er un design totalement sur mesure et \textit{responsive} (adaptable PC/Tablette) sans s'alourdir de lourds fichiers CSS, ni recourir aux fastidieuses media queries.
+    \item \textbf{Material UI (MUI)} et \textbf{Ant Design (AntD)} sont des bibliothÃ¨ques de composants React prÃªts Ã  l'emploi. 
+\end{itemize}
+\textbf{Utilisation :} Tailwind est utilisÃ© pour structurer les mises en page (Grid, Flexbox) et les couleurs du thÃ¨me (Dark Mode, palettes harmonieuses). MUI et Ant Design sont dÃ©ployÃ©s de maniÃ¨re chirurgicale pour les composants complexes tels que les tableaux de donnÃ©es massifs (DataTables), les modales de confirmation, et les formulaires interactifs.
+
+\subsection{Visualisation de donnÃ©es : Charts.js}
+\textbf{DÃ©finition :} Charts.js est une bibliothÃ¨que JavaScript permettant de dessiner des graphiques dynamiques sur un Ã©lÃ©ment Canvas HTML5.
+\newline
+\textbf{Raison du choix :} L'application nÃ©cessite de traduire visuellement la capacitÃ© de production pour faciliter la prise de dÃ©cision.
+\newline
+\textbf{Utilisation :} UtilisÃ©e pour gÃ©nÃ©rer les graphiques d'analyse d'occupation des espaces (diagrammes circulaires) et les courbes d'Ã©volution des effectifs (histogrammes et lignes de tendance) sur les tableaux de bord de consolidation "Cofat Group".
+
+\subsection{Outils de ModÃ©lisation et de DÃ©veloppement}
+\begin{itemize}
+    \item \textbf{PlantUML} : Outil open-source permettant de gÃ©nÃ©rer des diagrammes UML de haute qualitÃ© Ã  partir d'un langage de description textuel. UtilisÃ© pour toute la modÃ©lisation conceptuelle de ce rapport.
+    \item \textbf{Visual Studio Code (VS Code)} : L'Ã©diteur de code (IDE) principal, lÃ©ger et puissant. Les extensions "ES7+ React/Redux/React-Native snippets" ont drastiquement accÃ©lÃ©rÃ© l'Ã©criture des composants.
+\end{itemize}
+
+\subsection{ContrÃ´le de version et DevOps : Git, GitHub, Docker, Jenkins}
+Pour assurer un cycle de dÃ©veloppement professionnel et sÃ©curisÃ© :
+\begin{itemize}
+    \item \textbf{Git et GitHub} : UtilisÃ©s pour le \textit{versioning} du code. La mÃ©thodologie \textit{Git Flow} a Ã©tÃ© appliquÃ©e, avec des branches dÃ©diÃ©es pour chaque nouvelle fonctionnalitÃ© (\textit{feature branches}) afin de ne jamais compromettre le code stable.
+    \item \textbf{Docker} : Outil de conteneurisation encapsulant l'application et toutes ses dÃ©pendances (Node, React) dans des conteneurs isolÃ©s. Cela garantit que le code qui fonctionne sur l'ordinateur de dÃ©veloppement fonctionnera Ã  l'identique sur le serveur de production.
+    \item \textbf{Jenkins} : Serveur d'intÃ©gration et de dÃ©ploiement continu (CI/CD). Il a Ã©tÃ© mis en place pour automatiser les tests et le dÃ©ploiement des nouvelles versions de l'application sur le serveur d'ABM Informatique dÃ¨s qu'un code est validÃ© sur GitHub.
+\end{itemize}
+
+\section{Architecture 3-tiers de l'application}
+Pour rÃ©pondre aux impÃ©ratifs d'extensibilitÃ© et de maintenabilitÃ©, l'application repose sur une architecture logique Ã  trois niveaux (3-tiers). Ce modÃ¨le sÃ©pare physiquement et logiquement l'interface utilisateur de la logique mÃ©tier et du stockage des donnÃ©es, ce qui permet Ã  chaque couche d'Ã©voluer de maniÃ¨re indÃ©pendante.
+
+\subsection{Couche de PrÃ©sentation (Frontend - React)}
+C'est l'interface avec laquelle les utilisateurs de COFAT interagissent. Elle a pour seule responsabilitÃ© l'affichage des informations et la capture des saisies utilisateurs. Elle ne contient aucune rÃ¨gle mÃ©tier complexe.
+\newline
+\textbf{Composants principaux :} Le frontend est composÃ© de vues (Pages) et de fragments rÃ©utilisables (Components). Parmi les composants rÃ©els de l'application, on retrouve :
+\begin{itemize}
+    \item \textit{Login} : Ã‰cran d'authentification.
+    \item \textit{AdminDashboard} : Interface centrale rÃ©servÃ©e Ã  la direction.
+    \item \textit{SiteTable}, \textit{SpaceTable}, \textit{HrTable} : Tableaux de gestion de la planification locale.
+    \item \textit{CofatGroup} : Composants de consolidation mondiale.
+    \item \textit{NonIndustrialBudget} et \textit{StandardInvestment} : Vues de gestion financiÃ¨re.
+    \item \textit{NotificationBell} : Composant global interrogeant l'API pour afficher les alertes.
+\end{itemize}
+
+\subsection{Couche MÃ©tier (Backend - Node.js/Express)}
+C'est le cerveau de l'application. Elle reÃ§oit les requÃªtes de la couche de prÃ©sentation via HTTP, exÃ©cute les rÃ¨gles de gestion (calculs de capacitÃ©, validations des permissions) et communique avec la base de donnÃ©es.
+\newline
+\textbf{Gestion des middlewares et sÃ©curitÃ© :} Chaque requÃªte passe d'abord par le middleware de sÃ©curitÃ© JWT. Ce script intercepte la requÃªte, extrait le cookie \textit{HttpOnly}, dÃ©crypte la signature du jeton, vÃ©rifie l'identitÃ© de l'utilisateur et s'assure qu'il possÃ¨de le rÃ´le requis (\textit{Admin}, \textit{Site Manager}, ou \textit{Achat}) avant de l'autoriser Ã  exÃ©cuter la logique de la route.
+
+Le tableau \ref{tab:api_endpoints} prÃ©sente un extrait reprÃ©sentatif des API REST dÃ©veloppÃ©es pour ce projet.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{2.5cm}|p{6cm}|p{4.5cm}|p{2cm}|}
+\hline
+\textbf{MÃ©thode HTTP} & \textbf{Route API} & \textbf{Description} & \textbf{RÃ´le requis} \\ \hline
+POST & \texttt{/api/auth/login} & Authentifie l'utilisateur, crÃ©e le cookie JWT & Tous \\ \hline
+GET & \texttt{/api/sites} & Liste l'ensemble des sites COFAT & Admin \\ \hline
+POST & \texttt{/api/equipment/import} & Parse et insÃ¨re le fichier Excel Ã‰quipements & Site Mgr \\ \hline
+GET & \texttt{/api/spaces/site/:id} & RÃ©cupÃ¨re l'occupation spatiale d'un site & Site Mgr \\ \hline
+GET & \texttt{/api/hr/consolidation} & AgrÃ¨ge les effectifs RH Ã  l'Ã©chelle mondiale & Admin \\ \hline
+PUT & \texttt{/api/standards/update/:id} & Met Ã  jour le prix d'un Ã©quipement de rÃ©fÃ©rence & Admin, Achat \\ \hline
+GET & \texttt{/api/budget/search} & Recherche avec filtres dans le budget & Tous \\ \hline
+POST & \texttt{/api/budget/create} & CrÃ©e une nouvelle ligne budgÃ©taire & Site Mgr \\ \hline
+PUT & \texttt{/api/budget/update/:id} & Modifie un budget (ex: prix unitaire) & Site Mgr, Achat \\ \hline
+DELETE & \texttt{/api/budget/delete/:id} & Supprime une ligne de budget non validÃ©e & Site Mgr \\ \hline
+GET & \texttt{/api/notifications/unread} & RÃ©cupÃ¨re les alertes non lues & Tous \\ \hline
+PUT & \texttt{/api/notifications/:id/read} & Marque une notification comme lue & Tous \\ \hline
+\end{tabular}
+\caption{Extrait des routes API REST principales de l'application}
+\label{tab:api_endpoints}
+\end{table}
+
+\subsection{Couche DonnÃ©es (SQL Server)}
+Cette couche garantit la persistance, l'intÃ©gritÃ© et la disponibilitÃ© des donnÃ©es. Elle est constituÃ©e de l'instance MS SQL Server, contenant la base \texttt{GALIA\_V1}. Cette base contient les tables physiques gÃ©nÃ©rÃ©es automatiquement par Sequelize Ã  partir de nos 10 modÃ¨les (Users, Sites, NonIndustrialBudget, etc.).
+
+\vspace{0.5cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/architecture.png}
+    \caption{Architecture logicielle 3-tiers de l'application}
+    \label{fig:architecture}
+\end{figure}
+\vspace{0.5cm}
+
+\section{Diagramme de dÃ©ploiement}
+L'architecture physique (infrastructure) dÃ©finit la maniÃ¨re dont les diffÃ©rents composants logiciels sont dÃ©ployÃ©s sur le rÃ©seau de l'entreprise.
+
+\vspace{0.5cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/DiagrammeDeploiement.png}
+    \caption{Diagramme de dÃ©ploiement rÃ©seau de Cofat Capacity Study}
+    \label{fig:deploiement}
+\end{figure}
+\vspace{0.5cm}
+
+\textbf{Analyse de l'infrastructure rÃ©elle :} 
+L'application est conÃ§ue pour fonctionner sur le rÃ©seau interne (Intranet) du Groupe COFAT pour des raisons Ã©videntes de confidentialitÃ©.
+\begin{itemize}
+    \item \textbf{Poste Client} : Le Site Manager ou l'Acheteur utilise un navigateur web standard (Google Chrome ou Microsoft Edge). Le frontend React, servi initialement sur le port 4000 par le serveur web, s'exÃ©cute localement dans la mÃ©moire du navigateur client.
+    \item \textbf{Serveur d'Application (Node.js)} : HÃ©bergÃ© sur une machine virtuelle Linux via Docker chez ABM Informatique, l'API Express Ã©coute les requÃªtes sur le port \textbf{9001}. Ce serveur possÃ¨de Ã©galement l'accÃ¨s en Ã©criture Ã  deux rÃ©pertoires de stockage : \texttt{/uploads/images} pour les photos des machines de rÃ©fÃ©rence, et \texttt{/uploads/budget} pour la sauvegarde temporaire des fichiers Excel importÃ©s avant leur traitement.
+    \item \textbf{Serveur de Base de donnÃ©es (SQL Server)} : HÃ©bergÃ© sur un cluster sÃ©curisÃ© distinct de l'entreprise, Ã©coutant sur le port TCP \textbf{1433}. Le serveur Express s'y connecte via des identifiants stockÃ©s dans des variables d'environnement (\texttt{.env}).
+\end{itemize}
+
+\section{Sprint 0 : Mise en place du socle technique}
+Avant de coder la moindre interface utilisateur, la phase prÃ©paratoire du Sprint 0 s'est concentrÃ©e sur la crÃ©ation de la coquille vide de l'application et la configuration des dÃ©pendances npm essentielles.
+
+\textbf{CÃ´tÃ© Backend :}
+Initialisation du projet Node via \texttt{npm init}, puis installation des briques logicielles :
+\texttt{npm install express sequelize tedious cors dotenv bcryptjs jsonwebtoken cookie-parser multer xlsx}. 
+(Note: le paquet \textit{tedious} est le driver de connexion officiel Microsoft pour SQL Server sous Node).
+L'arborescence serveur a Ã©tÃ© structurÃ©e de maniÃ¨re professionnelle :
+\begin{itemize}
+    \item \texttt{/config} : ParamÃ¨tres de base de donnÃ©es et clÃ©s secrÃ¨tes.
+    \item \texttt{/models} : Les 10 fichiers Sequelize dÃ©finissant la BDD.
+    \item \texttt{/routers} : Les points d'entrÃ©e des requÃªtes HTTP (ex: \texttt{nonIndustrialBudgetRoutes.js}).
+    \item \texttt{/controllers} : La logique mÃ©tier extraite des routes.
+    \item \texttt{/middleware} : Scripts de vÃ©rification JWT et d'autorisation de rÃ´les.
+\end{itemize}
+
+\textbf{CÃ´tÃ© Frontend :}
+GÃ©nÃ©ration du \textit{boilerplate} React via \texttt{npx create-react-app}. Installation des outils visuels et rÃ©seaux :
+\texttt{npm install react-router-dom axios tailwindcss @mui/material antd recharts}.
+L'arborescence client :
+\begin{itemize}
+    \item \texttt{/components} : Les blocs d'interface rÃ©utilisables (Boutons, Modales, Navbar).
+    \item \texttt{/pages} : Les vues entiÃ¨res assignÃ©es Ã  des routes (ex: Dashboard).
+    \item \texttt{/context} : Gestion globale de la session utilisateur.
+    \item \texttt{/services} : Les scripts gÃ©rant les appels \textit{Axios} vers le port 9001 du backend.
+\end{itemize}
+
+\section{Sprint 1 : Authentification et Administration Globale}
+L'objectif du premier vrai sprint de dÃ©veloppement Ã©tait de verrouiller l'application et de fournir les outils d'administration Ã  la Direction de COFAT. 
+
+\subsection{Processus d'authentification sÃ©curisÃ©e}
+La page de Login (Figure \ref{fig:login}) est la porte d'entrÃ©e unique. 
+
+\vspace{0.5cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/LOGIN.png}
+    \caption{Interface d'authentification de l'application}
+    \label{fig:login}
+\end{figure}
+\vspace{0.5cm}
+
+\textbf{Description du diagramme de sÃ©quence d'authentification (Figure \ref{fig:seq_auth}) :}
+Lorsqu'un utilisateur saisit ses identifiants, le scÃ©nario technique, tel qu'illustrÃ© dans le diagramme de sÃ©quence UML du rapport, se dÃ©roule en plusieurs Ã©tapes strictes :
+1. Le client React envoie une requÃªte \texttt{POST /api/auth/login} contenant l'email et le mot de passe en clair.
+2. Le routeur Express passe la main au contrÃ´leur d'authentification.
+3. Sequelize exÃ©cute un \texttt{findOne} sur la table \texttt{Users} pour vÃ©rifier l'existence de l'email.
+4. Si l'utilisateur existe, la bibliothÃ¨que \texttt{bcrypt} exÃ©cute la fonction \texttt{bcrypt.compare()} pour comparer le hash stockÃ© en BDD avec le mot de passe fourni.
+5. Si la comparaison est un succÃ¨s, Node.js gÃ©nÃ¨re un jeton d'accÃ¨s via \texttt{jwt.sign()}, y incluant l'ID, le site et le RÃ´le de l'utilisateur (ex: Admin).
+6. Le jeton est renvoyÃ© au navigateur via la fonction \texttt{res.cookie('token', token, \{ httpOnly: true \})}.
+7. Le frontend dÃ©tecte le succÃ¨s, met Ã  jour l'Ã©tat \textit{AuthContext}, et le module \textit{React Router} effectue une redirection vers le menu principal adaptÃ© au profil.
+
+\vspace{0.5cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/DiagrammeSeqAuthentification.png}
+    \caption{Diagramme de sÃ©quence du processus d'authentification JWT}
+    \label{fig:seq_auth}
+\end{figure}
+\vspace{0.5cm}
+
+\subsection{Le Tableau de Bord Administrateur (Admin Dashboard)}
+Une fois authentifiÃ© en tant qu'Admin, l'utilisateur atterrit sur son espace dÃ©diÃ© (Figure \ref{fig:dashboard_admin} et \ref{fig:home_page}). 
+
+\vspace{0.5cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/dashboard admin.png}
+    \caption{Tableau de bord de l'Administrateur}
+    \label{fig:dashboard_admin}
+\end{figure}
+\vspace{0.5cm}
+
+\vspace{0.5cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/HOME PAGE.png}
+    \caption{Menu de navigation principal (Home Page)}
+    \label{fig:home_page}
+\end{figure}
+\vspace{0.5cm}
+
+\textbf{Description des fonctionnalitÃ©s de l'interface :}
+Le Dashboard est structurÃ© de maniÃ¨re ergonomique avec une barre de navigation latÃ©rale (Sidebar) persistante. Depuis cet espace, l'Administrateur a accÃ¨s aux modules vitaux du systÃ¨me :
+\begin{itemize}
+    \item \textbf{Gestion des Utilisateurs} : Un tableau CRUD permettant de crÃ©er des comptes pour les nouveaux ingÃ©nieurs, de leur assigner un mot de passe temporaire et de dÃ©finir leur pÃ©rimÃ¨tre (Site de rattachement) et leur rÃ´le strict (Admin, Site Manager, Achat).
+    \item \textbf{Gestion des Sites} : Ajout de nouvelles entitÃ©s industrielles (Code du site, pays, type) qui alimenteront dynamiquement les menus dÃ©roulants de toute l'application.
+    \item \textbf{AccÃ¨s aux Consolidations (Cofat Group)} : Raccourcis directs vers les vues mondiales des Ã©quipements et ressources humaines, affichant des tuiles de synthÃ¨se (KPIs) globales en haut de l'Ã©cran.
+    \item \textbf{Catalogue StandardInvestment} : AccÃ¨s centralisÃ© au rÃ©fÃ©rentiel d'investissement du groupe.
+\end{itemize}
+La navigation est extrÃªmement fluide car il s'agit d'une SPA (Single Page Application) ; les composants React se montent et se dÃ©montent instantanÃ©ment sans rafraÃ®chissement global de la page web.
+
+\section{Conclusion}
+Au cours de ce chapitre, nous avons justifiÃ© et matÃ©rialisÃ© l'architecture logicielle de \textit{Cofat Capacity Study}. Les choix de Node.js, Express, React et MS SQL Server apportent une robustesse et une Ã©volutivitÃ© Ã  la hauteur des enjeux de l'industrie automobile. La mise en place de l'architecture 3-tiers et le succÃ¨s du Sprint 1 (dÃ©ploiement du socle technique, sÃ©curisation par JWT et interface d'administration) prouvent la viabilitÃ© technique de notre approche. 
+Le socle Ã©tant dÃ©sormais solidement en place, le chapitre 4 explorera en profondeur le cÅ“ur mÃ©tier de la plateforme : le dÃ©veloppement des interfaces de "Planification Locale" pour les usines (Sprint 2) et la prouesse algorithmique de la "Consolidation Groupe" en temps rÃ©el (Sprint 3).

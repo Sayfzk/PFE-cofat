@@ -1,0 +1,41 @@
+\chapter*{Introduction Générale}
+\addcontentsline{toc}{chapter}{Introduction Générale}
+\markboth{Introduction Générale}{Introduction Générale}
+
+L'industrie automobile mondiale traverse actuellement une phase de transformation numérique et technologique sans précédent. Dans un contexte fortement concurrentiel, marqué par l'émergence des véhicules électriques, des systèmes de conduite autonome et des normes de sécurité de plus en plus drastiques, les équipementiers automobiles doivent adapter leurs outils de production et de gestion pour rester performants. Le Groupe COFAT, acteur historique et incontournable de ce secteur depuis sa création en 1984, n'échappe pas à cette dynamique. Avec ses 5 600 collaborateurs répartis sur 10 entités à travers 6 pays (Tunisie, Allemagne, Égypte, Mexique, Brésil et États-Unis), COFAT s'est imposé comme un leader dans la conception, le développement et la fabrication de faisceaux de câbles automobiles. Ses clients, qui incluent des géants tels que Stellantis, Volkswagen, Renault, Scania, Volvo et Daimler, exigent une qualité irréprochable et une réactivité immédiate face aux variations de la demande.
+
+La gestion de la capacité de production à une échelle aussi vaste représente un défi majeur. Chaque site de production (PLANT) doit continuellement s'assurer qu'il dispose des équipements adéquats, de l'espace physique nécessaire et des ressources humaines suffisantes pour honorer les commandes. Jusqu'à présent, la planification de ces capacités et la consolidation des besoins en investissement étaient réalisées de manière semi-manuelle, reposant massivement sur des échanges de fichiers Excel entre les différents sites et le siège. Ce processus chronophage, sujet aux erreurs de saisie et manquant de traçabilité, ralentissait considérablement la prise de décision, en particulier lors de la validation des budgets d'investissement non industriels et industriels. Face à ce constat, le besoin d'un système centralisé, automatisé et collaboratif est devenu impératif.
+
+C'est dans ce cadre précis que s'inscrit mon Projet de Fin d'Études (PFE), intitulé \textbf{« Cofat Capacity Study »}. Il s'agit d'un système global de gestion et de consolidation des capacités du groupe COFAT. Cette plateforme web sur mesure, développée avec des technologies modernes (React.js en frontend, Node.js/Express en backend et Microsoft SQL Server en base de données), vise à digitaliser intégralement le processus de planification et de budgétisation. En offrant un portail multi-utilisateurs sécurisé, l'application permet aux gestionnaires de sites de soumettre leurs données locales via des imports Excel automatisés, tandis que le moteur de consolidation agrège ces informations en temps réel à l'échelle mondiale. De plus, un workflow budgétaire transparent facilite la collaboration entre les demandeurs et le département des achats.
+
+\medskip
+\noindent\textbf{Contexte académique et industriel.}
+Ce projet de fin d'études a été réalisé dans le cadre de l'obtention du \textit{Diplôme National d'Ingénieur en Informatique}, spécialité Génie Logiciel, à l'Institut Supérieur d'Informatique (ISI). Il a été effectué au sein du Groupe COFAT, sous l'encadrement professionnel de M.~Mohamed Said BOUCHOUICHA (Chef de Projet ERP, Product Owner du projet) et l'encadrement académique de M.~Mohamed ALOUANI (Maître Assistant). La durée totale du projet s'étend sur six mois, de mars à août 2026, période au cours de laquelle l'application a été conçue, développée et livrée selon la méthode agile Scrum.
+
+\medskip
+\noindent\textbf{Enjeux du projet.}
+La transformation numérique d'un processus aussi stratégique que la gestion de la capacité industrielle ne se limite pas à la simple informatisation de feuilles Excel. Elle implique de repenser fondamentalement les flux d'information, les responsabilités et les mécanismes de contrôle entre les acteurs. L'application \textit{Cofat Capacity Study} répond à quatre grands défis simultanément :
+\begin{itemize}
+    \item \textbf{Centralisation :} Regrouper la donnée capacitaire de 10 entités mondiales dans un référentiel unique et cohérent, accessible en temps réel.
+    \item \textbf{Sécurisation :} Mettre en place un contrôle d'accès basé sur les rôles (RBAC) qui garantisse que chaque acteur (Site Manager, Admin, Achat) ne peut accéder et modifier que les données relevant de sa compétence légitime.
+    \item \textbf{Automatisation :} Éliminer les tâches manuelles répétitives (consolidation par copié-collé, envoi d'emails de relance) en les remplaçant par des algorithmes d'importation massive, d'agrégation et de notification automatiques.
+    \item \textbf{Collaboration :} Fluidifier les interactions entre le demandeur de budget (le Site Manager local) et le département des achats central, au travers d'un workflow numérique traçable, en remplacement des échanges d'emails informels.
+\end{itemize}
+
+\medskip
+
+Le présent rapport détaille l'ensemble des phases de conception et de réalisation de ce projet d'envergure, en suivant une méthodologie agile (Scrum). Il est structuré en cinq chapitres principaux, organisés comme suit :
+
+\begin{itemize}
+    \item \textbf{Le Chapitre 1 : Cadre général du projet.} Ce chapitre dresse un panorama complet de l'entreprise COFAT, de son histoire, de ses produits et de son organisation internationale. Il présente ensuite l'étude critique de l'existant, en mettant en exergue les problématiques rencontrées lors de la consolidation manuelle. Enfin, il détaille la solution proposée, à savoir l'application \textit{Cofat Capacity Study}, et explicite la méthodologie Scrum adoptée pour sa réalisation, avec la planification des sprints.
+    
+    \item \textbf{Le Chapitre 2 : Analyse et spécification des besoins.} Ce chapitre est consacré à l'identification exhaustive des acteurs du système (Admin, Site Manager, Achat) et de leurs rôles respectifs. Il recense les besoins fonctionnels et non fonctionnels, et modélise ces exigences à l'aide de diagrammes de cas d'utilisation et de diagrammes de classes globaux, constituant ainsi le Product Backlog fondamental du projet.
+    
+    \item \textbf{Le Chapitre 3 : Architecture et Sprint 1.} Ce chapitre justifie les choix technologiques retenus pour répondre aux exigences de performance et de sécurité (Node.js, React, SQL Server, etc.). Il décrit l'architecture logicielle 3-tiers mise en place et l'infrastructure de déploiement (Docker, Jenkins). Il détaille également la réalisation du socle technique (Sprint 0) et du Sprint 1, axé sur le module d'authentification et le tableau de bord d'administration.
+    
+    \item \textbf{Le Chapitre 4 : Release 2 (Sprints 2 et 3).} Ce chapitre, qui constitue le cœur fonctionnel du système, présente le développement de la planification locale (Sprint 2) pour les modules Équipements, Espaces et Ressources Humaines. Il aborde ensuite la consolidation à l'échelle du groupe (Sprint 3) et la mise en place du catalogue \textit{StandardInvestment V2}, permettant l'analyse en temps réel des capacités mondiales de COFAT.
+    
+    \item \textbf{Le Chapitre 5 : Release 3 (Sprint 4).} Ce dernier chapitre se concentre sur l'implémentation du workflow collaboratif pour le budget non-industriel. Il décrit le processus d'interaction entre le Site Manager et l'Achat, le système de notifications automatisées, ainsi que les fonctionnalités d'exportation (Excel et PDF) essentielles pour le reporting de la direction.
+\end{itemize}
+
+Enfin, une \textbf{Conclusion générale} viendra synthétiser les apports concrets de ce projet pour le Groupe COFAT, dresser le bilan du travail accompli et proposer des perspectives d'évolution pour le système, telles que l'intégration avec l'ERP du groupe et l'introduction de méthodes d'analyse prédictive.

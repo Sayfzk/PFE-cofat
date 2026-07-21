@@ -1,0 +1,337 @@
+/* ========================================
+   HR Table - Professional Dark Mode
+   ======================================== */
+
+/* ========== CSS CUSTOM PROPERTIES ========== */
+
+/* Light Mode (Default) */
+.hr-table-container {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #f5f5f5;
+  --bg-card: #ffffff;
+  --bg-hover: #f8fafc;
+  --bg-selected: #eff6ff;
+  --bg-modified: #fffbeb;
+  
+  --text-primary: #1a1a1a;
+  --text-secondary: #6c757d;
+  --text-tertiary: #64748b;
+  --text-muted: #94a3b8;
+  
+  --border-color: #dee2e6;
+  --border-light: #e5e7eb;
+  --border-medium: #d1d5db;
+  --border-dark: #cbd5e1;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.18);
+  
+  --accent-blue: #3b82f6;
+  --accent-blue-hover: #2563eb;
+  --accent-green: #10b981;
+  --accent-red: #ef4444;
+  --accent-orange: #f59e0b;
+}
+
+/* Dark Mode Overrides */
+.hr-table-container[data-theme="dark"] {
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #1f1f1f;
+  --bg-card: #1a1a1a;
+  --bg-hover: #2a2a2a;
+  --bg-selected: #1e3a5f;
+  --bg-modified: #3d3420;
+  
+  --text-primary: #f0f0f0;
+  --text-secondary: #b0b0b0;
+  --text-tertiary: #909090;
+  --text-muted: #707070;
+  
+  --border-color: #333333;
+  --border-light: #2a2a2a;
+  --border-medium: #404040;
+  --border-dark: #4a4a4a;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+  
+  --accent-blue: #4a9eff;
+  --accent-blue-hover: #3b82f6;
+  --accent-green: #22c55e;
+  --accent-red: #f87171;
+  --accent-orange: #fbbf24;
+}
+
+/* ========== SMOOTH TRANSITIONS ========== */
+.hr-table-container[data-theme="dark"] {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .hr-table-container[data-theme="dark"] {
+    transition: none;
+  }
+}
+
+/* ========== CONTAINER ========== */
+.hr-table-container[data-theme="dark"] {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* ========== MUI COMPONENT OVERRIDES ========== */
+.hr-table-container[data-theme="dark"] .MuiTypography-root {
+  color: var(--text-primary) !important;
+}
+
+.hr-table-container[data-theme="dark"] .MuiPaper-root {
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+}
+
+.hr-table-container[data-theme="dark"] .MuiButton-root {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-medium);
+}
+
+.hr-table-container[data-theme="dark"] .MuiButton-root:hover {
+  background: var(--bg-hover) !important;
+}
+
+.hr-table-container[data-theme="dark"] .MuiButton-contained {
+  background: var(--accent-blue) !important;
+  color: white !important;
+}
+
+.hr-table-container[data-theme="dark"] .MuiButton-contained:hover {
+  background: var(--accent-blue-hover) !important;
+}
+
+.hr-table-container[data-theme="dark"] .MuiButton-containedSuccess {
+  background: var(--accent-green) !important;
+  color: white !important;
+}
+
+.hr-table-container[data-theme="dark"] .MuiButton-containedError {
+  background: var(--accent-red) !important;
+  color: white !important;
+}
+
+/* ========== TABLE STYLES ========== */
+.hr-table-container[data-theme="dark"] .MuiTable-root {
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+}
+
+.hr-table-container[data-theme="dark"] .MuiTableCell-root {
+  border-bottom: 1px solid var(--border-light) !important;
+  color: var(--text-primary) !important;
+  background: transparent !important;
+}
+
+.hr-table-container[data-theme="dark"] .MuiTableHead-root .MuiTableCell-root {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border-bottom: 2px solid var(--border-medium) !important;
+  font-weight: 600;
+}
+
+.hr-table-container[data-theme="dark"] .MuiTableRow-root:hover {
+  background: var(--bg-hover) !important;
+}
+
+.hr-table-container[data-theme="dark"] .MuiTableRow-root.Mui-selected {
+  background: var(--bg-selected) !important;
+}
+
+/* ========== INPUT FIELDS ========== */
+.hr-table-container[data-theme="dark"] .MuiInputBase-root {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-medium);
+}
+
+.hr-table-container[data-theme="dark"] .MuiInputBase-root:hover {
+  border-color: var(--border-dark);
+}
+
+.hr-table-container[data-theme="dark"] .MuiInputBase-root.Mui-focused {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
+}
+
+.hr-table-container[data-theme="dark"] .MuiInputBase-input {
+  color: var(--text-primary) !important;
+}
+
+/* ========== CHIP/BADGE STYLES ========== */
+.hr-table-container[data-theme="dark"] .MuiChip-root {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+}
+
+.hr-table-container[data-theme="dark"] .MuiChip-label {
+  color: var(--text-primary);
+}
+
+/* ========== ALERT/SNACKBAR ========== */
+.hr-table-container[data-theme="dark"] .MuiAlert-root {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+}
+
+.hr-table-container[data-theme="dark"] .MuiAlert-standardSuccess {
+  background: var(--bg-card);
+  color: var(--accent-green);
+  border-color: var(--accent-green);
+}
+
+.hr-table-container[data-theme="dark"] .MuiAlert-standardError {
+  background: var(--bg-card);
+  color: var(--accent-red);
+  border-color: var(--accent-red);
+}
+
+.hr-table-container[data-theme="dark"] .MuiAlert-standardInfo {
+  background: var(--bg-card);
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+
+.hr-table-container[data-theme="dark"] .MuiAlert-standardWarning {
+  background: var(--bg-card);
+  color: var(--accent-orange);
+  border-color: var(--accent-orange);
+}
+
+/* ========== LOADING STATES ========== */
+.hr-table-container[data-theme="dark"] .MuiCircularProgress-root {
+  color: var(--accent-blue);
+}
+
+/* ========== CHART STYLES ========== */
+.hr-table-container[data-theme="dark"] canvas {
+  background: var(--bg-card);
+}
+
+/* ========== EXCEL IMPORTER ========== */
+.hr-table-container[data-theme="dark"] .excel-importer {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.hr-table-container[data-theme="dark"] .excel-importer .MuiButton-root {
+  margin: 0.25rem;
+}
+
+/* ========== THEME TOGGLE BUTTON ========== */
+.hr-table-container[data-theme="dark"] .theme-toggle-btn {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.hr-table-container[data-theme="dark"] .theme-toggle-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent-blue);
+}
+
+/* ========== LANGUAGE SWITCHER ========== */
+.hr-table-container[data-theme="dark"] .language-switcher {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.hr-table-container[data-theme="dark"] .language-switcher:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent-blue);
+}
+
+/* ========== SPECIALIZED HR COMPONENTS ========== */
+.hr-table-container[data-theme="dark"] .hr-category-header {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-medium);
+}
+
+.hr-table-container[data-theme="dark"] .hr-subcategory-header {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.hr-table-container[data-theme="dark"] .hr-total-row {
+  background: var(--bg-selected);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-top: 2px solid var(--border-medium);
+}
+
+.hr-table-container[data-theme="dark"] .hr-percentage-cell {
+  background: var(--bg-modified);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.hr-table-container[data-theme="dark"] .hr-department-cell {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.hr-table-container[data-theme="dark"] .hr-position-cell {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.hr-table-container[data-theme="dark"] .hr-employee-count-cell {
+  background: var(--bg-selected);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+  .hr-table-container[data-theme="dark"] {
+    padding: 1rem;
+  }
+  
+  .hr-table-container[data-theme="dark"] .MuiTypography-h4 {
+    font-size: 1.5rem;
+  }
+  
+  .hr-table-container[data-theme="dark"] .MuiButton-root {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}

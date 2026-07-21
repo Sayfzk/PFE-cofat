@@ -1,0 +1,133 @@
+.app-footer {
+  background: linear-gradient(to right, #1a365d, #2563eb);
+  color: #ffffff;
+  padding: 0.5rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  margin-top: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+/* Brand Section */
+.footer-brand {
+  display: flex;
+  gap: 0.3rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.brand-group {
+  opacity: 1;
+}
+
+.brand-name {
+  color: #93c5fd;
+}
+
+/* Copyright Section */
+.footer-copyright {
+  text-align: center;
+}
+
+.copyright-text {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.copyright-text strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Credits Section */
+.footer-credits {
+  display: flex;
+  align-items: center;
+}
+
+.credits-text {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
+.dev-name {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  transition: color 0.3s ease;
+  cursor: default;
+}
+
+.dev-name:hover {
+  color: #93c5fd;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.2rem;
+  }
+
+  .footer-credits {
+    justify-content: center;
+  }
+
+  .app-footer {
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* Interaction */
+.footer-content * {
+  transition: all 0.3s ease;
+}
+
+.footer-brand:hover {
+  transform: scale(1.02);
+}
+
+.dev-name:hover {
+  color: #93c5fd;
+}
+
+/* Animation */
+@keyframes fadeInUpFooter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app-footer {
+  animation: fadeInUpFooter 0.6s ease-out;
+}
+
+/* Dark mode consistency */
+[data-theme="dark"] .app-footer {
+  background: linear-gradient(to right, #0f172a, #1e3a8a);
+  border-top-color: rgba(255, 255, 255, 0.05);
+}

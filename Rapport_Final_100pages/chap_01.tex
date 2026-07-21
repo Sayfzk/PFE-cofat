@@ -1,0 +1,251 @@
+\chapter{Cadre général du projet}
+\label{chap:cadre_general}
+
+\section{Introduction}
+Ce premier chapitre a pour vocation de poser les fondements contextuels et organisationnels dans lesquels s'inscrit le projet de fin d'études. Avant de plonger dans les détails techniques et architecturaux de l'application, il est primordial de comprendre l'environnement métier, les contraintes industrielles et les défis quotidiens auxquels le Groupe COFAT fait face. Nous commencerons par une présentation exhaustive de l'entreprise, de son histoire depuis 1984, de ses produits phares et de son envergure internationale couvrant six pays et dix entités distinctes. Par la suite, nous réaliserons une étude critique de l'existant, en décortiquant les processus actuels de gestion des capacités (équipements, espaces et ressources humaines) afin d'en extraire les limites et les failles. Cette analyse nous conduira naturellement à formuler la problématique centrale du projet. En réponse à ces enjeux, nous dévoilerons les contours de la solution numérique proposée, \textit{Cofat Capacity Study}, avant de détailler la méthodologie de gestion de projet agile (Scrum) adoptée pour garantir la réussite de cette réalisation.
+
+Ce chapitre introductif revêt une importance particulière dans l'économie générale de ce rapport : c'est de la qualité de l'analyse du contexte et de l'existant qu'a découlé, tout au long des sprints suivants, la pertinence des choix fonctionnels et techniques opérés. Un lecteur pressé pourrait être tenté de considérer ce chapitre comme une simple mise en contexte convenue, préalable obligé avant d'aborder le "cœur" technique du projet aux chapitres 3, 4 et 5. Il n'en est rien : chaque limite identifiée ici dans l'étude de l'existant trouve, chapitre après chapitre, sa réponse concrète et directement traçable dans une fonctionnalité précise de l'application développée, qu'il s'agisse du moteur de consolidation répondant au problème du temps de traitement manuel, ou du système de rôles répondant au problème de sécurité et de confidentialité des données inter-sites.
+
+Enfin, il convient de préciser que l'ensemble des données, processus et captures d'écran présentés dans ce chapitre, ainsi que dans l'intégralité de ce rapport, reflètent fidèlement la réalité opérationnelle observée durant la période de stage au sein du Groupe COFAT, sans reconstitution ni enjolivement a posteriori. Cette fidélité au terrain, exigée par le Product Owner dès les premiers ateliers de cadrage, a constitué une ligne directrice constante tout au long de la rédaction de ce mémoire.
+
+\section{Présentation de l'organisme d'accueil : Le Groupe COFAT}
+
+\subsection{Historique et cœur de métier}
+Fondé en 1984, le Groupe COFAT (Compagnie Faisceaux Autos Tunisiens) est l'une des filiales majeures du Groupe Elloumi, un conglomérat industriel de renommée internationale. Depuis sa création, COFAT s'est spécialisé dans un domaine d'ingénierie hautement technique et exigeant : la conception, le développement et la fabrication de faisceaux de câbles pour l'industrie automobile et les véhicules utilitaires. 
+
+Le faisceau de câbles, souvent qualifié de « système nerveux » du véhicule, est un assemblage complexe de fils électriques, de connecteurs, de gaines de protection, de terminaux et d'agrafes. Son rôle est de distribuer l'énergie électrique et de transmettre les signaux d'information entre l'ensemble des composants électroniques et mécaniques du véhicule (moteur, capteurs, éclairage, systèmes d'infodivertissement, calculateurs, etc.). La fabrication de ces produits requiert une précision millimétrique et obéit à des normes de sécurité drastiques, car une défaillance d'un faisceau peut entraîner la panne complète du véhicule ou compromettre la sécurité des passagers.
+
+Au fil des décennies, COFAT a su diversifier ses segments de produits pour répondre aux évolutions technologiques de l'automobile. Aujourd'hui, l'entreprise produit :
+\begin{itemize}
+    \item \textbf{Les faisceaux habitacles} : Ils relient les éléments internes de la cabine (tableau de bord, sièges, portes, climatisation) et gèrent le confort et la sécurité passive.
+    \item \textbf{Les faisceaux moteur} : Conçus pour résister à des environnements extrêmes (hautes températures, vibrations intenses, projections de fluides corrosifs), ils assurent le fonctionnement de la motorisation et des systèmes de freinage (ABS, ESP).
+    \item \textbf{Les câbles haute tension} : Avec l'avènement des véhicules électriques (BEV) et hybrides (PHEV), COFAT a investi dans la R\&D pour produire des câblages capables de supporter des tensions et des courants très élevés, indispensables à la propulsion électrique.
+\end{itemize}
+
+Grâce à son expertise technique, sa flexibilité industrielle et sa capacité d'innovation, COFAT a su gagner la confiance des plus grands constructeurs automobiles mondiaux. Ses clients principaux comptent aujourd'hui des marques prestigieuses telles que Stellantis, Volkswagen, Renault, Scania, Volvo, Daimler et PSA.
+
+Cette diversité de clients et de segments de produits, si elle constitue un atout commercial majeur pour le Groupe, se traduit également par une complexité opérationnelle accrue pour les équipes méthodes et production : chaque programme véhicule (par exemple le VW Tayron ou le Stellantis J4U évoqués plus loin dans ce chapitre) possède ses propres exigences de volumes, ses propres cahiers des charges techniques, et mobilise des capacités machines et humaines spécifiques sur un ou plusieurs sites du groupe simultanément. C'est précisément cette complexité multi-projets et multi-sites qui constitue la toile de fond du besoin ayant motivé ce projet de fin d'études, et qui sera détaillée dans la section suivante.
+
+\subsection{Envergure internationale et entités du Groupe}
+Pour accompagner ses clients au plus près de leurs sites d'assemblage et pour optimiser sa chaîne logistique, COFAT a déployé une stratégie d'internationalisation ambitieuse. Aujourd'hui, le groupe compte plus de 5 600 collaborateurs répartis sur 10 entités opérationnelles situées dans 6 pays différents. Cette présence mondiale se structure autour de différents types de sites, chacun ayant une vocation stratégique spécifique :
+
+\begin{itemize}
+    \item \textbf{PLANT (Sites de production)} : Ces usines sont le cœur industriel du groupe. Elles abritent les lignes de coupe, de préparation et d'assemblage des faisceaux de câbles. Elles sont dimensionnées pour produire de grands volumes avec une qualité zéro défaut.
+    \item \textbf{D\&D (Centres de Développement \& Design)} : Ces centres regroupent les ingénieurs d'études. Ils travaillent en amont des projets avec les constructeurs pour concevoir les schémas électriques, optimiser le routage des câbles dans le véhicule et prototyper les nouveaux produits.
+    \item \textbf{Backoffice et IT} : Ces sites centralisent l'administration, les finances, les ressources humaines au niveau corporate, ainsi que la gestion de l'infrastructure informatique et des systèmes d'information du groupe.
+    \item \textbf{SERVICE (Centres de support)} : Situés à proximité stratégique des usines des clients finaux, ils assurent l'interface commerciale, la logistique \textit{Just-In-Time} et le support technique immédiat.
+\end{itemize}
+
+Le tableau \ref{tab:cofat_sites} récapitule l'ensemble des implantations mondiales du Groupe COFAT.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Entité} & \textbf{Pays} & \textbf{Ville} & \textbf{Type de site} \\ \hline
+Cofat Tunis (Backoffice) & Tunisie & Kram, Tunis & Backoffice \\ \hline
+Cofat Tunis (D\&D) & Tunisie & Sidi Hssin, Tunis & D\&D \\ \hline
+Cofat Mateur & Tunisie & Mateur & PLANT \\ \hline
+Cofat Kairouan & Tunisie & Kairouan & PLANT \\ \hline
+ABM Informatique & Tunisie & Tunis & IT Services \\ \hline
+Cofat Deutschland & Allemagne & Gifhorn & D\&D \\ \hline
+Cofat Egypt & Égypte & Le Caire & PLANT \\ \hline
+Cofat Mexico & Mexique & Durango & D\&D \\ \hline
+Cofat Brasil & Brésil & São Paulo & PLANT \\ \hline
+Cofat USA & États-Unis & El Paso, Texas & SERVICE \\ \hline
+\end{tabular}
+\caption{Répartition mondiale des entités du Groupe COFAT}
+\label{tab:cofat_sites}
+\end{table}
+
+Cette répartition géographique n'est pas anodine : elle répond à une logique industrielle précise que l'on retrouve dans l'ensemble du secteur automobile mondial, celle du \textit{Just-In-Time} et de la proximité fournisseur-client. Les usines PLANT (Mateur, Kairouan, Le Caire, São Paulo) sont volontairement positionnées à proximité géographique ou logistique raisonnable des usines d'assemblage final des constructeurs automobiles, afin de limiter les délais et les coûts de transport de produits volumineux et fragiles comme les faisceaux de câbles complets. À l'inverse, les centres D\&D (Sidi Hssin, Gifhorn, Durango) sont davantage localisés à proximité des bureaux d'études des constructeurs eux-mêmes, afin de faciliter les échanges techniques quotidiens entre les ingénieurs COFAT et ceux du client lors des phases de conception d'un nouveau véhicule. Cette dispersion géographique volontaire, si elle constitue un atout commercial et logistique indéniable, est précisément ce qui complexifie la vision consolidée de la capacité globale du groupe, et justifie à elle seule l'intérêt d'un outil numérique centralisé tel que celui développé dans le cadre de ce projet.
+
+Le pilotage d'un tel réseau industriel multi-pays impose également de composer avec des fuseaux horaires différents (de UTC-6 pour Durango à UTC+2 pour Le Caire), des devises locales distinctes (TND, EUR, USD, MXN, BRL) et des cadres réglementaires du travail propres à chaque pays. Ces contraintes, déjà complexes à gérer au niveau opérationnel courant, deviennent rapidement ingérables lorsque l'outil de pilotage stratégique se limite à des fichiers Excel échangés par courriel, sans aucune source de vérité commune actualisée en temps réel.
+
+\subsection{Management de la qualité et certifications}
+
+
+Dans l'industrie automobile, la qualité n'est pas une option, c'est une condition de survie. Chaque composant doit garantir une fiabilité absolue. Pour structurer ses processus, homogénéiser ses méthodes sur l'ensemble de ses 10 sites et rassurer ses clients donneurs d'ordres, COFAT s'appuie sur un Système de Management Intégré (SMI) rigoureux, validé par plusieurs certifications internationales majeures :
+
+\begin{itemize}
+    \item \textbf{IATF 16949} : Il s'agit du standard de management de la qualité le plus exigeant et spécifique à l'industrie automobile. Il met l'accent sur la prévention des défauts, la réduction des variations et la diminution des gaspillages dans la chaîne d'approvisionnement.
+    \item \textbf{ISO 9001} : C'est la norme de base du système de management de la qualité globale, garantissant que l'entreprise fournit de manière constante des produits et services conformes aux exigences des clients et de la réglementation.
+    \item \textbf{ISO 14001} : Cette certification atteste de l'engagement de COFAT en matière de management environnemental, en limitant l'impact de ses activités industrielles, en optimisant la gestion de ses déchets (notamment les chutes de câbles en cuivre) et en maîtrisant sa consommation énergétique.
+    \item \textbf{ISO 45001} : Ce standard international certifie le système de management de la santé et de la sécurité au travail. Il démontre la volonté de la direction d'offrir à ses 5 600 employés un environnement de travail sûr, en minimisant les risques d'accidents (coupures, troubles musculosquelettiques liés à l'assemblage manuel).
+\end{itemize}
+
+\textbf{Lien avec le projet de fin d'études :} ces exigences de certification, en particulier la norme IATF 16949, imposent une traçabilité rigoureuse de l'ensemble des décisions industrielles ayant un impact sur la capacité de production, y compris les décisions d'investissement en équipement. Un audit IATF peut ainsi exiger de justifier, plusieurs mois après les faits, la raison précise ayant conduit à l'acquisition d'une machine donnée sur un site donné. Le processus manuel décrit dans la section suivante, reposant sur des échanges de courriels et des fichiers Excel individuels rapidement archivés ou perdus, rendait cette traçabilité difficile à démontrer de façon systématique lors des audits qualité. C'est précisément ce constat, remonté par le département Qualité lors des ateliers préparatoires du projet, qui a renforcé la légitimité de la démarche de digitalisation entreprise dans le cadre de ce PFE : au-delà du seul gain d'efficacité opérationnelle, l'application \textit{Cofat Capacity Study} constitue également un outil de conformité qualité, chaque décision de planification ou de budget restant désormais horodatée et attribuée nominativement dans la base de données.
+
+\section{Étude de l'existant}
+Avant le lancement du projet \textit{Cofat Capacity Study}, la gestion des capacités de production au sein du Groupe COFAT reposait sur des méthodes traditionnelles, fragmentées et chronophages. Bien que le groupe dispose d'outils ERP pour la gestion de la production courante, la planification stratégique à moyen et long terme — c'est-à-dire l'anticipation des besoins en machines, en surfaces au sol et en main-d'œuvre pour les nouveaux projets automobiles (comme le lancement d'une nouvelle série VW ou Stellantis) — était gérée de manière totalement décentralisée.
+
+Le processus s'articulait autour de trois volets d'analyse majeurs, gérés indépendamment sur chaque site industriel (Mateur, Kairouan, São Paulo, Le Caire) à l'aide de dizaines de fichiers tableurs Microsoft Excel.
+
+\subsection{Le volet Équipements}
+Pour qu'une usine puisse assembler les faisceaux d'un nouveau projet, elle doit s'assurer de disposer des équipements industriels nécessaires, allant des simples presses de sertissage aux complexes machines de coupe automatique (Komax), en passant par les tables de test électrique et les machines de soudure ultrason.
+
+Le fichier Excel utilisé localement par chaque \textit{Site Manager} comportait plusieurs colonnes critiques :
+\begin{itemize}
+    \item \textbf{machineNeed} : Le besoin théorique en machines, calculé en fonction du temps de cycle par faisceau, des volumes prévisionnels commandés par le client et du nombre d'équipes (shifts) prévues.
+    \item \textbf{availableMachine} : Le parc matériel physiquement disponible et fonctionnel sur le site, hors machines en maintenance curative lourde.
+    \item \textbf{load (Taux de charge)} : Un indicateur clé calculé par la formule $Load = (machineNeed / availableMachine) \times 100$. Un taux supérieur à 100\% indique une saturation et une incapacité à produire la demande.
+    \item \textbf{toOrder} : La différence mathématique générant le nombre de machines supplémentaires à acquérir pour combler le déficit de capacité.
+\end{itemize}
+Bien que cette logique de calcul soit robuste, le fait qu'elle soit isolée dans des fichiers Excel non partagés empêchait le siège (Backoffice) de savoir si une machine manquante à Mateur pouvait être transférée depuis Kairouan, où elle serait potentiellement en sous-charge.
+
+\subsection{Le volet Espaces}
+L'industrie du câblage automobile est très gourmande en espace physique (m²). Les tables d'assemblage (jig boards) peuvent mesurer jusqu'à plusieurs mètres de long et nécessitent des allées larges pour l'approvisionnement logistique en bord de ligne. 
+
+Les fichiers Excel de gestion d'espace suivaient les zones de production réelles de l'usine :
+\begin{itemize}
+    \item \textbf{Zone de Coupe} : Où les bobines de fils sont découpées et dénudées.
+    \item \textbf{Zone de Préparation} : Où s'effectuent les épissures, le sertissage manuel et le twistage.
+    \item \textbf{Zones Projets Assemblage} : Des halls dédiés à des projets clients spécifiques (ex: \textit{VW Tayron}, \textit{International E44}, \textit{Stellantis J4U}, \textit{VW Golf 8}, \textit{LS e-mobility BEV-A}).
+\end{itemize}
+Pour chaque zone, l'ingénieur méthodes saisissait la \textbf{surface totale disponible} et calculait la \textbf{surface occupée} par les lignes existantes pour en déduire le \textbf{taux d'occupation}. La difficulté résidait dans l'incapacité à avoir une vue 3D consolidée du site et à modéliser rapidement l'impact d'un nouveau projet sur l'encombrement global.
+
+\subsection{Le volet Ressources Humaines (RH)}
+La confection de faisceaux de câbles reste une activité nécessitant beaucoup de main-d'œuvre manuelle pour l'enrubannage et l'insertion des terminaux dans les boîtiers. L'anticipation des recrutements est donc vitale.
+
+Les tableaux Excel RH étaient structurés selon les catégories réelles de personnel :
+\begin{itemize}
+    \item \textbf{Direct} : Les opérateurs de production travaillant sur les machines de coupe et préparation.
+    \item \textbf{Assemblage Direct} : Les opérateurs affectés spécifiquement à l'assemblage manuel sur les tables des projets clients.
+    \item \textbf{Indirect} : Le personnel d'encadrement, de logistique, de méthodes, de qualité et de maintenance.
+\end{itemize}
+Ces fichiers projetaient les effectifs nécessaires mois par mois pour l'année en cours (MO 01 à MO 12 de 2025) et par trimestre pour les années futures (Q01 à Q04 pour 2026 et 2027), en fonction de la rampe de lancement (\textit{ramp-up}) des nouveaux véhicules.
+
+\subsection{Le processus manuel de consolidation}
+Le problème majeur de cet existant ne résidait pas dans la donnée elle-même, mais dans la manière dont elle circulait. Trimestriellement, ou lors de l'étude d'un projet majeur, le Backoffice de Tunis devait consolider la capacité mondiale. 
+Le processus était le suivant : un email était envoyé aux responsables des différents sites (Tunisie, Égypte, Brésil, etc.) demandant l'envoi de leurs fichiers Excel de capacité mis à jour. Le siège recevait alors une multitude de fichiers, souvent avec des formats altérés, des colonnes renommées, des formules cassées ou des macros incompatibles. 
+Un ingénieur central devait ensuite passer plusieurs jours à ouvrir ces fichiers un par un, nettoyer les données, aligner les formats, et faire des copiés-collés manuels vers une immense "feuille maître" (Master Sheet) afin d'agréger les chiffres mondiaux.
+
+\textbf{Illustration concrète du problème :} prenons l'exemple du lancement d'un nouveau projet automobile tel que le \textit{VW Tayron}, mobilisant simultanément les sites de Mateur (production des faisceaux habitacle) et de Sidi Hssin (études du routage électrique). Pour statuer sur la capacité du groupe à absorber ce nouveau volume, le Backoffice de Tunis doit croiser les fichiers Excel de plusieurs sites, chacun mis à jour à des fréquences différentes et par des personnes différentes, avec des risques réels d'incohérence entre la version consultée et la version réellement à jour sur le poste du Site Manager local. Ce scénario, loin d'être isolé, se répète pour chaque nouveau projet ou avenant de volume, à raison de plusieurs fois par trimestre pour un groupe de la taille de COFAT.
+
+Cette charge de travail répétitive, si elle mobilise avant tout un temps précieux du côté de l'ingénieur central chargé de la consolidation, a également un coût indirect moins visible mais tout aussi réel : chaque Site Manager local doit lui-même consacrer une part non négligeable de son temps à préparer, vérifier et renvoyer son fichier Excel à chaque sollicitation du siège, du temps qui n'est de fait plus disponible pour ses missions premières de pilotage opérationnel de sa propre usine. La digitalisation du processus, au-delà du seul gain de fiabilité, représente donc également un gain de temps cumulé à l'échelle des dix sites du groupe, chaque Site Manager n'ayant désormais qu'à maintenir à jour ses propres données dans l'application, la consolidation elle-même devenant instantanée et ne nécessitant plus aucune sollicitation manuelle de sa part.
+
+\section{Problématique}
+L'analyse de l'existant décrite précédemment met en évidence les limites sévères d'un système de gestion de capacité basé sur l'échange de fichiers bureautiques dans un contexte industriel multinational. Cette méthode d'un autre temps engendre des dysfonctionnements profonds qui impactent la compétitivité et la rentabilité du Groupe COFAT. Nous pouvons synthétiser la problématique autour de quatre axes majeurs :
+
+\subsection{Les erreurs de saisie et de manipulation}
+L'intervention manuelle lors de la consolidation (copié-collé entre fichiers) multiplie les risques d'erreurs humaines. Une erreur de virgule dans le prix d'un équipement ou une formule écrasée dans le calcul du besoin machine peut entraîner l'approbation d'un investissement de plusieurs dizaines de milliers d'euros totalement injustifié, ou à l'inverse, bloquer le lancement d'une production par manque de matériel. Le format Excel ne permet pas de contraindre strictement le typage des données ou d'appliquer des validations croisées dynamiques (ex: s'assurer que le département saisi est bien parmi "IT, HR, QUALITY, PRODUCTION").
+
+\subsection{La perte de traçabilité et de suivi d'historique}
+Lorsqu'une demande de budget ou de capacité est envoyée par mail sous forme de fichier joint, elle perd immédiatement son statut de "donnée vivante". Il devient impossible de savoir qui a modifié quelle cellule, à quelle date, et pour quelle raison. Par exemple, lors des négociations budgétaires, si le département des achats modifie le coût unitaire d'une machine après avoir trouvé un nouveau fournisseur, le demandeur initial n'est pas notifié. Cette déconnexion crée des litiges internes, des malentendus, et une perte de l'historique décisionnel indispensable lors des audits de qualité (IATF 16949).
+
+\subsection{Le temps de consolidation excessif}
+Dans l'industrie automobile, la réactivité (Time-to-Market) est un avantage concurrentiel décisif. Lorsqu'un constructeur demande à COFAT si l'entreprise est capable d'absorber une hausse de production inattendue de 30\% sur un faisceau, la réponse doit être rapide. Avec l'ancien processus, la collecte des fichiers des 10 entités, le nettoyage des données et l'agrégation manuelle prenaient des jours, voire des semaines. Ce délai de latence retardait la validation des budgets et menaçait l'obtention de nouveaux marchés.
+
+\subsection{Le manque de sécurité et de confidentialité}
+Les fichiers Excel circulant par email ou stockés sur des répertoires partagés locaux ne bénéficient pas d'une gestion fine des droits d'accès. Des données extrêmement sensibles (coûts d'investissement, stratégies industrielles, prévisions d'embauche de centaines d'opérateurs) peuvent être lues, copiées ou altérées par des personnes non autorisées. Il manque cruellement un système de contrôle d'accès basé sur les rôles (RBAC) pour isoler les données entre les usines, et distinguer les droits de lecture, de création et de validation.
+
+Ce risque n'est pas purement théorique dans le contexte spécifique de COFAT : plusieurs sites du groupe (notamment les usines PLANT de production) travaillent en concurrence directe ou indirecte sur certains appels d'offres constructeurs, chacun étant évalué séparément par le client sur sa capacité propre à absorber un nouveau volume. La circulation non maîtrisée d'un fichier Excel contenant les coûts d'investissement négociés par un site donné, s'il venait à être consulté par un responsable d'un autre site ou pire, transmis accidentellement à un tiers externe, pourrait fausser des négociations commerciales en cours ou révéler des informations stratégiques à un concurrent. Le cloisonnement strict des données par rôle et par site, décrit en détail au chapitre 2, répond directement à ce risque identifié dès la phase d'étude de l'existant.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{4cm}|p{5cm}|p{6cm}|}
+\hline
+\textbf{Axe problématique} & \textbf{Situation existante (Excel/Email)} & \textbf{Solution logicielle proposée} \\ \hline
+\textbf{Fiabilité des données} & Risque élevé d'erreurs de copié-collé, formules cassées & Validation stricte via API, base de données relationnelle (SQL Server) \\ \hline
+\textbf{Traçabilité} & Fichiers figés, pas d'historique des modifications & Sauvegarde horodatée, système de notifications, traçabilité des actions \\ \hline
+\textbf{Temps de consolidation} & Plusieurs jours (collecte et agrégation manuelles) & Agrégation automatique en temps réel par le serveur Node.js \\ \hline
+\textbf{Sécurité} & Données en clair dans des fichiers circulant par mail & Authentification JWT, hachage bcrypt, contrôle d'accès par rôle (Admin, Site Manager, Achat) \\ \hline
+\end{tabular}
+\caption{Comparatif : Existant vs Solution proposée}
+\label{tab:comparatif_existant}
+\end{table}
+
+\subsection{Enjeux stratégiques pour le Groupe COFAT}
+Au-delà de la simple gêne opérationnelle pour les équipes méthodes, ces quatre axes problématiques ont un impact direct et mesurable sur la compétitivité du groupe face à ses concurrents dans l'industrie du câblage automobile (Leoni, Yazaki, Sumitomo). Un investissement d'équipement mal anticipé, par exemple, se traduit soit par un excès de capacité coûteux et immobilisé inutilement, soit par une incapacité à honorer une commande client dans les délais contractuels, avec les pénalités financières que cela peut entraîner. De la même manière, une réponse tardive lors d'un appel d'offres pour un nouveau projet automobile, faute de pouvoir statuer rapidement sur la capacité disponible du groupe, peut coûter au Groupe COFAT un contrat pluriannuel au profit d'un concurrent plus réactif.
+
+La digitalisation de ce processus n'est donc pas un simple projet de confort informatique, mais un véritable levier de compétitivité industrielle, justifiant pleinement l'investissement en temps et en ressources humaines consenti pour le développement de la plateforme \textit{Cofat Capacity Study} dans le cadre de ce projet de fin d'études.
+
+
+
+\section{La solution proposée : \textit{Cofat Capacity Study}}
+Pour pallier ces défaillances et doter le Groupe COFAT d'un outil d'aide à la décision stratégique à la hauteur de ses ambitions, j'ai proposé de concevoir et développer de zéro une plateforme web applicative centralisée, baptisée \textbf{« Cofat Capacity Study »}. Cette solution moderne vise à transformer un processus bureaucratique lourd en un flux d'informations fluide, sécurisé et en temps réel. 
+
+La solution s'articule autour de cinq grands composants fonctionnels :
+
+\subsection{Portail web multi-utilisateurs et sécurisé}
+L'application fournit un point d'accès unique via un navigateur web. Elle intègre un système d'authentification robuste (basé sur des jetons JWT sécurisés) qui identifie l'utilisateur, vérifie son site d'affectation et surtout son rôle métier (Administrateur, Site Manager, ou Achat). L'interface utilisateur est dynamique et adapte les menus et les autorisations d'action en fonction de ce rôle, garantissant que chaque employé ne voit et ne modifie que les données qui le concernent. Ce portail unique remplace ainsi la multitude de fichiers Excel dispersés sur les postes individuels par une source unique de vérité, accessible depuis n'importe quel poste connecté au réseau interne de l'entreprise, sans installation logicielle particulière côté client.
+
+\subsection{Module d'import Excel automatisé}
+Conscient que les ingénieurs locaux sont habitués à travailler sur des tableurs et que la saisie manuelle de centaines de lignes de données RH ou Machines dans un formulaire web serait rejetée, le système intègre un parseur Excel intelligent. Le Site Manager peut continuer à utiliser son fichier de travail habituel, mais il le "glisse-dépose" sur la plateforme. Le serveur Node.js (via la bibliothèque XLSX) va alors extraire, valider (types, colonnes obligatoires) et insérer ces données de manière structurée et massive (bulk insert) directement dans la base SQL Server en quelques secondes. Ce choix de conception, consistant à s'adapter aux habitudes de travail existantes plutôt qu'à imposer une rupture brutale d'outil, a constitué un facteur déterminant d'acceptation du projet par les équipes terrain, historiquement méfiantes vis-à-vis des outils informatiques imposés depuis le siège.
+
+\subsection{Moteur de consolidation en temps réel}
+C'est le cœur analytique de l'application. Fini le rassemblement manuel des données : dès qu'un site (par exemple, Durango au Mexique) met à jour son planning de machines, l'administrateur au siège à Tunis peut ouvrir son tableau de bord "Cofat Group" et voir les graphiques de consolidation mondiaux (effectifs totaux, surfaces occupées globales) se mettre à jour instantanément grâce aux requêtes d'agrégation SQL pré-optimisées. Ce moteur transforme une opération auparavant mesurée en jours de travail humain en une opération mesurée en secondes de calcul machine, libérant un temps précieux pour les équipes centrales, qui peuvent désormais consacrer leur énergie à l'analyse et à la décision plutôt qu'à la simple compilation de chiffres.
+
+\subsection{Référentiel des standards (StandardInvestment V2)}
+Pour éviter que chaque usine estime ses coûts d'investissement avec des fournisseurs différents, l'application centralise un catalogue de référence. Il contient la liste exacte des machines autorisées (avec leur code, technologie, fournisseur homologué, capacité de production et coût unitaire validé par le département des achats). Ce référentiel permet de calculer automatiquement et de manière standardisée l'enveloppe budgétaire nécessaire pour combler le manque de machines (les \textit{toOrder}) calculé lors de la planification locale. Il garantit en outre une cohérence des négociations fournisseurs à l'échelle du groupe, un même modèle de machine ne pouvant plus être négocié à des conditions radicalement différentes par deux sites du groupe sans que l'écart ne soit immédiatement visible dans le catalogue partagé.
+
+\subsection{Workflow du budget non-industriel}
+Au-delà de la capacité de production directe, l'application gère les demandes d'investissements annexes (IT, bâtiment, qualité, logistique). Un module spécifique permet de digitaliser le cycle de vie de la demande budgétaire, facilitant l'interaction entre le demandeur (Site Manager) et le département des achats. Un système de notifications en temps réel vient fluidifier ce processus de négociation budgétaire, avec des possibilités d'export vers Excel ou PDF pour les réunions de validation de la direction générale. Ce module clôture ainsi le périmètre fonctionnel de l'application en couvrant, en plus de la capacité de production proprement dite, l'ensemble des dépenses d'accompagnement nécessaires au bon fonctionnement quotidien de chaque site industriel du groupe.
+
+\section{Méthodologie adoptée : L'approche Scrum}
+La construction d'une application de cette envergure, touchant à des processus métier complexes et s'adressant à plusieurs catégories d'utilisateurs à l'international, ne peut se satisfaire d'une méthode de développement traditionnelle "en cascade" (Waterfall). En effet, les besoins des utilisateurs, notamment sur les formules de calcul de capacité et les vues de consolidation, sont susceptibles d'évoluer au fur et à mesure qu'ils découvrent le potentiel de l'outil numérique.
+
+C'est pourquoi nous avons opté pour le framework \textbf{Scrum}, la méthodologie agile la plus répandue. Scrum permet de livrer de la valeur métier très tôt et de manière itérative, en construisant le produit par incréments successifs, appelés \textbf{Sprints}. 
+
+\subsection{Les rôles Scrum du projet}
+L'organisation de l'équipe projet a été structurée selon les trois piliers du framework Scrum, adaptés au contexte académique et industriel de ce PFE :
+\begin{itemize}
+    \item \textbf{Le Product Owner (PO)} : Incarné par mon encadrant industriel au sein de COFAT (M. Mohamed Said BOUCHOUICHA), il représente la "voix du client". Il a la responsabilité de définir la vision du produit, de recenser les exigences métier, et de maintenir et prioriser le Product Backlog pour maximiser la valeur livrée.
+    \item \textbf{Le Scrum Master} : Rôle assuré conjointement avec le soutien de mon encadrant académique (M. Mohamed ALOUANI), garantissant le respect de la méthode, facilitant les cérémonies et aidant à lever les obstacles techniques ou organisationnels.
+    \item \textbf{La Development Team} : Je (M. ZAKRAOUI) constituais l'équipe de développement, prenant en charge l'architecture logicielle, le développement frontend et backend, l'intégration continue, les tests et la documentation, transformant ainsi les items du backlog en fonctionnalités opérationnelles.
+\end{itemize}
+
+\subsection{Les cérémonies Scrum appliquées}
+Tout au long de ces six mois de projet, notre rythme de travail a été ponctué par les événements Scrum, garantissant la transparence, l'inspection et l'adaptation :
+\begin{itemize}
+    \item \textbf{Le Sprint Planning} : Au début de chaque itération, nous sélectionnions les User Stories prioritaires du Product Backlog pour définir le Sprint Backlog, en s'assurant que l'objectif du sprint était clair, techniquement faisable et apportait une valeur directe (ex: "Permettre l'import d'un fichier Excel RH").
+    \item \textbf{Le Daily Scrum} : Des points de synchronisation fréquents (réunions courtes) avec le Product Owner permettaient de faire le point sur l'avancement, de montrer les premiers écrans développés et de valider rapidement des choix ergonomiques ou algorithmiques.
+    \item \textbf{La Sprint Review} : À la fin de chaque sprint, l'incrément logiciel (une version fonctionnelle de l'application) était présenté aux parties prenantes (ingénieurs méthodes, département achat) pour recueillir leurs retours (feedbacks). Ces retours étaient immédiatement convertis en améliorations pour le sprint suivant.
+    \item \textbf{La Sprint Retrospective} : Une analyse interne sur nos méthodes de travail (ex: améliorer la couverture de tests sur les requêtes SQL complexes, optimiser l'utilisation de Git Flow pour la gestion des versions du code).
+\end{itemize}
+
+\subsection{Les artefacts Scrum du projet}
+En complément des cérémonies, trois artefacts structurent la transparence et le suivi de l'avancement tout au long du projet :
+\begin{itemize}
+    \item \textbf{Le Product Backlog} : Liste exhaustive et priorisée de toutes les fonctionnalités souhaitées pour l'application, détaillée sous forme de User Stories. Il constitue la source unique des exigences et évolue tout au long du projet au fur et à mesure des retours du Product Owner. Ce backlog est présenté dans son intégralité au chapitre 2 (Tableau \ref{tab:backlog}).
+    \item \textbf{Le Sprint Backlog} : Sous-ensemble du Product Backlog sélectionné pour un sprint donné, accompagné d'un plan d'action technique pour livrer l'incrément visé. Chaque sprint de ce projet (0 à 4) dispose de son propre Sprint Backlog, détaillé dans les chapitres 3, 4 et 5.
+    \item \textbf{L'Incrément} : Le résultat cumulé et fonctionnel de tous les éléments du Product Backlog terminés durant un sprint, ajouté aux incréments des sprints précédents. À la fin du Sprint 4, l'incrément correspond à l'application \textit{Cofat Capacity Study} complète et opérationnelle.
+\end{itemize}
+
+\subsection{Planification et découpage en Sprints}
+Le projet, s'étalant sur une durée globale de six mois (de début mars à début septembre 2026), a été structuré autour de quatre Sprints majeurs, précédés d'un Sprint 0 d'initialisation :
+
+\begin{itemize}
+    \item \textbf{Sprint 0 (Mars 2026)} : Définition de l'architecture logicielle, choix technologiques, mise en place des environnements de développement et de la base de données relationnelle.
+    \item \textbf{Sprint 1 (Avril 2026)} : Développement du socle technique fondamental (Authentification JWT sécurisée) et du tableau de bord d'administration (gestion des utilisateurs, gestion des sites mondiaux). Ce sprint fera l'objet de la seconde partie du Chapitre 3.
+    \item \textbf{Sprint 2 (Mai - Juin 2026)} : Réalisation des modules de "Planification Locale". Il s'agit du développement des interfaces et des APIs permettant aux Site Managers d'importer et d'analyser leurs données d'Équipements, d'Espaces et de Ressources Humaines. 
+    \item \textbf{Sprint 3 (Juillet 2026)} : Réalisation du module de "Consolidation Groupe" (agrégation des données des 10 sites en temps réel) et refonte du catalogue des standards industriels (StandardInvestment V2). Les Sprints 2 et 3 seront détaillés dans le Chapitre 4.
+    \item \textbf{Sprint 4 (Août 2026)} : Conception et implémentation du module de "Budget Non-Industriel", intégrant le workflow collaboratif, les notifications temps réel et les exports de reporting (Excel/PDF). Ce dernier sprint sera couvert par le Chapitre 5.
+\end{itemize}
+
+Le tableau \ref{tab:planning_sprints} synthétise ce découpage temporel sous forme de calendrier, précisant pour chaque sprint sa durée exacte et son objectif principal.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|p{3.2cm}|p{7.5cm}|}
+\hline
+\textbf{Sprint} & \textbf{Période} & \textbf{Objectif principal} \\ \hline
+Sprint 0 & 01/03 -- 31/03/2026 & Initialisation technique et architecture \\ \hline
+Sprint 1 & 01/04 -- 30/04/2026 & Authentification et référentiel des sites \\ \hline
+Sprint 2 & 01/05 -- 30/06/2026 & Planification capacitaire locale \\ \hline
+Sprint 3 & 01/07 -- 31/07/2026 & Consolidation groupe et standards V2 \\ \hline
+Sprint 4 & 01/08 -- 31/08/2026 & Budget non-industriel et notifications \\ \hline
+\end{tabular}
+\caption{Calendrier de planification des sprints du projet}
+\label{tab:planning_sprints}
+\end{table}
+
+Ce découpage n'a pas été figé dès le départ de manière rigide : conformément à l'esprit agile de Scrum, la durée exacte de chaque sprint a pu être légèrement ajustée d'une itération à l'autre lors des réunions de Sprint Planning, en fonction de la charge de travail réellement observée lors du sprint précédent. Le Sprint 2, par exemple, a été volontairement étendu sur deux mois calendaires (mai et juin) plutôt qu'un seul, en raison du volume de travail plus important que les trois modules de planification locale représentaient par rapport aux autres sprints, chacun nécessitant à la fois le développement d'une interface de saisie manuelle et d'un algorithme d'import Excel dédié.
+
+
+\section{Conclusion}
+À l'issue de ce premier chapitre, nous avons cerné avec précision le contexte industriel exigeant du Groupe COFAT et les enjeux liés à la gestion de la capacité de production de ses dix usines. L'étude de l'existant a révélé les failles d'un processus manuel basé sur des tableurs locaux, induisant lenteur, opacité et risques d'erreurs considérables. La nécessité d'une rupture technologique est flagrante. La plateforme \textit{Cofat Capacity Study} est la réponse directe à cette problématique. En s'appuyant sur la méthode agile Scrum, le développement de cette solution centralisée s'annonce itératif et orienté vers la création de valeur immédiate pour les utilisateurs. 
+
+Ce cadrage initial, bien que principalement descriptif, pose les bases indispensables à la compréhension des choix techniques et organisationnels qui seront justifiés dans les chapitres suivants. Chaque décision d'architecture ou d'ergonomie présentée ultérieurement dans ce rapport pourra ainsi être reliée directement à l'un des quatre axes problématiques identifiés ici (fiabilité, traçabilité, temps de consolidation, sécurité), garantissant que la solution technique développée reste, de bout en bout, au service des besoins métier réels du Groupe COFAT plutôt que d'une prouesse technologique déconnectée du terrain.
+
+Le chapitre suivant se concentrera sur la phase d'analyse et de spécification, où nous traduirons ces défis organisationnels en exigences fonctionnelles claires, en identifiant les acteurs clés du système et en modélisant leurs interactions futures avec l'application.

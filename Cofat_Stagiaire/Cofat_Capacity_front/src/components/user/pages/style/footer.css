@@ -1,0 +1,80 @@
+.footer {
+  background-color: #1e1e2f; /* Couleur sombre */
+  color: #d1d1e0; /* Texte gris clair */
+  padding: 10px 20px;
+  font-size: 14px;
+  bottom: 0;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); /* Ombre subtile */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between; /* Texte à gauche, logo à droite */
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap; /* Gestion des petits écrans */
+}
+
+.footer-left {
+  text-align: left;
+  flex: 1; /* Prend toute la place disponible à gauche */
+}
+
+.footer-left h3 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: bold;
+  color: #f5f5f5;
+}
+
+.footer-left p {
+  margin: 5px 0 0;
+  line-height: 1.4;
+  font-size: 12px;
+  color: #a1a1b5;
+}
+
+.footer-right {
+  text-align: right; /* Aligne le contenu à droite */
+}
+
+.footer-logo-img {
+  max-height: 35px; /* Taille réduite */
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.footer-logo-img:hover {
+  transform: scale(1.1); /* Effet d'agrandissement */
+  filter: brightness(1.3); /* Augmente la luminosité */
+}
+
+.footer-bottom {
+  background-color: #151522;
+  color: #a1a1b5;
+  padding: 5px 0;
+  font-size: 12px;
+  text-align: center;
+  border-top: 1px solid #333;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column; /* Empile les éléments sur mobile */
+    text-align: center;
+  }
+
+  .footer-left,
+  .footer-right {
+    text-align: center;
+    flex: unset;
+  }
+
+  .footer-logo-img {
+    margin-top: 10px; /* Espacement pour mobile */
+  }
+}
