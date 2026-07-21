@@ -1,0 +1,55 @@
+/* Conteneur principal */
+.table-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 80px; /* Ajuste selon la hauteur de ta navbar */
+}
+
+
+/* Colonnes OBJET */
+.table-objet {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.table-objet .avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  text-transform: uppercase;
+}
+
+.table-objet .name {
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.table-objet .text {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* Icône Important */
+.important-icon {
+  color: #ff9800;
+  font-size: 18px;
+}
+
+/* Pagination personnalisée */
+.ant-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}

@@ -1,0 +1,49 @@
+/* src/App.css */
+
+/* Global CSS Variables for Theme Support - Only Background */
+:root {
+  /* Light Theme */
+  --app-bg: #f9fafb;
+}
+
+[data-theme="dark"] {
+  /* Dark Theme - Only Background */
+  --app-bg: #0f172a;
+}
+
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.content-container {
+  padding: 20px;
+  transition: all 0.3s ease;
+  background-color: var(--app-bg);
+  width: 100%;
+  /* S'assurer que le contenu prend toute la largeur */
+  min-height: 100%;
+  /* Occuper toute la hauteur disponible */
+}
+
+/* Ajuster la marge gauche pour éviter le chevauchement avec la Sidebar */
+.content-container.has-sidebar {
+  margin-left: 220px;
+  /* Correspond à la largeur de la Sidebar */
+}
+
+/* Positionner la Sidebar fixe à gauche */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 220px;
+  /* Largeur fixe comme dans votre Sidebar.css */
+  z-index: 1000;
+  background-color: #1e3a8a;
+  /* Correspond à votre Sidebar.css */
+  color: white;
+}

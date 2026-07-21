@@ -1,0 +1,435 @@
+/* src/components/user/pages/style/HRTable.css */
+
+/* Container principal */
+.hr-table-container {
+  padding: 24px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* Titre principal */
+.hr-title {
+  color: #1976d2;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+/* Barre d'actions (boutons Save/Recharger) */
+.hr-actions-bar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.hr-save-btn {
+  background-color: #1976d2 !important;
+  color: white !important;
+  font-weight: 500;
+  text-transform: none;
+  min-width: 120px;
+  box-shadow: 0 2px 4px rgba(25, 118, 210, 0.3);
+}
+
+.hr-save-btn:hover {
+  background-color: #1565c0 !important;
+  box-shadow: 0 3px 6px rgba(25, 118, 210, 0.4);
+}
+
+.hr-refresh-btn {
+  border-color: #1976d2 !important;
+  color: #1976d2 !important;
+  font-weight: 500;
+  text-transform: none;
+  min-width: 120px;
+}
+
+.hr-refresh-btn:hover {
+  background-color: rgba(25, 118, 210, 0.04) !important;
+  border-color: #1565c0 !important;
+}
+
+/* Indicateur de chargement */
+.hr-loading-container {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+/* Conteneur de l'importateur Excel */
+.hr-excel-importer {
+  margin-bottom: 24px;
+}
+
+/* Tableau HR principal */
+.hr-table-paper {
+  margin-bottom: 32px;
+  overflow: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hr-table {
+  min-width: 1400px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* En-têtes du tableau */
+.hr-header-category {
+  font-weight: bold !important;
+  vertical-align: middle !important;
+  min-width: 120px;
+  background-color: #c8e6c9 !important;
+  border: 1px solid #000 !important;
+  font-size: 0.9rem !important;
+  padding: 8px 12px !important;
+  text-align: center !important;
+}
+
+.hr-header-project {
+  font-weight: bold !important;
+  vertical-align: middle !important;
+  min-width: 120px;
+  background-color: #c8e6c9 !important;
+  border: 1px solid #000 !important;
+  font-size: 0.9rem !important;
+  padding: 8px 12px !important;
+  text-align: center !important;
+}
+
+/* En-têtes des années */
+.hr-year-2025 {
+  font-weight: bold !important;
+  background-color: #1976d2 !important;
+  color: white !important;
+  border: 1px solid #000 !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  padding: 8px 12px !important;
+}
+
+.hr-year-2026 {
+  font-weight: bold !important;
+  background-color: #7b1fa2 !important;
+  color: white !important;
+  border: 1px solid #000 !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  padding: 8px 12px !important;
+}
+
+.hr-year-2027 {
+  font-weight: bold !important;
+  background-color: #512da8 !important;
+  color: white !important;
+  border: 1px solid #000 !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  padding: 8px 12px !important;
+}
+
+/* En-têtes des périodes */
+.hr-period-header {
+  font-weight: bold !important;
+  background-color: #f5f5f5 !important;
+  min-width: 65px;
+  font-size: 0.8rem !important;
+  border: 1px solid #000 !important;
+  padding: 4px 8px !important;
+  text-align: center !important;
+}
+
+/* Cellules de catégories dans le corps du tableau */
+.hr-category-direct {
+  font-weight: bold !important;
+  vertical-align: middle !important;
+  background-color: #c8e6c9 !important;
+  border: 1px solid #000 !important;
+  font-size: 0.9rem !important;
+  padding: 8px 12px !important;
+  text-align: center !important;
+  white-space: pre-line;
+}
+
+.hr-category-assembly-direct {
+  font-weight: bold !important;
+  vertical-align: middle !important;
+  background-color: #bbdefb !important;
+  border: 1px solid #000 !important;
+  font-size: 0.9rem !important;
+  padding: 8px 12px !important;
+  text-align: center !important;
+  white-space: pre-line;
+}
+
+.hr-category-indirect {
+  font-weight: bold !important;
+  vertical-align: middle !important;
+  background-color: #e1bee7 !important;
+  border: 1px solid #000 !important;
+  font-size: 0.9rem !important;
+  padding: 8px 12px !important;
+  text-align: center !important;
+}
+
+/* Cellules de projets/libellés */
+.hr-project-label {
+  border: 1px solid #000 !important;
+  font-size: 0.9rem !important;
+  min-width: 120px;
+  padding: 6px 8px !important;
+  font-weight: normal;
+}
+
+.hr-project-label.calculated {
+  font-weight: bold !important;
+}
+
+/* Cellules de projets avec couleurs spéciales pour les totaux */
+.hr-project-s-total-production {
+  background-color: #fff3e0 !important;
+}
+
+.hr-project-s-total {
+  background-color: #e3f2fd !important;
+}
+
+.hr-project-total-plant {
+  background-color: #ffebee !important;
+}
+
+/* Cellules de données */
+.hr-data-cell {
+  border: 1px solid #000 !important;
+  font-size: 0.85rem !important;
+  padding: 6px 4px !important;
+  text-align: center !important;
+  background-color: white;
+  min-width: 60px;
+}
+
+/* Cellules de données pour les totaux calculés */
+.hr-data-cell.s-total-production {
+  background-color: #fff3e0 !important;
+  font-weight: 500;
+}
+
+.hr-data-cell.s-total {
+  background-color: #e3f2fd !important;
+  font-weight: 500;
+}
+
+.hr-data-cell.total-plant {
+  background-color: #ffebee !important;
+  font-weight: bold;
+}
+
+/* Cellules éditables */
+.hr-data-cell.editable {
+  cursor: text;
+  transition: background-color 0.2s ease;
+}
+
+.hr-data-cell.editable:hover {
+  background-color: #f0f0f0 !important;
+}
+
+.hr-data-cell.editable:focus {
+  outline: 2px solid #1976d2;
+  outline-offset: -2px;
+  background-color: #e3f2fd !important;
+}
+
+/* Lignes du tableau */
+.hr-table-row {
+  transition: background-color 0.2s ease;
+}
+
+.hr-table-row:hover {
+  background-color: rgba(25, 118, 210, 0.02);
+}
+
+/* Section graphique */
+.hr-chart-container {
+  padding: 24px;
+  height: 400px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.hr-chart-title {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.hr-chart-wrapper {
+  height: 300px;
+  position: relative;
+}
+
+/* Messages d'alerte */
+.hr-snackbar {
+  z-index: 1400;
+}
+
+.hr-alert-success {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+.hr-alert-error {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+
+.hr-alert-info {
+  background-color: #2196f3 !important;
+  color: white !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1600px) {
+  .hr-table-paper {
+    overflow-x: auto;
+  }
+  
+  .hr-table {
+    min-width: 1200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .hr-table-container {
+    padding: 16px;
+  }
+  
+  .hr-table {
+    font-size: 0.8rem;
+  }
+  
+  .hr-period-header {
+    font-size: 0.7rem !important;
+    min-width: 50px;
+  }
+  
+  .hr-data-cell {
+    font-size: 0.75rem !important;
+    padding: 4px 2px !important;
+  }
+  
+  .hr-chart-container {
+    height: 350px;
+    padding: 16px;
+  }
+  
+  .hr-chart-wrapper {
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hr-actions-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .hr-save-btn,
+  .hr-refresh-btn {
+    min-width: 100px;
+    font-size: 0.875rem;
+  }
+  
+  .hr-title {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+  
+  .hr-chart-container {
+    height: 300px;
+    padding: 12px;
+  }
+  
+  .hr-chart-wrapper {
+    height: 200px;
+  }
+  
+  .hr-chart-title {
+    font-size: 1rem;
+  }
+}
+
+/* Animation de chargement */
+@keyframes hr-pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.hr-loading {
+  animation: hr-pulse 1.5s ease-in-out infinite;
+}
+
+/* Transitions */
+.hr-fade-enter {
+  opacity: 0;
+}
+
+.hr-fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.hr-fade-exit {
+  opacity: 1;
+}
+
+.hr-fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+/* Améliorations visuelles */
+.hr-table-paper:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.hr-chart-container:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Focus et accessibilité */
+.hr-table:focus-within {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}
+
+/* Impression */
+@media print {
+  .hr-actions-bar,
+  .hr-excel-importer {
+    display: none;
+  }
+  
+  .hr-table-paper {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+  
+  .hr-chart-container {
+    page-break-inside: avoid;
+  }
+}

@@ -1,0 +1,20 @@
+.redirect-container {
+    text-align: center;
+    margin: 50px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .redirect-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .redirect-button:hover {
+    background-color: #45a049;
+  }
+  

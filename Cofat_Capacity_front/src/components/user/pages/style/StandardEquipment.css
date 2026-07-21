@@ -1,0 +1,588 @@
+﻿/* ========================================
+   Standard Equipment - Clean Simple Design
+   ======================================== */
+
+/* Container */
+.standard-equipment-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  padding: 2rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Table Header Styles - Professional Blue */
+.budget-table thead tr {
+  background: #1c355e !important;
+}
+
+.budget-table th {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  font-size: 0.8rem !important;
+  background: transparent !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* selection banner - keeping as is but ensuring it works with blue theme */
+.selection-export-banner {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  border: 1px solid #7dd3fc;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.selection-export-banner .banner-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #0369a1;
+}
+
+.selection-export-banner .banner-info p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.selection-export-banner .banner-info span {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Header */
+.equipment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.equipment-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 0.5rem 0;
+}
+
+.title-icon {
+  color: #3b82f6;
+}
+
+.equipment-subtitle {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+.header-right {
+  display: flex;
+  gap: 1rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: #3b82f6;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.stat-icon {
+  width: 32px;
+  height: 32px;
+  opacity: 0.9;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin-bottom: 0.25rem;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Controls Section */
+.controls-section {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.controls-row {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-end;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+/* Dropdown */
+.dropdown-container {
+  position: relative;
+  min-width: 250px;
+}
+
+.dropdown-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropdown-button:hover {
+  border-color: #3b82f6;
+}
+
+.dropdown-button-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-text {
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.dropdown-icon {
+  color: #64748b;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-icon.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
+  z-index: 50;
+  padding: 0.5rem;
+}
+
+.dropdown-option {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.dropdown-option:hover {
+  background: #f3f4f6;
+}
+
+.option-checkbox {
+  margin-right: 0.75rem;
+  width: 18px;
+  height: 18px;
+  accent-color: #3b82f6;
+}
+
+.option-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dept-color-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.option-text {
+  font-weight: 500;
+  color: #334155;
+}
+
+/* Search */
+.search-container {
+  position: relative;
+  width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Tags */
+.tags-container {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.operation-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #f3f4f6;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.tag-color {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.tag-remove {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0 0.25rem;
+  margin-left: 0.25rem;
+}
+
+.tag-remove:hover {
+  color: #ef4444;
+}
+
+/* Action Bar */
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.action-left {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.action-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.modified-indicator {
+  font-size: 0.9rem;
+  color: #f59e0b;
+  font-weight: 600;
+  background: #fffbeb;
+  padding: 0.5rem 1rem;
+  border-radius: 16px;
+}
+
+/* ========== ELEGANT GRADIENT BUTTONS ========== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1.75rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+/* Effet de brillance animÃ© */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent);
+  transition: left 0.6s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* Effet de pulsation au survol */
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease;
+  z-index: 0;
+}
+
+.btn:hover::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* Contenu du bouton au-dessus des effets */
+.btn>* {
+  position: relative;
+  z-index: 1;
+}
+
+.btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.btn:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.btn:disabled:hover {
+  transform: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Bouton Primary - Bleu Premium */
+.btn-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1e40af 100%);
+  color: white;
+  border: 2px solid transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e3a8a 100%);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 32px rgba(59, 130, 246, 0.35), 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+/* Bouton Success - Vert Ã‰lÃ©gant */
+.btn-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+  color: white;
+  border: 2px solid transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 50%, #065f46 100%);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 32px rgba(16, 185, 129, 0.35), 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+/* Bouton Danger - Rouge SophistiquÃ© */
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+  color: white;
+  border: 2px solid transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 50%, #991b1b 100%);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 32px rgba(239, 68, 68, 0.35), 0 4px 12px rgba(220, 38, 38, 0.25);
+}
+
+/* Bouton Secondary - Gris Professionnel */
+.btn-secondary {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 50%, #374151 100%);
+  color: white;
+  border: 2px solid transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #4b5563 0%, #374151 50%, #1f2937 100%);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 32px rgba(107, 114, 128, 0.35), 0 4px 12px rgba(75, 85, 99, 0.25);
+}
+
+/* Animation de gradient subtile */
+@keyframes gradientShift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Effet de lueur pour les icÃ´nes */
+.btn svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.btn:hover svg {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Effet de focus accessible */
+.btn:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 3px;
+}
+
+/* ========== FORM SIMPLE ========== */
+/* Sticky Total Row */
+.budget-table .total-row {
+  position: sticky;
+  bottom: 0;
+  background: #f1f5f9 !important;
+  /* Slightly darker for better visibility */
+  z-index: 20;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  border-top: 2px solid #3b82f6;
+}
+
+.budget-table .total-row td {
+  background: inherit !important;
+  padding: 1rem !important;
+  font-weight: 800 !important;
+}
+
+/* Horizontal Stickiness for Total Label */
+.budget-table .total-row .total-label {
+  position: sticky;
+  left: 0;
+  z-index: 21;
+  background: #f1f5f9 !important;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.total-value {
+  color: #1d4ed8;
+  font-size: 1.15rem;
+  white-space: nowrap;
+}
+
+.add-form-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #3b82f6;
+}

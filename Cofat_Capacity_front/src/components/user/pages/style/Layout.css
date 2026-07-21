@@ -1,0 +1,20 @@
+/* src/components/user/pages/style/Layout.css */
+.sidebar-hidden {
+    margin-left: 0;
+    width: 100%;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+  }
+  
+  .sidebar-visible {
+    margin-left: 256px; /* Width of your sidebar - adjust as needed */
+    width: calc(100% - 256px);
+    transition: margin-left 0.3s ease, width 0.3s ease;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .sidebar-visible {
+      margin-left: 0;
+      width: 100%;
+    }
+  }

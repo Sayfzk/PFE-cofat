@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.fb9fc204.css",
+    "main.js": "/static/js/main.cd4c482f.js",
+    "static/js/239.e75d5650.chunk.js": "/static/js/239.e75d5650.chunk.js",
+    "static/js/213.8d537657.chunk.js": "/static/js/213.8d537657.chunk.js",
+    "static/js/455.4f07a6c2.chunk.js": "/static/js/455.4f07a6c2.chunk.js",
+    "static/media/cofat-aut.jpg": "/static/media/cofat-aut.b2add06f6e6573fbda46.jpg",
+    "index.html": "/index.html",
+    "main.fb9fc204.css.map": "/static/css/main.fb9fc204.css.map",
+    "main.cd4c482f.js.map": "/static/js/main.cd4c482f.js.map",
+    "239.e75d5650.chunk.js.map": "/static/js/239.e75d5650.chunk.js.map",
+    "213.8d537657.chunk.js.map": "/static/js/213.8d537657.chunk.js.map",
+    "455.4f07a6c2.chunk.js.map": "/static/js/455.4f07a6c2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fb9fc204.css",
+    "static/js/main.cd4c482f.js"
+  ]
+}

@@ -1,0 +1,91 @@
+.space-table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 2rem;
+  background: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+}
+
+.space-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.space-table th,
+.space-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.space-table th {
+  background-color: #1e90ff;
+  color: white;
+  font-weight: bold;
+}
+
+.type-cell {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.snackbar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.chart-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Sticky Total Rows with HR style colors */
+.space-total-row {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.space-total-row td {
+  border-top: 2px solid #000 !important;
+  border-bottom: 2px solid #000 !important;
+}
+
+/* Matching HR colors */
+.space-total-row.category-summary td {
+  background-color: #e3f2fd !important;
+  /* HR s-total color */
+  font-weight: bold;
+}
+
+.space-total-row.category-total td {
+  background-color: #ffebee !important;
+  /* HR total-plant color */
+  font-weight: bold;
+  color: #d32f2f;
+}
+
+.space-total-row.category-sector td {
+  background-color: #fff3e0 !important;
+  /* HR s-total-production color */
+  font-weight: bold;
+}
+
+/* Highlight important cells in sticky row */
+.space-total-row td[colspan="2"] {
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: left;
+  padding-left: 20px;
+}

@@ -1,0 +1,97 @@
+/* Général style de la page */
+.datatable-container {
+  max-width: 90%;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Titre */
+.title {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Zone de recherche */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-box:focus {
+  border-color: #4CAF50; /* Bordure verte au focus */
+}
+
+.search-box::placeholder {
+  color: #aaa;
+}
+
+/* Wrapper de la table pour la rendre responsive */
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+/* Personnalisation du tableau MDB */
+.custom-mdb-table {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+}
+
+.mdb-table th {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.mdb-table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.mdb-table .dataTables_length {
+  display: none; /* Masquer l'option de longueur de la table */
+}
+
+.mdb-table .dataTables_info {
+  display: none; /* Masquer l'info de la table */
+}
+
+.mdb-table .dataTables_paginate {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .datatable-container {
+    padding: 15px;
+  }
+  
+  .search-box {
+    width: 80%;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}

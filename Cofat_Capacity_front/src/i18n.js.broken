@@ -1,0 +1,422 @@
+// src/i18n.js
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+
+// Traductions pour le français
+const fr = {
+  translation: {
+    // Navigation
+    home: 'Accueil',
+    dashboard: 'Tableau de bord',
+    contact: 'Contact',
+    login: 'Connexion',
+    logout: 'Déconnexion',
+    
+    // Modules
+    equipment: 'Équipement',
+    equipmentPlanning: 'Planification Équipement',
+    standardEquipment: 'Équipement Standard',
+    space: 'Espace',
+    hr: 'Ressources Humaines',
+    cofatGroup: 'CofatGroup',
+    
+    // Common actions
+    save: 'Enregistrer',
+    delete: 'Supprimer',
+    cancel: 'Annuler',
+    refresh: 'Actualiser',
+    import: 'Importer',
+    export: 'Exporter',
+    edit: 'Modifier',
+    add: 'Ajouter',
+    search: 'Rechercher',
+    filter: 'Filtrer',
+    
+    // Notifications
+    saveSuccess: 'Données enregistrées avec succès',
+    saveError: 'Erreur lors de l\'enregistrement',
+    deleteSuccess: 'Données supprimées avec succès',
+    deleteError: 'Erreur lors de la suppression',
+    loadError: 'Erreur de chargement des données',
+    importSuccess: 'Données importées avec succès',
+    
+    // Confirmations
+    confirmDelete: 'Êtes-vous sûr de vouloir supprimer ?',
+    confirmDeleteAll: 'Êtes-vous sûr de vouloir supprimer toutes les données pour ce site ?',
+    yes: 'Oui',
+    no: 'Non',
+    
+    // HR Module
+    hrManagement: 'Gestion RH',
+    manufacturingRangePlant: 'Gamme de fabrication usine',
+    project: 'Projet',
+    cutting: 'Découpe',
+    cuttingArea: 'Zone de découpe',
+    leadPrep: 'Préparation des fils',
+    leadPrepArea: 'Zone de préparation des fils',
+    assembly: 'Assemblage',
+    assemblyDirect: 'Assemblage Direct',
+    production: 'Production',
+    indirect: 'Indirect',
+    engineering: 'Ingénierie',
+    quality: 'Qualité',
+    maintenance: 'Maintenance',
+    totalPlant: 'Total Usine',
+    
+    // Space Module
+    spaceStudy: 'Étude d\'espace',
+    spaceManagement: 'Gestion d\'espace',
+    totalArea: 'Surface Totale',
+    occupation: 'Occupation',
+    availableArea: 'Surface Disponible',
+    
+    // Equipment
+    machineNeed: 'Besoin en Machines',
+    availableMachine: 'Machines Disponibles',
+    toOrder: 'À Commander',
+    load: 'Charge',
+    loadOccupation: 'Charge (Occupation)',
+    utilizationRate: 'Taux d\'utilisation',
+    
+    // Time periods
+    year: 'Année',
+    month: 'Mois',
+    quarter: 'Trimestre',
+    
+    // Sites
+    site: 'Site',
+    sites: 'Sites',
+    allSites: 'Tous les sites',
+    
+    // Admin
+    adminDashboard: 'Dashboard Administrateur',
+    globalMetrics: 'Métriques Globales',
+    equipmentDistribution: 'Distribution des Équipements',
+    siteComparison: 'Comparaison par Sites',
+    temporalTrends: 'Tendances Temporelles',
+    detailsBySite: 'Détails par Site',
+    
+    // CofatGroup
+    consolidatedEquipments: 'Équipements Consolidés',
+    consolidation: 'Consolidation',
+    uniqueEquipments: 'Équipements Uniques',
+    activeSites: 'Sites Actifs',
+    planningEntries: 'Entrées Planning',
+    multiSiteEquipments: 'Équipements Multi-Sites',
+    
+    // Table headers
+    metric: 'Métrique',
+    value: 'Valeur',
+    category: 'Catégorie',
+    type: 'Type',
+    reference: 'Référence',
+    
+    // Messages
+    loading: 'Chargement...',
+    noData: 'Aucune donnée disponible',
+    accessDenied: 'Accès refusé',
+    unauthorized: 'Non autorisé',
+    adminOnly: 'Réservé aux administrateurs',
+    
+    // Language
+    language: 'Langue',
+    french: 'Français',
+    english: 'Anglais',
+  }
+};
+
+// Traductions pour l'anglais
+const en = {
+  translation: {
+    // Navigation
+    home: 'Home',
+    dashboard: 'Dashboard',
+    contact: 'Contact',
+    login: 'Login',
+    logout: 'Logout',
+    
+    // Modules
+    equipment: 'Equipment',
+    equipmentPlanning: 'Equipment Planning',
+    standardEquipment: 'Standard Equipment',
+    space: 'Space',
+    hr: 'Human Resources',
+    cofatGroup: 'CofatGroup',
+    
+    // Common actions
+    save: 'Save',
+    delete: 'Delete',
+    cancel: 'Cancel',
+    refresh: 'Refresh',
+    import: 'Import',
+    export: 'Export',
+    edit: 'Edit',
+    add: 'Add',
+    search: 'Search',
+    filter: 'Filter',
+    
+    // Notifications
+    saveSuccess: 'Data saved successfully',
+    saveError: 'Error saving data',
+    deleteSuccess: 'Data deleted successfully',
+    deleteError: 'Error deleting data',
+    loadError: 'Error loading data',
+    importSuccess: 'Data imported successfully',
+    
+    // Confirmations
+    confirmDelete: 'Are you sure you want to delete?',
+    confirmDeleteAll: 'Are you sure you want to delete all data for this site?',
+    yes: 'Yes',
+    no: 'No',
+    
+    // HR Module
+    hrManagement: 'HR Management',
+    manufacturingRangePlant: 'Manufacturing Range Plant',
+    project: 'Project',
+    cutting: 'Cutting',
+    cuttingArea: 'Cutting Area',
+    leadPrep: 'Lead Prep',
+    leadPrepArea: 'Lead Prep Area',
+    assembly: 'Assembly',
+    assemblyDirect: 'Assembly Direct',
+    production: 'Production',
+    indirect: 'Indirect',
+    engineering: 'Engineering',
+    quality: 'Quality',
+    maintenance: 'Maintenance',
+    totalPlant: 'Total Plant',
+    
+    // Space Module
+    spaceStudy: 'Space Study',
+    spaceManagement: 'Space Management',
+    totalArea: 'Total Area',
+    occupation: 'Occupation',
+    availableArea: 'Available Area',
+    
+    // Equipment
+    machineNeed: 'Machine Need',
+    availableMachine: 'Available Machine',
+    toOrder: 'To Order',
+    load: 'Load',
+    loadOccupation: 'Load (Occupation)',
+    utilizationRate: 'Utilization Rate',
+    
+    // Time periods
+    year: 'Year',
+    month: 'Month',
+    quarter: 'Quarter',
+    
+    // Sites
+    site: 'Site',
+    sites: 'Sites',
+    allSites: 'All Sites',
+    
+    // Admin
+    adminDashboard: 'Admin Dashboard',
+    globalMetrics: 'Global Metrics',
+    equipmentDistribution: 'Equipment Distribution',
+    siteComparison: 'Site Comparison',
+    temporalTrends: 'Temporal Trends',
+    detailsBySite: 'Details by Site',
+    
+    // CofatGroup
+    consolidatedEquipments: 'Consolidated Equipments',
+    consolidation: 'Consolidation',
+    uniqueEquipments: 'Unique Equipments',
+    activeSites: 'Active Sites',
+    planningEntries: 'Planning Entries',
+    multiSiteEquipments: 'Multi-Site Equipments',
+    
+    // Table headers
+    metric: 'Metric',
+    value: 'Value',
+    category: 'Category',
+    type: 'Type',
+    reference: 'Reference',
+    
+    // Messages
+    loading: 'Loading...',
+    noData: 'No data available',
+    accessDenied: 'Access denied',
+    unauthorized: 'Unauthorized',
+    adminOnly: 'Admin only',
+    
+    // Language
+    language: 'Language',
+    french: 'French',
+    english: 'English',
+  }
+};
+
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources: {
+      fr,
+      en
+    },
+    fallbackLng: 'fr',
+    debug: false,
+    
+    interpolation: {
+      escapeValue: false
+    },
+    
+    detection: {
+      order: ['localStorage', 'navigator'],
+      caches: ['localStorage']
+    }
+  });
+
+export default i18n;
+
+    // Additional translations for complete coverage
+    language: 'Langue',
+    changeLanguage: 'Changer de langue',
+    selectLanguage: 'Sélectionner la langue',
+    
+    // Space module specific
+    spaceStudy: 'Étude d\'Espace',
+    cuttingArea: 'Zone de Découpe',
+    leadPrep: 'Préparation Fils',
+    assembly: 'Assemblage',
+    totalArea: 'Surface Totale',
+    occupation: 'Occupation',
+    availableArea: 'Surface Disponible',
+    
+    // HR module specific
+    hrManagement: 'Gestion RH',
+    assemblyDirect: 'Assemblage Direct',
+    project: 'Projet',
+    totalPlant: 'Total Usine',
+    
+    // Equipment Planning
+    equipmentPlanning: 'Planification Équipement',
+    machineNeed: 'Besoin Machine',
+    availableMachine: 'Machine Disponible',
+    toOrder: 'À Commander',
+    load: 'Charge',
+    
+    // CofatGroup
+    consolidatedView: 'Vue Consolidée',
+    allSites: 'Tous les Sites',
+    consolidation: 'Consolidation',
+    
+    // Common UI
+    loading: 'Chargement...',
+    noData: 'Aucune donnée',
+    error: 'Erreur',
+    success: 'Succès',
+    warning: 'Attention',
+    info: 'Information'
+  }
+};
+
+// English translations
+const en = {
+  translation: {
+    // Navigation
+    home: 'Home',
+    dashboard: 'Dashboard',
+    contact: 'Contact',
+    login: 'Login',
+    logout: 'Logout',
+    
+    // Modules
+    equipment: 'Equipment',
+    equipmentPlanning: 'Equipment Planning',
+    standardEquipment: 'Standard Equipment',
+    space: 'Space',
+    hr: 'Human Resources',
+    cofatGroup: 'CofatGroup',
+    
+    // Common actions
+    save: 'Save',
+    delete: 'Delete',
+    cancel: 'Cancel',
+    refresh: 'Refresh',
+    import: 'Import',
+    export: 'Export',
+    edit: 'Edit',
+    add: 'Add',
+    search: 'Search',
+    filter: 'Filter',
+    
+    // Notifications
+    saveSuccess: 'Data saved successfully',
+    saveError: 'Error saving data',
+    deleteSuccess: 'Data deleted successfully',
+    deleteError: 'Error deleting data',
+    loadError: 'Error loading data',
+    importSuccess: 'Data imported successfully',
+    
+    // Confirmations
+    confirmDelete: 'Are you sure you want to delete?',
+    confirmDeleteAll: 'Are you sure you want to delete all data for this site?',
+    yes: 'Yes',
+    no: 'No',
+    
+    // Language
+    language: 'Language',
+    changeLanguage: 'Change Language',
+    selectLanguage: 'Select Language',
+    
+    // Space module
+    spaceStudy: 'Space Study',
+    cuttingArea: 'Cutting Area',
+    leadPrep: 'Lead Prep',
+    assembly: 'Assembly',
+    totalArea: 'Total Area',
+    occupation: 'Occupation',
+    availableArea: 'Available Area',
+    
+    // HR module
+    hrManagement: 'HR Management',
+    assemblyDirect: 'Assembly Direct',
+    project: 'Project',
+    totalPlant: 'Total Plant',
+    
+    // Equipment Planning
+    equipmentPlanning: 'Equipment Planning',
+    machineNeed: 'Machine Need',
+    availableMachine: 'Available Machine',
+    toOrder: 'To Order',
+    load: 'Load',
+    
+    // CofatGroup
+    consolidatedView: 'Consolidated View',
+    allSites: 'All Sites',
+    consolidation: 'Consolidation',
+    
+    // Common UI
+    loading: 'Loading...',
+    noData: 'No data',
+    error: 'Error',
+    success: 'Success',
+    warning: 'Warning',
+    info: 'Information'
+  }
+};
+
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources: {
+      fr,
+      en
+    },
+    fallbackLng: 'fr',
+    debug: false,
+    interpolation: {
+      escapeValue: false
+    },
+    detection: {
+      order: ['localStorage', 'navigator', 'htmlTag'],
+      caches: ['localStorage']
+    }
+  });
+
+export default i18n;

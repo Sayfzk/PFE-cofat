@@ -1,0 +1,33 @@
+{
+  "name": "systeme-pointage-backend2",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon .",
+    "start": "node ./main.js"
+  },
+  "keywords": [],
+  "author": "Mohamed Said Bouchouicha",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.5.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "jspdf": "^3.0.3",
+    "jspdf-autotable": "^5.0.2",
+    "mssql": "^10.0.2",
+    "multer": "^2.0.0",
+    "mysql2": "^3.9.7",
+    "pdf-parse": "^2.4.5",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^6.0.1",
+    "xlsx": "^0.18.5"
+  }
+}

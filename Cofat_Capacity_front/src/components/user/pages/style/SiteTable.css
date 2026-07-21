@@ -1,0 +1,179 @@
+/* components/user/pages/style/SiteTable.css */
+
+.planning-wrapper {
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  
+}
+
+.planning-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.selectors {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.selectors select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-width: 220px;
+}
+
+.add-machine-form {
+  display: flex;
+  align-items: center;
+}
+
+.equipment-tables-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.equipment-table-section {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.equipment-section {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #f5f7fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.equipment-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-right: 15px;
+  background-color: white;
+  padding: 5px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+.equipment-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.table-section {
+  overflow-x: auto;
+  padding: 10px;
+}
+
+.planning-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.planning-table th,
+.planning-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.planning-table th {
+  background-color: #f5f7fa;
+  font-weight: 600;
+}
+
+.planning-table td input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+}
+
+.save-button {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 16px;
+}
+
+@media (max-width: 768px) {
+  .equipment-section {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .equipment-image {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+
+  /* Style pour le bouton de suppression */
+.delete-button {
+  background-color: #f8d7da; /* Rouge très clair, presque rose */
+  color: #dc3545; /* Rouge vif pour l'icône et le texte */
+  border: 1px solid #f5c6cb; /* Bordure subtile */
+  border-radius: 8px; /* Bords légèrement arrondis */
+  padding: 8px 12px; /* Espacement interne */
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espacement entre l'icône et le texte */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Transition douce pour les effets */
+  font-size: 0.9rem; /* Taille de police légèrement plus petite */
+  font-weight: 500;
+  text-transform: uppercase; /* Texte en majuscules pour un look moderne */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Légère ombre */
+}
+
+.delete-button:hover {
+  background-color: #dc3545; /* Rouge vif au survol */
+  color: #ffffff; /* Texte blanc au survol */
+  border-color: #dc3545;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée au survol */
+}
+
+.delete-button .MuiSvgIcon-root { /* Cible l'icône Material-UI si utilisée */
+  font-size: 1.2rem; /* Taille de l'icône */
+}
+
+/* Si vous voulez un bouton d'icône pur (sans texte) */
+.delete-icon-button {
+  background-color: transparent;
+  border: none;
+  color: #dc3545; /* Rouge vif pour l'icône */
+  padding: 8px;
+  border-radius: 50%; /* Forme circulaire */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-icon-button:hover {
+  background-color: #f8d7da; /* Fond rouge très clair au survol */
+  color: #dc3545;
+}
+
+.delete-icon-button .MuiSvgIcon-root {
+  font-size: 1.5rem; /* Taille de l'icône plus grande */
+}
+
+}

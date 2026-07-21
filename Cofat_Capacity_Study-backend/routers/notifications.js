@@ -1,0 +1,330 @@
+const express = require('express');
+const router = express.Router();
+const Notification = require('../models/Notification');
+const { compatibleAuth } = require('../middlewares/compatibleAuth');
+
+// Middleware pour vérifier l'authentification sur toutes les routes
+router.use(compatibleAuth);
+
+// GET /api/notifications - Récupérer les notifications de l'utilisateur connecté
+router.get('/', async (req, res) => {
+  try {
+    const { page = 1, limit = 50, type, module, unread_only } = req.query;
+    const userId = req.user ? (req.user.UserId || req.user.id || 1) : 1;
+    
+    console.log('🔔 Récupération notifications pour userId:', userId);
+    const where = { user_id: userId };
+    
+    // Filtres optionnels
+    if (type) {
+      where.type = type;
+    }
+    
+    if (module) {
+      where.module = module;
+    }
+    
+    if (unread_only === 'true') {
+      where.read = false;
+    }
+    
+    const offset = (parseInt(page) - 1) * parseInt(limit);
+    
+    const { count, rows: notifications } = await Notification.findAndCountAll({
+      where,
+      order: [['created_at', 'DESC']],
+      limit: parseInt(limit),
+      offset,
+      attributes: {
+        exclude: ['user_id'] // Ne pas exposer l'ID utilisateur
+      }
+    });
+    
+    const unreadCount = await Notification.getUnreadCountForUser(userId);
+    
+    res.json({
+      success: true,
+      data: {
+        notifications,
+        pagination: {
+          page: parseInt(page),
+          limit: parseInt(limit),
+          total: count,
+          pages: Math.ceil(count / parseInt(limit))
+        },
+        unreadCount
+      }
+    });
+  } catch (error) {
+    console.error('Erreur lors de la récupération des notifications:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Erreur serveur lors de la récupération des notifications'
+    });
+  }
+});
+
+// POST /api/notifications - Créer une nouvelle notification
+router.post('/', async (req, res) => {
+  try {
+    const userId = req.user.UserId || 1;
+    const {
+      type = 'info',
+      title,
+      message,
+      description,
+      module,
+      action = 'custom',
+      data,
+      details
+    } = req.body;
+    
+    // Validation des champs requis
+    if (!title || !message || !module) {
+      return res.status(400).json({
+        success: false,
+        error: 'Les champs title, message et module sont requis'
+      });
+    }
+    
+    const notification = await Notification.create({
+      user_id: userId,
+      type,
+      title,
+      message,
+      description,
+      module,
+      action,
+      data,
+      details
+    });
+    
+    // Ne pas exposer l'ID utilisateur dans la réponse
+    const { user_id, ...notificationData } = notification.toJSON();
+    
+    res.status(201).json({
+      success: true,
+      data: notificationData,
+      message: 'Notification créée avec succès'
+    });
+  } catch (error) {
+    console.error('Erreur lors de la création de la notification:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Erreur serveur lors de la création de la notification'
+    });
+  }
+});
+
+// PUT /api/notifications/mark-read - Marquer des notifications comme lues
+router.put('/mark-read', async (req, res) => {
+  try {
+    const userId = req.user.UserId || 1;
+    const { notification_ids } = req.body; // Array d'IDs ou null pour toutes
+    
+    const result = await Notification.markAsReadForUser(userId, notification_ids);
+    
+    const unreadCount = await Notification.getUnreadCountForUser(userId);
+    
+    res.json({
+      success: true,
+      data: {
+        updated: result[0], // Nombre de lignes mises à jour
+        unreadCount
+      },
+      message: notification_ids ? 
+        `${notification_ids.length} notification(s) marquée(s) comme lues` :
+        'Toutes les notifications marquées comme lues'
+    });
+  } catch (error) {
+    console.error('Erreur lors du marquage des notifications:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Erreur serveur lors du marquage des notifications'
+    });
+  }
+});
+
+// DELETE /api/notifications/:id - Supprimer une notification spécifique
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user.UserId || 1;
+    
+    const result = await Notification.destroy({
+      where: {
+        id: parseInt(id),
+        user_id: userId // S'assurer que l'utilisateur ne peut supprimer que ses propres notifications
+      }
+    });
+    
+    if (result === 0) {
+      return res.status(404).json({
+        success: false,
+        error: 'Notification non trouvée ou non autorisée'
+      });
+    }
+    
+    res.json({
+      success: true,
+      message: 'Notification supprimée avec succès'
+    });
+  } catch (error) {
+    console.error('Erreur lors de la suppression de la notification:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Erreur serveur lors de la suppression de la notification'
+    });
+  }
+});
+
+// DELETE /api/notifications - Supprimer toutes les notifications lues de l'utilisateur
+router.delete('/', async (req, res) => {
+  try {
+    const userId = req.user.UserId || 1;
+    const { older_than_days = 0 } = req.query;
+    
+    const where = {
+      user_id: userId,
+      read: true
+    };
+    
+    // Supprimer seulement les notifications plus anciennes que X jours
+    if (parseInt(older_than_days) > 0) {
+      const cutoffDate = new Date();
+      cutoffDate.setDate(cutoffDate.getDate() - parseInt(older_than_days));
+      where.created_at = {
+        [require('sequelize').Op.lt]: cutoffDate
+      };
+    }
+    
+    const deletedCount = await Notification.destroy({ where });
+    
+    res.json({
+      success: true,
+      data: { deletedCount },
+      message: `${deletedCount} notification(s) supprimée(s)`
+    });
+  } catch (error) {
+    console.error('Erreur lors de la suppression des notifications:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Erreur serveur lors de la suppression des notifications'
+    });
+  }
+});
+
+// GET /api/notifications/stats - Statistiques des notifications
+router.get('/stats', async (req, res) => {
+  try {
+    const userId = req.user.UserId || 1;
+    
+    // Compter par type
+    const statsByType = await Notification.findAll({
+      where: { user_id: userId },
+      attributes: [
+        'type',
+        [require('sequelize').fn('COUNT', require('sequelize').col('id')), 'count']
+      ],
+      group: ['type'],
+      raw: true
+    });
+    
+    // Compter par module
+    const statsByModule = await Notification.findAll({
+      where: { user_id: userId },
+      attributes: [
+        'module',
+        [require('sequelize').fn('COUNT', require('sequelize').col('id')), 'count']
+      ],
+      group: ['module'],
+      raw: true
+    });
+    
+    const totalCount = await Notification.count({ where: { user_id: userId } });
+    const unreadCount = await Notification.getUnreadCountForUser(userId);
+    
+    res.json({
+      success: true,
+      data: {
+        total: totalCount,
+        unread: unreadCount,
+        byType: statsByType.reduce((acc, item) => {
+          acc[item.type] = parseInt(item.count);
+          return acc;
+        }, {}),
+        byModule: statsByModule.reduce((acc, item) => {
+          acc[item.module] = parseInt(item.count);
+          return acc;
+        }, {})
+      }
+    });
+  } catch (error) {
+    console.error('Erreur lors de la récupération des statistiques:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Erreur serveur lors de la récupération des statistiques'
+    });
+  }
+});
+
+// Fonction utilitaire pour créer des notifications automatiques (utilisée par d'autres modules)
+const createNotificationForUser = async (userId, notificationData) => {
+  try {
+    return await Notification.create({
+      user_id: userId,
+      ...notificationData
+    });
+  } catch (error) {
+    console.error('Erreur lors de la création automatique de notification:', error);
+    return null;
+  }
+};
+
+// Middleware pour créer des notifications automatiques (à utiliser dans d'autres routers)
+const autoNotify = (module, action) => {
+  return async (req, res, next) => {
+    // Stocker les informations pour les utiliser après la réponse
+    res.on('finish', async () => {
+      if (res.statusCode >= 200 && res.statusCode < 300 && req.user) {
+        // Déterminer le type de notification selon l'action et le code de statut
+        let type = 'info';
+        let title = '';
+        let message = '';
+        
+        switch (action) {
+          case 'save':
+            type = 'success';
+            title = '✅ Sauvegarde effectuée';
+            message = `Données sauvegardées dans ${module}`;
+            break;
+          case 'delete':
+            type = 'warning';
+            title = '🗑️ Suppression effectuée';
+            message = `Éléments supprimés de ${module}`;
+            break;
+          case 'add':
+            type = 'info';
+            title = '➕ Ajout effectué';
+            message = `Nouvel élément ajouté dans ${module}`;
+            break;
+        }
+        
+        if (title && message) {
+          await createNotificationForUser(req.user.UserId || 1, {
+            type,
+            title,
+            message,
+            module,
+            action
+          });
+        }
+      }
+    });
+    next();
+  };
+};
+
+module.exports = router;
+module.exports.createNotificationForUser = createNotificationForUser;
+module.exports.autoNotify = autoNotify;
