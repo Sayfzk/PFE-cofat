@@ -33,9 +33,7 @@ app.use(cookieParser());
 // 🌍 Middleware CORS - CORRIGÉ POUR VOTRE VM
 app.use(cors({
   origin: [
-    "http://172.23.23.31:4200",     // ✅ Frontend React sur votre VM
-    "http://172.23.23.31:9001",     // ✅ Backend sur la VM (nouveau port)
-    "http://localhost:4200",         // Dev local
+        "http://localhost:4200",         // Dev local
     "http://localhost:4000",         // Dev local (User's current port)
     "http://127.0.0.1:4200",         // Dev local alternative
     "http://localhost:3200",         // Dev local backend

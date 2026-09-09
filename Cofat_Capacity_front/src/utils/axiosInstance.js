@@ -2,8 +2,7 @@ import axios from 'axios';
 
 // Configuration de l'instance Axios
 const axiosInstance = axios.create({
-  baseURL: 'http://172.23.23.31:9001', // URL de votre backend en production
-  withCredentials: true,
+   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },

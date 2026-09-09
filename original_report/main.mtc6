@@ -1,0 +1,14 @@
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {5.}1}Introduction}{\reset@font\mtcSfont 71}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {5.}2}Objectifs et complexité du Sprint 4}{\reset@font\mtcSfont 71}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {5.}3}Backlog du Sprint 4}{\reset@font\mtcSfont 73}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {5.}4}Le Workflow Budgétaire : Scénario et Permissions}{\reset@font\mtcSfont 74}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {1.4.5}\else \textLR {5.4.1}\fi }Diagramme de séquence du workflow}{\reset@font\mtcSSfont 75}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {2.4.5}\else \textLR {5.4.2}\fi }Difficultés techniques rencontrées et solutions apportées}{\reset@font\mtcSSfont 77}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {5.}5}Système de Notifications Temps Réel}{\reset@font\mtcSfont 78}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {1.5.5}\else \textLR {5.5.1}\fi }Conception du contenu des messages}{\reset@font\mtcSSfont 78}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {5.}6}Exportation (Excel et PDF)}{\reset@font\mtcSfont 79}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {5.}7}Réalisation du Sprint 4 : Analyse de l'interface}{\reset@font\mtcSfont 80}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {1.7.5}\else \textLR {5.7.1}\fi }Adaptabilité multi-appareils de l'interface budgétaire}{\reset@font\mtcSSfont 82}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {2.7.5}\else \textLR {5.7.2}\fi }Synthèse du sprint}{\reset@font\mtcSSfont 82}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {3.7.5}\else \textLR {5.7.3}\fi }Gestion de l'état applicatif côté React}{\reset@font\mtcSSfont 82}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {5.}8}Conclusion}{\reset@font\mtcSfont 83}{}}

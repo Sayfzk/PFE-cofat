@@ -61,7 +61,6 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch('http://172.23.23.31:9001/signout', {
         method: 'POST',
         credentials: 'include',
       });

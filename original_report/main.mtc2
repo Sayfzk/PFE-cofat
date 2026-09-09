@@ -1,0 +1,28 @@
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {1.}1}Introduction}{\reset@font\mtcSfont 4}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {1.}2}Présentation de l'organisme d'accueil : Le Groupe COFAT}{\reset@font\mtcSfont 4}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {1.2.1}\else \textLR {1.2.1}\fi }Historique et cœur de métier}{\reset@font\mtcSSfont 4}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {2.2.1}\else \textLR {1.2.2}\fi }Envergure internationale et entités du Groupe}{\reset@font\mtcSSfont 6}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {3.2.1}\else \textLR {1.2.3}\fi }Management de la qualité et certifications}{\reset@font\mtcSSfont 7}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {1.}3}Étude de l'existant}{\reset@font\mtcSfont 8}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {1.3.1}\else \textLR {1.3.1}\fi }Le volet Équipements}{\reset@font\mtcSSfont 8}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {2.3.1}\else \textLR {1.3.2}\fi }Le volet Espaces}{\reset@font\mtcSSfont 9}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {3.3.1}\else \textLR {1.3.3}\fi }Le volet Ressources Humaines (RH)}{\reset@font\mtcSSfont 9}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {4.3.1}\else \textLR {1.3.4}\fi }Le processus manuel de consolidation}{\reset@font\mtcSSfont 10}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {1.}4}Problématique}{\reset@font\mtcSfont 11}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {1.4.1}\else \textLR {1.4.1}\fi }Les erreurs de saisie et de manipulation}{\reset@font\mtcSSfont 11}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {2.4.1}\else \textLR {1.4.2}\fi }La perte de traçabilité et de suivi d'historique}{\reset@font\mtcSSfont 11}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {3.4.1}\else \textLR {1.4.3}\fi }Le temps de consolidation excessif}{\reset@font\mtcSSfont 11}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {4.4.1}\else \textLR {1.4.4}\fi }Le manque de sécurité et de confidentialité}{\reset@font\mtcSSfont 12}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {5.4.1}\else \textLR {1.4.5}\fi }Enjeux stratégiques pour le Groupe COFAT}{\reset@font\mtcSSfont 12}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {1.}5}La solution proposée : \textit {Cofat Capacity Study}}{\reset@font\mtcSfont 13}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {1.5.1}\else \textLR {1.5.1}\fi }Portail web multi-utilisateurs et sécurisé}{\reset@font\mtcSSfont 13}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {2.5.1}\else \textLR {1.5.2}\fi }Module d'import Excel automatisé}{\reset@font\mtcSSfont 13}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {3.5.1}\else \textLR {1.5.3}\fi }Moteur de consolidation en temps réel}{\reset@font\mtcSSfont 14}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {4.5.1}\else \textLR {1.5.4}\fi }Référentiel des standards (StandardInvestment V2)}{\reset@font\mtcSSfont 14}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {5.5.1}\else \textLR {1.5.5}\fi }Workflow du budget non-industriel}{\reset@font\mtcSSfont 14}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {1.}6}Méthodologie adoptée : L'approche Scrum}{\reset@font\mtcSfont 15}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {1.6.1}\else \textLR {1.6.1}\fi }Les rôles Scrum du projet}{\reset@font\mtcSSfont 15}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {2.6.1}\else \textLR {1.6.2}\fi }Les cérémonies Scrum appliquées}{\reset@font\mtcSSfont 15}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {3.6.1}\else \textLR {1.6.3}\fi }Les artefacts Scrum du projet}{\reset@font\mtcSSfont 16}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {4.6.1}\else \textLR {1.6.4}\fi }Planification et découpage en Sprints}{\reset@font\mtcSSfont 16}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {1.}7}Conclusion}{\reset@font\mtcSfont 17}{}}

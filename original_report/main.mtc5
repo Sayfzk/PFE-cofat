@@ -1,0 +1,17 @@
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {4.}1}Introduction}{\reset@font\mtcSfont 50}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {4.}2}Sprint 2 : Déploiement des modules de Planification Locale}{\reset@font\mtcSfont 50}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {1.2.4}\else \textLR {4.2.1}\fi }Backlog et critères d'acceptation du Sprint 2}{\reset@font\mtcSSfont 50}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {2.2.4}\else \textLR {4.2.2}\fi }Le Module des Équipements Industriels}{\reset@font\mtcSSfont 51}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {3.2.4}\else \textLR {4.2.3}\fi }Le Module d'analyse de l'Occupation des Espaces}{\reset@font\mtcSSfont 53}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {4.2.4}\else \textLR {4.2.4}\fi }Le Module de prévision des Ressources Humaines (RH)}{\reset@font\mtcSSfont 55}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {5.2.4}\else \textLR {4.2.5}\fi }L'Ingénierie de l'Import Excel (Le cœur de la saisie de données)}{\reset@font\mtcSSfont 56}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {4.}3}Sprint 3 : La Consolidation Mondiale (Cofat Group)}{\reset@font\mtcSfont 59}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {1.3.4}\else \textLR {4.3.1}\fi }Backlog et critères d'acceptation du Sprint 3}{\reset@font\mtcSSfont 59}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {2.3.4}\else \textLR {4.3.2}\fi }Consolidation des Équipements}{\reset@font\mtcSSfont 59}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {3.3.4}\else \textLR {4.3.3}\fi }Consolidation des Espaces et des RH}{\reset@font\mtcSSfont 60}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {4.3.4}\else \textLR {4.3.4}\fi }Sécurité et cloisonnement des vues de consolidation}{\reset@font\mtcSSfont 63}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {4.}4}Le Catalogue : StandardInvestment V2}{\reset@font\mtcSfont 63}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {1.4.4}\else \textLR {4.4.1}\fi }Considérations de performance additionnelles}{\reset@font\mtcSSfont 66}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {2.4.4}\else \textLR {4.4.2}\fi }Recette fonctionnelle de la Release 2}{\reset@font\mtcSSfont 67}{}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {\if@rl \I {3.4.4}\else \textLR {4.4.3}\fi }Export des vues consolidées}{\reset@font\mtcSSfont 68}{}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {\filterminitoc {4.}5}Conclusion}{\reset@font\mtcSfont 68}{}}

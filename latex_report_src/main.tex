@@ -1,0 +1,89 @@
+%========= File containing the main LaTex document ========%
+%                                                          %
+% Copyright (C) ISI - All Rights Reserved                  %
+% Proprietary                                              %
+% Written by Med Hossam <sayfzakraoui4@gmail.com>, April 2016 %
+%                                                          %
+% @author: ZAKRAOUI Sayf Eddine                       %
+% @linkedin: https://www.linkedin.com/in/sayf-zakraoui/           %
+%==========================================================%
+
+\documentclass[]{./tpl/tekuppfe}
+\graphicspath{{./img/}}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage[skip=8pt, indent=0pt]{parskip}
+\onehalfspacing
+
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{16pt}{10pt}
+\titlespacing*{\subsection}{0pt}{12pt}{8pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{6pt}
+
+\input{./tpl/new_commands}
+
+\makeindex
+
+\begin{document}
+    \input{global_config}
+    
+    \frontmatter
+        \input{tpl/cover_page}
+        \include{tpl/cover_page_black}
+        \input{tpl/signatures}
+        
+        \setcounter{page}{1}
+        \input{dedicaces}
+        \thispagestyle{frontmatter}
+        \input{remerciement}
+        \thispagestyle{frontmatter}
+        
+        \setcounter{secnumdepth}{3}
+        \setcounter{tocdepth}{2}
+        \dominitoc
+        \tableofcontents
+        \adjustmtc
+        \thispagestyle{frontmatter}
+        
+        \listoffigures
+        \thispagestyle{frontmatter}
+        \listoftables
+        \thispagestyle{frontmatter}
+        
+        \input{acronymes_v2}
+        \thispagestyle{frontmatter}
+    
+    \mainmatter
+        \setstretch{1.5}
+        \linespread{1.5}\selectfont
+        \onehalfspacing
+        \setlength{\parskip}{8pt}
+        \setlength{\parindent}{15pt}
+        
+        \input{introduction}
+        \adjustmtc
+        \clearpage
+        
+        \input{chap_01}
+        \clearpage
+        
+        \input{chap_02}
+        \clearpage
+        
+        \input{chap_03}
+        \clearpage
+        
+        \input{chap_04}
+        \clearpage
+        
+        \input{conclusion}
+        \adjustmtc
+        \clearpage
+        
+        \input{biblio}
+        \clearpage
+
+    \backmatter
+        \input{./tpl/resume}
+    
+\end{document}

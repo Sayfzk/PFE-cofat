@@ -1,0 +1,277 @@
+\chapter{Analyse et spécification des besoins}
+\label{chap:analyse_spec}
+
+\section*{Introduction}
+
+Dans ce chapitre, nous présentons une analyse des besoins fonctionnels et non fonctionnels de notre application en précisant les différents acteurs de notre système, le diagramme de classes et la planification de travail. Nous allons ainsi présenter l'architecture et l'environnement de travail adoptés.
+
+\section{Spécification des besoins}
+
+\subsection{Spécification des besoins fonctionnels}
+
+\subsubsection{Identification des acteurs}
+L'architecture de l'application \textit{Cofat Capacity Study} repose sur un modèle de contrôle d'accès basé sur les rôles (RBAC - Role-Based Access Control). Les acteurs du système correspondent directement aux trois rôles utilisateurs réels définis dans l'application :
+
+\paragraph{1. Le Site Manager (Rôle applicatif : \texttt{user}) :}\\
+Le Site Manager est l'utilisateur opérationnel rattaché à un site industriel spécifique (via le champ \texttt{siteId}). Il intervient sur les modules de planification locale de son usine (équipements, espaces, et ressources humaines). Il est habilité à saisir manuellement les données capacitaires, à importer massivement des fichiers Excel (.xlsx) et à soumettre des demandes de budget non-industriel pour son site d'affectation. Son périmètre d'action est strictement restreint à son propre site.
+
+\paragraph{2. L'Administrateur (Rôle applicatif : \texttt{admin}) :}\\
+L'Administrateur est le super-utilisateur disposant de l'intégralité des privilèges sur l'ensemble des modules et sur les 10 sites industriels du groupe. Il peut absolument tout faire dans le système : outre la configuration et la gestion du référentiel des 10 sites industriels COFAT ainsi que la supervision globale du parc applicatif via son tableau de bord dédié, il a le plein pouvoir d'administrer, saisir, modifier et importer les planifications locales (équipements, espaces, ressources humaines) pour l'ensemble des usines, de piloter et valider le budget non-industriel, de consulter les consolidations multi-sites (\textit{Cofat Group}) et de paramétrer les catalogues et configurations globales.
+
+\paragraph{3. L'Acheteur (Rôle applicatif : \texttt{Achat}) :}\\
+L'Acheteur est l'utilisateur spécialisé dans la gestion financière des coûts d'équipements. Dans le module du budget non-industriel, son périmètre d'action est strictement limité à la modification de 2 colonnes autorisées : le prix unitaire (\texttt{unitPrice}) et la devise (\texttt{currency}), toutes les autres colonnes étant verrouillées en lecture seule. Sur le catalogue \textit{StandardInvestment}, il intervient pour mettre à jour les grilles tarifaires régionales (\texttt{cost\_euro}, \texttt{cost\_brazil\_real}, \texttt{cost\_mexican\_peso}).
+
+\paragraph{Synthèse comparative des permissions :}
+Le Tableau \ref{tab:synthese_roles} synthétise les droits d'accès accordés à chacun des trois rôles par module.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{3.5cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+\hline
+\textbf{Module} & \textbf{Administrateur} & \textbf{Site Manager} & \textbf{Acheteur} \\ \hline
+Administration \& Référentiel Sites & Gestion complète exclusive & Aucun accès & Aucun accès \\ \hline
+Planification locale (Équip./Espaces/RH) & Accès total (tous les 10 sites) : Saisie, import Excel, consultation & Saisie, import Excel, consultation (site propre) & Aucun accès \\ \hline
+Consolidation Groupe & Supervision globale \& exports & Consultation (lecture seule) & Aucun accès \\ \hline
+Catalogue Standard Investment & Consultation \& gestion globale & Consultation (lecture seule) & Consultation (lecture seule) \\ \hline
+Budget Non-Industriel & Accès total \& validation (tous sites) & Création \& soumission (site propre) & Modification unitPrice / currency uniquement \\ \hline
+Notifications & Réception globale (tous événements) & Réception locale & Réception Achat \\ \hline
+\end{tabular}
+\caption{Synthèse des droits d'accès par rôle utilisateur (RBAC)}
+\label{tab:synthese_roles}
+\end{table}
+
+\subsubsection{Spécification des besoins fonctionnels par acteurs}
+\label{sec:besoins_par_acteurs}
+Les principales fonctionnalités offertes par l'application, tout en les reliant aux acteurs qui en bénéficient, sont spécifiées ci-dessous :
+
+\begin{itemize}
+    \item \textbf{Site Manager :}
+    \begin{itemize}
+        \item Gérer la planification des équipements.
+        \item Gérer la planification des espaces.
+        \item Gérer la planification des ressources humaines (RH).
+        \item Gérer les demandes de budget non-industriel.
+        \item Importer les simulations Excel.
+        \item Consulter les indicateurs et rapports d'occupation et de charge locaux.
+        \item Consulter les notifications de suivi.
+    \end{itemize}
+    
+    \item \textbf{Administrateur (Admin) :}
+    \begin{itemize}
+        \item Hériter de l'ensemble des fonctionnalités du Site Manager (accès universel et pouvoir d'action complet sur les 10 sites).
+        \item Superviser l'état global du parc applicatif et les indicateurs capacitaires via le tableau de bord d'administration.
+        \item Gérer le référentiel des 10 sites industriels mondiaux (création, configuration, activation/désactivation).
+        \item Accéder, administrer, saisir et importer les planifications locales (équipements, espaces, RH, imports Excel) sur toutes les usines du groupe.
+        \item Piloter, valider et administrer les demandes budgétaires non-industrielles pour l'ensemble des sites.
+        \item Consulter la consolidation mondiale multi-sites (\textit{Cofat Group}) et exporter les synthèses managériales.
+        \item Consulter les tableaux de bord analytiques de direction et les alertes en temps réel.
+        \item Gérer les configurations générales et la sécurité du système.
+    \end{itemize}
+    
+    \item \textbf{Acheteur :}
+    \begin{itemize}
+        \item Gérer le catalogue \textit{StandardInvestment} (coûts en EUR, BRL, MXN, cadences, durées de vie).
+        \item Modifier strictement le prix unitaire (unitPrice) et la devise (currency) des demandes budgétaires non-industrielles.
+        \item Consulter les notifications de nouvelles demandes budgétaires.
+        \item Consulter l'historique et les statistiques d'achat.
+        \item Exporter les synthèses budgétaires chiffrées.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Diagramme de cas d'utilisation global}
+Afin d'illustrer la répartition des fonctionnalités entre les trois rôles, la Figure \ref{fig:use_case_global} modélise l'ensemble des cas d'utilisation du système. Comme illustré sur le diagramme, l'Administrateur est relié au Site Manager par une relation de généralisation/héritage UML (flèche à tête triangulaire fermée) : il hérite nativement de l'intégralité des cas d'utilisation du Site Manager sur les 10 sites industriels, tout en disposant de ses propres cas d'utilisation exclusifs (supervision du tableau de bord d'administration et gestion du référentiel des sites industriels). Le Site Manager accède à la planification locale (Équipements, Espaces, RH), à l'importation Excel, à la consultation de la consolidation Groupe et à la gestion de ses demandes de budget non-industriel. Il peut également consulter le catalogue centralisé \textit{StandardInvestment} en lecture seule. L'Acheteur, quant à lui, dispose de deux cas d'utilisation dédiés : la consultation du catalogue \textit{StandardInvestment} et la valorisation tarifaire exclusive (\texttt{unitPrice} et \texttt{currency}) des demandes budgétaires soumises par les sites.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/cas_utilisation_global.png} 
+    \caption{Diagramme de cas d'utilisation global de Cofat Capacity Study}
+    \label{fig:use_case_global}
+\end{figure}
+
+\subsection{Spécification des besoins non fonctionnels}
+Les exigences non fonctionnelles dictent les critères de qualité, de sécurité et d'infrastructure :
+\begin{itemize}
+    \item \textbf{Sécurité des accès :} Mots de passe hachés avec bcrypt (facteur de coût 10), autorisation par middleware Express sur chaque route, jetons JWT en cookie HttpOnly.
+    \item \textbf{Performance :} Architecture asynchrone non-bloquante Node.js, temps de réponse d'agrégation multi-sites sur SQL Server inférieurs à 3 secondes.
+    \item \textbf{Scalabilité :} Architecture 3-tiers découplée, permettant l'ajout d'un 11\textsuperscript{ème} site au référentiel sans modifier le code source.
+    \item \textbf{Maintenabilité :} Structure modulaire claire (dossiers \texttt{routers/}, \texttt{models/}, \texttt{middleware/} côté backend ; \texttt{components/}, \texttt{Context/}, \texttt{services/} côté frontend).
+    \item \textbf{Ergonomie (UI/UX) :} Interface responsive moderne développée avec Tailwind CSS, Material UI (MUI) et Ant Design.
+\end{itemize}
+
+\section{Diagramme de classes}
+Le modèle de données relationnel est implémenté dans Microsoft SQL Server via l'ORM Sequelize. La Figure \ref{fig:class_diagram_global} présente le diagramme de classes global de l'application.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{img/diagramme_classes_global.png} 
+    \caption{Diagramme de classes global de l'application}
+    \label{fig:class_diagram_global}
+\end{figure}
+
+\section{Planification de travail}
+
+\subsection{Répartition des releases}
+Le Tableau \ref{tab:repartition_releases} représente la répartition des releases.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|c|p{10.5cm}|c|}
+\hline
+\textbf{Release} & \multirow{2}{*}{\textbf{Nom du Sprint}} & \textbf{Estimation} \\
+\textbf{ID} & & \textbf{(jours)} \\ \hline
+1 & 
+\parbox[c]{10.5cm}{\vspace{4pt}
+$\bullet$ \textbf{Sprint 1 :} Socle technique, authentification et administration des sites.\vspace{4pt} \newline
+$\bullet$ \textbf{Sprint 2 :} Module de planification locale (Équipements, Espaces, RH) et import Excel.\vspace{4pt}
+} & 60 \\ \hline
+2 & 
+\parbox[c]{10.5cm}{\vspace{4pt}
+$\bullet$ \textbf{Sprint 3 :} Module de consolidation groupe et catalogue des équipements standards.\vspace{4pt} \newline
+$\bullet$ \textbf{Sprint 4 :} Module de gestion du budget non-industriel, notifications et exports.\vspace{4pt}
+} & 65 \\ \hline
+\end{tabular}
+\caption{Répartition des releases}
+\label{tab:repartition_releases}
+\end{table}
+
+\subsection{Planification des sprints}
+La Figure \ref{fig:planning_gantt} représente le diagramme de Gantt illustrant la répartition du travail tout au long de la période de stage, qui s'étend du 01 mars 2026 au 01 septembre 2026 (soit une durée totale de six mois, représentant 125 jours ouvrés de développement et de validation).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{img/planning.png}
+    \caption{Planification des sprints (Diagramme de Gantt)}
+    \label{fig:planning_gantt}
+\end{figure}
+
+\subsection{Product backlog global}
+Le Tableau \ref{tab:product_backlog_global} représente le product backlog global de l'application \textit{Cofat Capacity Study}. Il répertorie l'ensemble exhaustif des User Stories requises pour couvrir l'intégralité du périmètre fonctionnel et technique, réparties sur les 4 Sprints avec leurs niveaux de priorité et leurs estimations chiffrées en jours-hommes.
+
+\begin{longtable}{|c|p{8.8cm}|c|c|c|}
+\hline
+\textbf{Id} & \textbf{Fonctionnalités (User Story)} & \textbf{Priorité} & \textbf{Sprint} & \textbf{Estimation (Jour)} \\ \hline
+\endfirsthead
+\hline
+\textbf{Id} & \textbf{Fonctionnalités (User Story)} & \textbf{Priorité} & \textbf{Sprint} & \textbf{Estimation (Jour)} \\ \hline
+\endhead
+\hline \multicolumn{5}{|r|}{{Suite sur la page suivante...}} \\ \hline
+\endfoot
+\hline
+\endlastfoot
+\multicolumn{5}{|c|}{\textbf{Sprint 1 : Socle technique, authentification et administration des sites (25 jours)}} \\ \hline
+1 & En tant qu'utilisateur, je veux accéder à une interface de connexion épurée pour saisir mes identifiants. & 1 & 1 & 1 \\ \hline
+2 & En tant qu'utilisateur, je veux m'authentifier via mon email et mon mot de passe afin d'accéder au système. & 1 & 1 & 2 \\ \hline
+3 & En tant qu'utilisateur, je veux que mes mots de passe soient hachés avec l'algorithme Bcrypt pour garantir leur confidentialité. & 1 & 1 & 2 \\ \hline
+4 & En tant qu'utilisateur, je veux bénéficier d'un cookie sécurisé HttpOnly contenant le jeton JWT pour maintenir ma session. & 1 & 1 & 3 \\ \hline
+5 & En tant qu'utilisateur, je veux me déconnecter en toute sécurité avec destruction du cookie de session et redirection. & 1 & 1 & 1 \\ \hline
+6 & En tant qu'utilisateur, je veux que le système vérifie mes droits RBAC sur chaque route protégée pour bloquer les accès illégitimes. & 1 & 1 & 3 \\ \hline
+7 & En tant qu'utilisateur, je veux disposer d'un menu de navigation responsive (Home Page) affichant les modules autorisés. & 1 & 1 & 2 \\ \hline
+8 & En tant qu'Administrateur, je veux consulter la liste des 10 sites industriels mondiaux de COFAT avec leurs caractéristiques. & 1 & 1 & 3 \\ \hline
+9 & En tant qu'Administrateur, je veux administrer et configurer le référentiel des sites de production COFAT. & 1 & 1 & 3 \\ \hline
+10 & En tant qu'utilisateur, je veux sélectionner un site actif parmi le référentiel industriel pour charger ses planifications spécifiques. & 1 & 1 & 2 \\ \hline
+11 & En tant qu'Administrateur, je veux consulter un tableau de bord d'administration pour superviser l'état global du parc applicatif. & 2 & 1 & 3 \\ \hline
+\multicolumn{5}{|c|}{\textbf{Sprint 2 : Planification locale (Équipements, Espaces, RH) et moteur d'import Excel (35 jours)}} \\ \hline
+12 & En tant que Site Manager, je veux sélectionner mon usine et l'année d'exercice afin de charger les données capacitaires associées. & 1 & 2 & 2 \\ \hline
+13 & En tant que Site Manager, je veux saisir manuellement le besoin capacitaire machine (\texttt{machineNeed}) par équipement et par mois. & 1 & 2 & 3 \\ \hline
+14 & En tant que Site Manager, je veux renseigner le parc de machines physiques disponibles (\texttt{availableMachine}) dans mon atelier. & 1 & 2 & 2 \\ \hline
+15 & En tant que Site Manager, je veux que le système calcule automatiquement le taux de charge capacitaire ($Load$) en pourcentage. & 1 & 2 & 2 \\ \hline
+16 & En tant que Site Manager, je veux que le système calcule automatiquement le nombre de machines manquantes à commander (\texttt{toOrder}). & 1 & 2 & 2 \\ \hline
+17 & En tant que Site Manager, je veux visualiser des codes couleurs d'alerte selon la criticité du taux de charge machine. & 1 & 2 & 2 \\ \hline
+18 & En tant que Site Manager, je veux téléverser des fichiers Excel (.xlsx) pour importer massivement les prévisions de charge. & 1 & 2 & 3 \\ \hline
+19 & En tant que Site Manager, je veux que le serveur analyse et valide la structure des fichiers Excel importés avec Multer et SheetJS. & 1 & 2 & 3 \\ \hline
+20 & En tant que Site Manager, je veux que les données Excel soient injectées en masse dans SQL Server via \texttt{bulkCreate} sans doublons. & 1 & 2 & 3 \\ \hline
+21 & En tant que Site Manager, je veux recevoir un rapport explicite en cas d'erreur de format ou de données dans le fichier Excel. & 2 & 2 & 2 \\ \hline
+22 & En tant que Site Manager, je veux modéliser l'occupation des surfaces d'atelier en $m^2$ par catégorie de zone industrielle. & 1 & 2 & 3 \\ \hline
+23 & En tant que Site Manager, je veux comparer la surface occupée à la surface totale bâtie de l'usine pour évaluer la réserve spatiale. & 1 & 2 & 2 \\ \hline
+24 & En tant que Site Manager, je veux planifier les effectifs de main-d'œuvre directe (MOD) par projet client sur un horizon de 3 ans. & 1 & 2 & 3 \\ \hline
+25 & En tant que Site Manager, je veux planifier les effectifs de main-d'œuvre indirecte (MOI) et des services support de mon site. & 1 & 2 & 2 \\ \hline
+26 & En tant que Site Manager, je veux consulter les courbes prévisionnelles d'évolution des effectifs pour anticiper les recrutements. & 2 & 2 & 2 \\ \hline
+27 & En tant que Site Manager, je veux consulter les graphiques de synthèse capacitaire locale pour préparer les revues de production. & 2 & 2 & 1 \\ \hline
+\multicolumn{5}{|c|}{\textbf{Sprint 3 : Consolidation mondiale Groupe et catalogue Standard Investment (30 jours)}} \\ \hline
+28 & En tant qu'Administrateur, je veux consolider en temps réel les besoins machines des 10 sites via des requêtes SQL \texttt{SUM} et \texttt{GROUP BY}. & 1 & 3 & 4 \\ \hline
+29 & En tant qu'Administrateur, je veux consolider les parcs de machines disponibles pour obtenir la cartographie mondiale du groupe. & 1 & 3 & 3 \\ \hline
+30 & En tant qu'Administrateur, je veux calculer le taux de charge moyen mondial par type d'équipement pour identifier les goulots d'étranglement. & 1 & 3 & 3 \\ \hline
+31 & En tant qu'Administrateur, je veux identifier les opportunités de transfert d'équipements excédentaires entre usines du groupe. & 1 & 3 & 3 \\ \hline
+32 & En tant qu'Administrateur, je veux consolider l'occupation spatiale de l'ensemble des usines afin de détecter les risques de saturation. & 1 & 3 & 3 \\ \hline
+33 & En tant qu'Administrateur, je veux identifier les usines prioritaires pour des extensions de bâtiments industriels. & 2 & 3 & 2 \\ \hline
+34 & En tant qu'Administrateur, je veux consolider les effectifs MOD et MOI mondiaux par site, par client et par catégorie de métier. & 1 & 3 & 3 \\ \hline
+35 & En tant qu'Administrateur, je veux visualiser la courbe de montée en charge RH mondiale (Ramp-up) sur 36 mois. & 1 & 3 & 2 \\ \hline
+36 & En tant qu'Acheteur, je veux consulter le catalogue centralisé des équipements standards (\textit{StandardInvestment}). & 1 & 3 & 2 \\ \hline
+37 & En tant qu'Acheteur, je veux ajouter et paramétrer des équipements standards (cadence nominale, durée de vie, constructeur). & 1 & 3 & 2 \\ \hline
+38 & En tant qu'Acheteur, je veux mettre à jour les coûts standards d'acquisition dans les devises internationales (EUR, BRL, MXN, USD). & 1 & 3 & 2 \\ \hline
+39 & En tant qu'Acheteur, je veux rechercher et filtrer le catalogue standard par opération technique et type de machine. & 2 & 3 & 1 \\ \hline
+\multicolumn{5}{|c|}{\textbf{Sprint 4 : Workflow budgétaire non-industriel, notifications et exports (35 jours)}} \\ \hline
+40 & En tant que Site Manager, je veux créer une demande d'investissement non-industriel pour mon site de production. & 1 & 4 & 2 \\ \hline
+41 & En tant que Site Manager, je veux affecter ma demande budgétaire à l'un des 7 départements industriels prédéfinis. & 1 & 4 & 1 \\ \hline
+42 & En tant que Site Manager, je veux spécifier l'équipement requis, la quantité souhaitée, l'année d'achat et la justification. & 1 & 4 & 2 \\ \hline
+43 & En tant que Site Manager, je veux soumettre formellement ma demande budgétaire au département Achats central. & 1 & 4 & 2 \\ \hline
+44 & En tant qu'utilisateur, je veux qu'une notification système \texttt{NEW\_REQUEST} soit générée automatiquement lors de la soumission. & 1 & 4 & 3 \\ \hline
+45 & En tant qu'Acheteur, je veux consulter la liste consolidée de toutes les demandes budgétaires non-industrielles des 10 sites. & 1 & 4 & 3 \\ \hline
+46 & En tant qu'Acheteur, je veux filtrer et trier les demandes d'achat par site d'origine, par département et par état d'avancement. & 2 & 4 & 2 \\ \hline
+47 & En tant qu'Acheteur, je veux modifier exclusivement les deux champs autorisés : le prix unitaire (\texttt{unitPrice}) et la devise (\texttt{currency}). & 1 & 4 & 3 \\ \hline
+48 & En tant qu'Acheteur, je veux que toutes les autres colonnes de la demande soient strictement verrouillées en lecture seule. & 1 & 4 & 2 \\ \hline
+49 & En tant qu'utilisateur, je veux que le serveur Sequelize recalcule instantanément le montant total (\texttt{totalPrice} = \texttt{qty} $\times$ \texttt{unitPrice}). & 1 & 4 & 2 \\ \hline
+50 & En tant qu'Acheteur, je veux valider et enregistrer le chiffrage unitaire et la devise pour actualiser le montant total budgétaire. & 1 & 4 & 2 \\ \hline
+51 & En tant que Site Manager, je veux recevoir une notification système \texttt{PRICE\_UPDATED} dès que l'Acheteur chiffre ma demande. & 1 & 4 & 2 \\ \hline
+52 & En tant qu'utilisateur, je veux disposer d'un volet de notifications temps réel avec compteur de badges et marquage comme lu. & 2 & 4 & 3 \\ \hline
+53 & En tant qu'utilisateur, je veux exporter les données consolidées de capacité et de budget au format tableur Excel (.xlsx). & 1 & 4 & 2 \\ \hline
+54 & En tant qu'utilisateur, je veux générer et télécharger des rapports de synthèse budgétaire au format PDF imprimable. & 2 & 4 & 2 \\ \hline
+55 & En tant qu'Administrateur, je veux visualiser les indicateurs graphiques de répartition des investissements par département et par usine. & 2 & 4 & 2 \\ \hline
+\caption{Product Backlog global}
+\label{tab:product_backlog_global}
+\end{longtable}
+
+\section{Architecture de l'application}
+
+\subsection{Architecture logique}
+L'application repose sur une architecture 3-tiers découplée assurant la séparation claire des responsabilités :
+\begin{itemize}
+    \item \textbf{Couche de Présentation (Frontend React) :} Application SPA (\textit{Single Page Application}) gérant les vues, la réactivité avec Tailwind CSS / MUI / Ant Design et les composants graphiques Charts.js.
+    \item \textbf{Couche Métier (Backend Node.js/Express) :} API RESTful responsable de la logique métier, des contrôles d'autorisation RBAC, de la validation des données et des recalculs automatiques.
+    \item \textbf{Couche de Données (SQL Server / Sequelize) :} Base de données relationnelle garantissant la persistance des données et leur intégrité via les contraintes de clés étrangères.
+\end{itemize}
+
+\subsection{Architecture physique}
+Le déploiement physique s'articule autour d'un serveur applicatif centralisé hébergeant l'API Node.js (port 9001) et le serveur web frontend (port 4000), relié au serveur de base de données Microsoft SQL Server. Les utilisateurs des 10 sites industriels distants (Mateur, Le Caire, Durango, São Paulo, Gifhorn, etc.) y accèdent de manière sécurisée via des navigateurs web standard.
+
+\section{Difficultés rencontrées}
+Durant la phase de conception et de spécification, plusieurs défis ont été identifiés et résolus :
+\begin{itemize}
+    \item \textbf{Gestion des accès concurrents et permissions strictes :} Permettre la collaboration entre le Site Manager et l'Acheteur sur la même ligne de budget sans risquer qu'un utilisateur n'écrase des données non autorisées. La solution retenue applique un filtrage strict côté serveur au niveau du contrôleur Express, rejetant toute tentative d'édition au-delà des 2 colonnes autorisées pour l'Achat.
+    \item \textbf{Complexité de l'importation Excel multi-sites :} La variété des versions d'Excel utilisées sur les 10 sites physiques a exigé la conception d'un pipeline robuste combinant \textit{multer} pour le stockage temporaire, \textit{xlsx} pour le parsing et Sequelize \textit{bulkCreate} avec gestion explicite des erreurs ligne par ligne.
+\end{itemize}
+
+\section{Environnement de travail}
+
+\subsection{Outils de gestion de projet}
+\begin{itemize}
+    \item \textbf{Méthodologie Scrum :} Conduite itérative des développements avec cérémonies régulières.
+    \item \textbf{StarUML :} Modélisation des cas d'utilisation, des diagrammes de classes et des diagrammes de séquence.
+    \item \textbf{Visual Studio Code :} Environnement de développement intégré (IDE) principal.
+    \item \textbf{Git \& GitHub :} Contrôle de version et gestion du code source.
+    \item \textbf{Postman :} Test et validation des routes de l'API REST Express.
+\end{itemize}
+
+\subsection{Framework de développement, d'authentification et de test}
+\begin{itemize}
+    \item \textbf{Backend :} Node.js et framework Express.js.
+    \item \textbf{Authentification :} JSON Web Tokens (JWT), hachage Bcrypt, cookies HttpOnly.
+    \item \textbf{Frontend :} React.js SPA, Tailwind CSS, Material UI (MUI), Ant Design.
+    \item \textbf{Visualisation :} Charts.js pour les graphiques interactifs de capacité et de budget.
+\end{itemize}
+
+\subsection{Système de gestion de base de données}
+\begin{itemize}
+    \item \textbf{SGBD :} Microsoft SQL Server (instance \texttt{GALIA\_V1}).
+    \item \textbf{ORM :} Sequelize (v6) pour la modélisation et le requêtage objet-relationnel.
+\end{itemize}
+
+\subsection{Outils DevOps}
+\begin{itemize}
+    \item \textbf{Environnement d'exécution :} Serveur Node.js en mode production avec gestionnaire de dépendances \texttt{npm}.
+    \item \textbf{Versionnement des livrables :} Tagging Git par release et scripts d'automatisation des builds frontend et backend.
+\end{itemize}
+
+\section*{Conclusion}
+La phase de spécification des exigences est cruciale dans le cycle de vie d'un projet car elle permet d'avoir une meilleure compréhension du système et des principales caractéristiques à atteindre. Dans ce contexte, nous avons opté pour l'utilisation d'une démarche de développement basée sur la méthodologie Scrum combinée à UML. Le chapitre suivant sera consacré à la réalisation de la Release 1.
